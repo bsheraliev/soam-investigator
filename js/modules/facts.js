@@ -40,6 +40,10 @@ function formHtml(f) {
       <label class="field"><span>${t('facts.source')}</span><input name="source" maxlength="300" value="${escapeHtml(f.source || '')}" placeholder="${t('facts.sourcePlaceholder')}"></label>
     </div>
     <div id="sheloHint">${f.shelo ? sheloPrompts(f.shelo) : ''}</div>
+    <div class="followup">
+      <label class="check"><input type="checkbox" name="fuNeeded" ${f.followUp && f.followUp.needed && f.followUp.status !== 'closed' ? 'checked' : ''}> ${t('sort.followUp')}</label>
+      <input class="qa-note" name="fuQuestion" placeholder="${t('sort.followUpQuestion')}" value="${escapeHtml((f.followUp && f.followUp.question) || '')}">
+    </div>
     <label class="field"><span>${t('facts.attachments')} <span class="muted small">(${t('facts.limit', { mb: ATTACHMENT_LIMIT / 1024 / 1024 })})</span></span>
       <input type="file" name="files" multiple></label>
     <div id="attList">${attachmentsHtml(atts, true)}</div>
@@ -61,7 +65,7 @@ function listHtml(facts) {
       <td>${f.shelo ? `<span class="tag">${f.shelo}</span>` : ''}</td>
       <td>${escapeHtml(f.text)}${(f.attachments || []).length ? ` <span class="muted small">📎${f.attachments.length}</span>` : ''}</td>
       <td class="small muted">${escapeHtml(short(f.source || '', 60))}</td>
-      <td>${chip(f)}</td></tr>`).join('')}
+      <td>${chip(f)}${f.followUp && f.followUp.needed && f.followUp.status !== 'closed' ? ` <span class="tag q" title="${escapeHtml(f.followUp.question || '')}">?</span>` : ''}</td></tr>`).join('')}
   </tbody></table>`;
 }
 
@@ -106,6 +110,8 @@ export async function renderTab(container, ctx) {
       source: v.source,
       attachments: [...(f.attachments || []), ...pendingFiles],
       contributes: f.contributes,
+      followUp: v.fuNeeded ? { needed: true, question: v.fuQuestion, status: 'open', updatedAt: now }
+        : (f.followUp ? { ...f.followUp, needed: false, status: 'closed' } : undefined),
       seq: f.seq ?? (facts.length ? Math.max(...facts.map((x) => x.seq || 0)) + 1 : 1),
       createdAt: f.createdAt || now,
       updatedAt: now,

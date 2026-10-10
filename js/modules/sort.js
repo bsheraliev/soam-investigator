@@ -1,19 +1,21 @@
-// Вкладка «Сортировка»: тест вклада (правило 1) и классификация с контрольным вопросом (правило 2).
+// Вкладка «Сортировка»: тест вклада (правило 1), быстрая классификация с контрольным вопросом (правило 2),
+// подсказка SOAM Element Review (QRG стр. 45), открытые вопросы по фактам (QA № 4).
 import { newId } from '../db.js';
 import { t, tx } from '../i18n.js';
 import { taxonomy, checkQuestion, osf, barrier, element } from '../taxonomy.js';
-import { escapeHtml, toast, formValues, short } from '../ui.js';
+import { escapeHtml, toast, formValues, short, nowIso } from '../ui.js';
 import { canClassify, validateClassification, unsortedFacts } from '../rules.js';
 
 let selectedId = null;   // выбранный факт
-let editingCls = null;   // классификация в форме (null — новая)
+let editingCls = null;   // классификация в форме (null — формы нет)
 
 const ELEMENTS = ['HI', 'CC', 'OSF', 'BAR'];
 
 function chip(f) {
-  if (f.contributes === true) return `<span class="tag ok">${t('sort.contributes')}</span>`;
-  if (f.contributes === false) return `<span class="tag">${t('sort.other')}</span>`;
-  return `<span class="tag warn">${t('sort.unsorted')}</span>`;
+  const q = f.followUp && f.followUp.needed && f.followUp.status !== 'closed' ? ` <span class="tag q">?</span>` : '';
+  if (f.contributes === true) return `<span class="tag ok">${t('sort.contributes')}</span>${q}`;
+  if (f.contributes === false) return `<span class="tag">${t('sort.other')}</span>${q}`;
+  return `<span class="tag warn">${t('sort.unsorted')}</span>${q}`;
 }
 
 function subcategoryLabel(c) {
@@ -24,11 +26,15 @@ function subcategoryLabel(c) {
   return '';
 }
 
-// ---- подсказки по элементам (всё из таксономии QRG)
-function hiHint() {
-  const tax = taxonomy();
-  return `<div class="hint"><ul>${tax.hi_guidance.map((g) => `<li>${escapeHtml(tx(g))}</li>`).join('')}</ul></div>`;
+// ---- SOAM Element Review (QRG стр. 45)
+function reviewHtml() {
+  const r = taxonomy().element_review;
+  if (!r) return '';
+  const col = (key) => `<div><p>${escapeHtml(tx(r[key]))}</p>${r[key].elements.map((el) => `<div class="el">${escapeHtml(tx(element(el)))}</div><ul>${(r.by_element[el] || []).map((x) => `<li>${escapeHtml(tx(x))}</li>`).join('')}</ul>`).join('')}</div>`;
+  return `<details class="hint"><summary>${t('sort.review')}</summary><div class="review">${col('latent')}${col('on_the_day')}</div></details>`;
 }
+
+// ---- подсказки по элементам (всё из таксономии QRG)
 function ccControls(c) {
   const tax = taxonomy();
   return `<label class="field"><span>${t('sort.ccCategory')} *</span>
@@ -40,7 +46,7 @@ function ccHint(code) {
   const cat = taxonomy()._cc[code];
   if (!cat) return '';
   const by = (k) => cat.examples.filter((e) => e.kind === k).map((e) => `<li>${escapeHtml(tx(e))}</li>`).join('');
-  return `<details class="hint" open><summary>${t('sort.examples')} — ${escapeHtml(tx(cat))} <span class="muted small">(QRG, p.${cat.qrg_page})</span></summary>
+  return `<details class="hint"><summary>${t('sort.examples')} — ${escapeHtml(tx(cat))} <span class="muted small">(QRG, p.${cat.qrg_page})</span></summary>
     <div class="three-col">
       <div><strong>${t('cc.error')}</strong><ul>${by('error')}</ul></div>
       <div><strong>${t('cc.common')}</strong><ul>${by('common')}</ul></div>
@@ -58,7 +64,7 @@ function osfControls(c) {
 function osfHint(code) {
   const o = osf(code);
   if (!o) return '';
-  return `<details class="hint" open><summary><strong>${o.code}</strong> ${escapeHtml(tx(o))} <span class="muted small">(QRG, p.${o.qrg_page})</span></summary>
+  return `<details class="hint"><summary><strong>${o.code}</strong> ${escapeHtml(tx(o))} <span class="muted small">(QRG, p.${o.qrg_page})</span></summary>
     <p>${escapeHtml(tx(o.definition))}</p>
     <div class="two-col">
       <div><strong>${t('osf.issues')}</strong><ul>${o.issues.map((i) => `<li>${escapeHtml(tx(i))}</li>`).join('')}</ul></div>
@@ -83,21 +89,21 @@ function barHint(code) {
   return `<details class="hint" open><summary>${escapeHtml(tx(b))} <span class="muted small">(QRG, p.${b.qrg_page})</span></summary>
     <p>${escapeHtml(tx(b.definition))}</p><ul>${b.examples.map((e) => `<li>${escapeHtml(tx(e))}</li>`).join('')}</ul></details>`;
 }
+function hiHint() {
+  const r = taxonomy().element_review;
+  const items = (r && r.by_element.HI) || taxonomy().hi_guidance || [];
+  return `<div class="hint"><ul>${items.map((g) => `<li>${escapeHtml(tx(g))}</li>`).join('')}</ul></div>`;
+}
 
 function clsFormHtml(c) {
-  const el = c.element || '';
-  const q = el ? checkQuestion(el) : null;
+  const el = c.element;
+  const q = checkQuestion(el);
   return `
   <form id="clsForm" class="card form">
-    <h3>${c.id ? t('sort.editCls') : t('sort.addCls')}</h3>
-    <fieldset class="field"><legend>${t('sort.element')} *</legend>
-      ${ELEMENTS.map((k) => `<label class="radio"><input type="radio" name="element" value="${k}" ${el === k ? 'checked' : ''}> ${escapeHtml(tx(element(k)))}</label>`).join('')}
-    </fieldset>
-    <div id="elBody">
-      ${q ? `<div class="check-question"><strong>${t('sort.checkQuestion', { n: q.code })}</strong><p>${escapeHtml(tx(q))}</p>${q.note ? `<p class="small muted">${escapeHtml(tx(q.note))}</p>` : ''}</div>` : ''}
-      ${el === 'HI' ? hiHint() : el === 'CC' ? ccControls(c) : el === 'OSF' ? osfControls(c) : el === 'BAR' ? barControls(c) : `<p class="muted">${t('sort.pickElement')}</p>`}
-    </div>
-    <label class="field"><span>${t('sort.note')}</span><textarea name="note" rows="2">${escapeHtml(c.note || '')}</textarea></label>
+    <h3>${c.id ? t('sort.editCls') : t('sort.addCls')}: <span class="tag">${el}</span> ${escapeHtml(tx(element(el)))}</h3>
+    <div class="check-question"><strong>${t('sort.checkQuestion', { n: q.code })}</strong><p>${escapeHtml(tx(q))}</p>${q.note ? `<p class="small muted">${escapeHtml(tx(q.note))}</p>` : ''}</div>
+    ${el === 'HI' ? hiHint() : el === 'CC' ? ccControls(c) : el === 'OSF' ? osfControls(c) : barControls(c)}
+    <label class="field"><span>${t('sort.note')}</span><input name="note" value="${escapeHtml(c.note || '')}"></label>
     <label class="check confirm"><input type="checkbox" name="confirmed" ${c.confirmed ? 'checked' : ''}> <strong>${t('sort.confirm')}</strong></label>
     <div class="btn-row">
       <button class="btn" type="submit">${t('btn.save')}</button>
@@ -121,8 +127,11 @@ export async function renderTab(container, ctx) {
   const f = facts.find((x) => x.id === selectedId);
   const allCls = await ctx.store.byIndex('classification', 'occurrenceId', ctx.id);
   const cls = allCls.filter((c) => c.factId === f.id).sort((a, b) => (a.order || 0) - (b.order || 0));
+  const nextUnsorted = unsortedFacts(facts).find((x) => x.id !== f.id);
+  const fu = f.followUp || {};
 
   container.innerHTML = `
+    ${reviewHtml()}
     <div class="two-col sort">
       <div class="card fact-list">
         <h3>${t('facts.list')} <span class="muted small">${t('sort.progress', { done: facts.length - unsortedFacts(facts).length, total: facts.length })}</span></h3>
@@ -140,50 +149,64 @@ export async function renderTab(container, ctx) {
             </div>
             ${f.contributes === false ? `<p class="small muted">${t('sort.otherNote')}</p>` : ''}
           </div>
-        </div>
-        ${canClassify(f) ? `
-          <div class="card">
+          <div class="followup">
+            <label class="check"><input type="checkbox" id="fuNeeded" ${fu.needed && fu.status !== 'closed' ? 'checked' : ''}> ${t('sort.followUp')}</label>
+            <input id="fuQuestion" placeholder="${t('sort.followUpQuestion')}" value="${escapeHtml(fu.question || '')}" ${fu.needed && fu.status !== 'closed' ? '' : 'hidden'} class="qa-note">
+          </div>
+          ${canClassify(f) ? `
             <h3>${t('sort.classifications')} <span class="muted">(${cls.length})</span></h3>
             ${cls.length ? `<ul class="plain">${cls.map((c) => `<li class="link-row" data-cls="${escapeHtml(c.id)}">
               <span class="tag">${c.element}</span> ${escapeHtml(tx(element(c.element)))}
               ${subcategoryLabel(c) ? `— ${escapeHtml(subcategoryLabel(c))}` : ''}
               ${c.confirmed ? '<span class="ok">✓</span>' : `<span class="warn">${t('sort.unconfirmed')}</span>`}
               ${c.otherSystem ? `<span class="tag">${t('sort.otherSystemShort')}</span>` : ''}
-            </li>`).join('')}</ul>` : `<p class="muted small">${t('sort.noCls')}</p>`}
-            ${!editingCls ? `<div class="btn-row"><button class="btn secondary" id="clsNew">${t('sort.addCls')}</button></div>` : ''}
+            </li>`).join('')}</ul>` : ''}
+            <div class="small muted">${t('sort.quick')}:</div>
+            <div class="quick">${ELEMENTS.map((k) => `<button class="btn secondary" data-el="${k}"><strong>${k}</strong> ${escapeHtml(tx(element(k)))}</button>`).join('')}</div>` : ''}
+          <div class="btn-row">
+            ${nextUnsorted ? `<button class="btn secondary" id="nextFact">${t('sort.next')}</button>` : `<span class="small muted">${t('sort.allSorted')}</span>`}
           </div>
-          ${editingCls ? clsFormHtml(editingCls) : ''}` : ''}
+        </div>
+        ${editingCls ? clsFormHtml(editingCls) : ''}
       </div>
     </div>`;
 
   container.querySelectorAll('.fact-list li').forEach((li) => li.addEventListener('click', () => {
     selectedId = li.dataset.id; editingCls = null; ctx.refresh();
   }));
+  const nb = container.querySelector('#nextFact');
+  if (nb) nb.addEventListener('click', () => { selectedId = nextUnsorted.id; editingCls = null; ctx.refresh(); });
+
   container.querySelectorAll('[data-ct]').forEach((b) => b.addEventListener('click', async () => {
     const yes = b.dataset.ct === 'yes';
     if (!yes && cls.length && !confirm(t('sort.confirmDropCls'))) return;
     await ctx.store.put('fact', { ...f, contributes: yes });
     if (!yes) for (const c of cls) await ctx.store.del('classification', c.id);
     editingCls = null;
-    // после «да» — сразу форма классификации; после «нет» — следующий неотсортированный
-    if (yes) editingCls = { factId: f.id };
-    else { const next = unsortedFacts(facts.filter((x) => x.id !== f.id))[0]; if (next) selectedId = next.id; }
+    if (!yes && nextUnsorted) selectedId = nextUnsorted.id;
     ctx.refresh();
   }));
-  const bNew = container.querySelector('#clsNew');
-  if (bNew) bNew.addEventListener('click', () => { editingCls = { factId: f.id }; ctx.refresh(); });
+
+  // открытый вопрос по факту
+  const fuNeeded = container.querySelector('#fuNeeded');
+  const fuQ = container.querySelector('#fuQuestion');
+  const saveFu = async () => {
+    const needed = fuNeeded.checked;
+    await ctx.store.put('fact', { ...f, followUp: needed ? { needed: true, question: fuQ.value.trim(), status: 'open', updatedAt: nowIso() } : (f.followUp ? { ...f.followUp, needed: false, status: 'closed' } : undefined) });
+  };
+  fuNeeded.addEventListener('change', async () => { fuQ.hidden = !fuNeeded.checked; await saveFu(); if (!fuNeeded.checked) ctx.refresh(); else fuQ.focus(); });
+  fuQ.addEventListener('change', saveFu);
+
+  container.querySelectorAll('[data-el]').forEach((b) => b.addEventListener('click', () => {
+    editingCls = { factId: f.id, element: b.dataset.el }; ctx.refresh();
+    const form = container.querySelector('#clsForm'); if (form) form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }));
   container.querySelectorAll('[data-cls]').forEach((li) => li.addEventListener('click', () => {
     editingCls = { ...cls.find((c) => c.id === li.dataset.cls) }; ctx.refresh();
   }));
 
   const form = container.querySelector('#clsForm');
   if (!form) return;
-  const rerenderBody = () => {
-    const v = formValues(form);
-    editingCls = { ...editingCls, ...v, element: v.element, osfCodes: v.osfCodes || [], confirmed: !!v.confirmed };
-    ctx.refresh();
-  };
-  form.querySelectorAll('input[name=element]').forEach((r) => r.addEventListener('change', rerenderBody));
   const cc = form.querySelector('#ccSel');
   if (cc) cc.addEventListener('change', () => { form.querySelector('#ccHint').innerHTML = ccHint(cc.value); });
   const bar = form.querySelector('#barSel');
@@ -196,26 +219,34 @@ export async function renderTab(container, ctx) {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const v = formValues(form);
+    const el = editingCls.element;
     const rec = {
       ...editingCls,
       id: editingCls.id || newId(),
       factId: f.id, occurrenceId: ctx.id,
-      element: v.element, confirmed: !!v.confirmed, note: v.note,
-      ccCategory: v.element === 'CC' ? v.ccCategory : undefined,
-      osfCodes: v.element === 'OSF' ? (v.osfCodes || []) : undefined,
-      barrierType: v.element === 'BAR' ? v.barrierType : undefined,
-      barrierState: v.element === 'BAR' ? (v.barrierState || null) : undefined,
-      otherSystem: ['OSF', 'BAR'].includes(v.element) ? !!v.otherSystem : undefined,
-      order: editingCls.order ?? (allCls.filter((c) => c.element === v.element).length + 1),
+      element: el, confirmed: !!v.confirmed, note: v.note,
+      ccCategory: el === 'CC' ? v.ccCategory : undefined,
+      osfCodes: el === 'OSF' ? (v.osfCodes || []) : undefined,
+      barrierType: el === 'BAR' ? v.barrierType : undefined,
+      barrierState: el === 'BAR' ? (v.barrierState || null) : undefined,
+      otherSystem: ['OSF', 'BAR'].includes(el) ? !!v.otherSystem : undefined,
+      order: editingCls.order ?? (allCls.filter((c) => c.element === el).length + 1),
     };
     const errors = validateClassification(rec);
     if (errors.length) { toast(t('sort.err.' + errors[0])); return; }
     await ctx.store.put('classification', rec);
+    // барьер → исход: связь ставится сразу (правило схемы QRG)
+    if (el === 'BAR') {
+      const links = await ctx.store.byIndex('link', 'fromId', rec.id);
+      if (!links.some((l) => l.toId === ctx.id)) await ctx.store.put('link', { id: newId(), occurrenceId: ctx.id, fromId: rec.id, toId: ctx.id, style: 'solid' });
+    }
     editingCls = null; toast(t('toast.saved')); ctx.refresh();
   });
   form.querySelector('#clsCancel').addEventListener('click', () => { editingCls = null; ctx.refresh(); });
   const del = form.querySelector('#clsDelete');
   if (del) del.addEventListener('click', async () => {
+    for (const l of await ctx.store.byIndex('link', 'fromId', editingCls.id)) await ctx.store.del('link', l.id);
+    for (const l of await ctx.store.byIndex('link', 'toId', editingCls.id)) await ctx.store.del('link', l.id);
     await ctx.store.del('classification', editingCls.id);
     editingCls = null; toast(t('toast.deleted')); ctx.refresh();
   });
