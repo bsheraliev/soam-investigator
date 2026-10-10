@@ -228,3 +228,14 @@ p.warn { color: var(--accent); }
   .rep-section { break-inside: avoid; } .rep-chart { break-before: page; }
   @page { size: A4; margin: 14mm; }
 }
+
+/* ---------- этап 3.5 ---------- */
+.review { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: .85rem; }
+.review > div { background: var(--bg); border: 1px dashed var(--line); border-radius: 8px; padding: 8px 10px; }
+.review .el { font-weight: 700; margin-top: 6px; }
+@media (max-width: 640px) { .review { grid-template-columns: 1fr; } }
+.quick { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0; }
+.quick .btn { padding: 6px 10px; }
+.followup { background: #fff7e0; border: 1px solid #e0c060; border-radius: 8px; padding: 6px 10px; margin: 8px 0; color: #1b2430; }
+@media (prefers-color-scheme: dark) { .followup { background: #4a3f1a; color: #e8edf2; border-color: #8a6a1f; } }
+.tag.q { border-color: #c08a00; color: #c08a00; }
