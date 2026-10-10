@@ -2,7 +2,7 @@
 import { t, tx } from '../i18n.js';
 import { taxonomy, osf, barrier, element, severity, shelo } from '../taxonomy.js';
 import { escapeHtml, fmtDateTime } from '../ui.js';
-import { sortEvents, otherSafetyIssues, contributingFacts, qaComplete, SMARTER_CODES, openFollowUps } from '../rules.js';
+import { sortEvents, otherSafetyIssues, contributingFacts, qaComplete, SMARTER_CODES, openFollowUps, investigationAdvice } from '../rules.js';
 import { layout, renderSvg } from './chart.js';
 
 function section(title, body) {
@@ -18,6 +18,7 @@ export function buildReportHtml(ctx, { classes, links, events, actions, qa }) {
   const qaIds = tax.qa_checklist.map((q) => q.id);
   const final = qaComplete(qa, qaIds);
   const sev = o.severity ? severity(o.severity) : null;
+  const advice = investigationAdvice(o);
   const svg = renderSvg(o, layout(o, classes, factById), links, { interactive: false });
 
   const head = `
@@ -30,7 +31,8 @@ export function buildReportHtml(ctx, { classes, links, events, actions, qa }) {
         <tr><th>${t('field.date')}</th><td>${escapeHtml(fmtDateTime(o.date))}</td></tr>
         <tr><th>${t('field.place')}</th><td>${escapeHtml(o.place || '—')}</td></tr>
         <tr><th>${t('field.severity')}</th><td>${sev ? `${sev.code} — ${escapeHtml(tx(sev))}` : '—'}</td></tr>
-        <tr><th>${t('occ.investigate')}</th><td>${o.investigate === true ? t('occ.investigateYes') : o.investigate === false ? t('occ.investigateNo') : t('occ.investigateUndecided')}${o.investigateReason ? ` — ${escapeHtml(o.investigateReason)}` : ''}</td></tr>
+        <tr><th>${t('occ.investigate')}</th><td>${o.investigate === true ? t('occ.investigateYes') : o.investigate === false ? t('occ.investigateNo') : t('occ.investigateUndecided')}${o.investigateReason ? ` — ${escapeHtml(o.investigateReason)}` : ''}${advice.conflict ? ` <em>(${t('occ.advice.conflict')})</em>` : ''}</td></tr>
+        <tr><th>${t('occ.advice.label')}</th><td>${t({ required: 'occ.advice.required', recommended: 'occ.advice.recommended', cost_benefit: 'occ.advice.costBenefit', unknown: 'occ.advice.unknown' }[advice.level], { severity: o.severity || '' })}</td></tr>
         <tr><th>${t('field.status')}</th><td>${t('status.' + (o.status || 'draft'))}${o.completedAt ? ` · ${escapeHtml(o.completedAt.slice(0, 10))}` : ''}</td></tr>
         <tr><th>${t('report.generated')}</th><td>${new Date().toISOString().slice(0, 16).replace('T', ' ')}</td></tr>
       </table>
@@ -50,7 +52,16 @@ export function buildReportHtml(ctx, { classes, links, events, actions, qa }) {
 
   const elem = (code, filter, fmt) => {
     const items = classes.filter(filter).sort((a, b) => (a.order || 0) - (b.order || 0));
-    return `<h3>${escapeHtml(tx(element(code)))} (${items.length})</h3>${items.length ? `<ol>${items.map((c) => `<li>${fmt(c)}${c.note ? ` <em>— ${escapeHtml(c.note)}</em>` : ''}</li>`).join('')}</ol>` : '<p>—</p>'}`;
+    return `<h3>${escapeHtml(tx(element(code)))} (${items.length})</h3>${items.length ? `<ol>${items.map((c) => `<li>${fmt(c)}${c.note ? ` <em>— ${escapeHtml(c.note)}</em>` : ''}${evidence(c)}</li>`).join('')}</ol>` : '<p>—</p>'}`;
+  };
+  // Доказательства у каждого фактора: источник факта и его вложения (QA № 8: findings supported by evidence).
+  const evidence = (c) => {
+    const f = factById[c.factId];
+    if (!f) return '';
+    const parts = [];
+    if (f.source) parts.push(escapeHtml(f.source));
+    if ((f.attachments || []).length) parts.push('📎 ' + f.attachments.map((a) => escapeHtml(a.name)).join(', '));
+    return `<br><small class="rep-evidence">${t('report.evidence')}: ${parts.length ? parts.join(' · ') : t('report.evidenceNone')}</small>`;
   };
   const txt = (c) => escapeHtml(factById[c.factId] ? factById[c.factId].text : c.factId);
   const factors = section(t('report.factors'),
