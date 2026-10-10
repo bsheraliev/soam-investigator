@@ -130,6 +130,40 @@ test('смена пароля, выход', async () => {
   assert.equal((await api('GET', '/api/me', { token: invTok })).status, 401);
 });
 
+test('сводки организации: реестр мер с просрочкой и статистика OSF', async () => {
+  const full = (id, actions, osfCodes) => ({
+    ...bundle(id),
+    classifications: [
+      { id: id + ':c1', occurrenceId: id, factId: id + ':f1', element: 'OSF', osfCodes, confirmed: true },
+      { id: id + ':c2', occurrenceId: id, factId: id + ':f1', element: 'BAR', barrierType: 'Detection', barrierState: 'failed', confirmed: true },
+    ],
+    actions,
+  });
+  const put = (id, b) => api('PUT', `/api/cases/${id}`, { token: otherTok, body: { bundle: b } });
+  assert.equal((await put('s-1', full('s-1', [
+    { id: 'a1', occurrenceId: 's-1', text: 'Просроченная', addresses: ['s-1:c1'], responsible: 'Отдел', due: '2000-01-01', status: 'planned' },
+    { id: 'a2', occurrenceId: 's-1', text: 'Выполненная', addresses: ['s-1:c2'], responsible: 'Отдел', due: '2000-01-01', status: 'done' },
+  ], ['TR', 'WM']))).status, 201);
+  assert.equal((await put('s-2', full('s-2', [
+    { id: 'a3', occurrenceId: 's-2', text: 'В срок', addresses: ['s-2:c1', 's-2:c2'], responsible: 'ОрВД', due: '2999-01-01', status: 'in_progress' },
+  ], ['TR']))).status, 201);
+
+  const acts = await api('GET', '/api/stats/actions', { token: otherTok });
+  assert.equal(acts.status, 200);
+  assert.deepEqual(acts.json.actions.map((a) => a.text), ['Просроченная', 'В срок', 'Выполненная']);
+  assert.equal(acts.json.overdue, 1); assert.equal(acts.json.open, 2);
+  assert.equal(acts.json.actions[0].overdue, true); assert.equal(acts.json.actions[0].caseTitle, 'Дело s-1');
+  assert.deepEqual(acts.json.actions[1].addresses, ['OSF TR', 'BAR']);
+
+  const osf = await api('GET', '/api/stats/osf', { token: otherTok });
+  assert.equal(osf.json.stats.length, 12);
+  assert.equal(osf.json.stats[0].code, 'TR'); assert.equal(osf.json.stats[0].n, 2);
+  assert.equal(osf.json.stats[1].code, 'WM'); assert.equal(osf.json.stats[1].n, 1);
+  assert.equal(osf.json.casesWithOsf, 2); assert.equal(osf.json.cases, 2);
+  // чужая организация: ноль
+  assert.equal((await api('GET', '/api/stats/osf', { token: adminTok })).json.cases, 0);
+});
+
 test('регистрация закрыта флагом', async () => {
   const closed = createApp(db, { allowRegistration: false });
   const s = await new Promise((r) => { const x = closed.listen(0, () => r(x)); });
