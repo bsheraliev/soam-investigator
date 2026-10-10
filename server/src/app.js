@@ -7,7 +7,8 @@ import { actionsRegistry, actionOverdue, osfStats } from '../../js/rules.js';
 
 // Коды OSF — из той же таксономии, что в приложении.
 const OSF_CODES = JSON.parse(readFileSync(new URL('../../data/taxonomy.json', import.meta.url), 'utf8')).osf.map((o) => o.code);
-import { ROLES, MIN_PASSWORD, hashPassword, verifyPassword, newToken, tokenHash, uuid, nowIso, sessionExpiry } from './auth.js';
+import { ROLES, MAX_PASSWORD, validPassword, hashPassword, verifyPassword, newToken, tokenHash, uuid, nowIso, sessionExpiry } from './auth.js';
+import { limiter, envInt } from './limiter.js';
 
 const BODY_LIMIT = process.env.BODY_LIMIT || '30mb'; // дело с вложениями (до 5 МБ каждое, base64)
 
@@ -33,18 +34,9 @@ function cors(allowed) {
 }
 
 // Защита от перебора паролей: 10 неудачных попыток на пару IP+почта → блок на 15 минут; регистрация — 20 в час на IP.
-const LOGIN_MAX = Number(process.env.LOGIN_MAX_ATTEMPTS || 10), LOGIN_WINDOW_MS = 15 * 60 * 1000;
-const REG_MAX = Number(process.env.REGISTER_MAX_PER_HOUR || 20), REG_WINDOW_MS = 60 * 60 * 1000;
-function limiter(max, windowMs) {
-  const hits = new Map();
-  const sweep = () => { const now = Date.now(); for (const [k, v] of hits) if (v.until < now) hits.delete(k); };
-  return {
-    check(key) { const h = hits.get(key); if (h && h.count >= max && h.until > Date.now()) bad(429, 'too-many-attempts', { retryAfterSec: Math.ceil((h.until - Date.now()) / 1000) }); },
-    hit(key) { if (hits.size > 10000) sweep(); const now = Date.now(); const h = hits.get(key); if (!h || h.until < now) hits.set(key, { count: 1, until: now + windowMs }); else h.count += 1; },
-    reset(key) { hits.delete(key); },
-  };
-}
-const MAX_PASSWORD = 200; // scrypt на очень длинном пароле — лишняя нагрузка
+const LOGIN_MAX = envInt('LOGIN_MAX_ATTEMPTS', 10), LOGIN_WINDOW_MS = 15 * 60 * 1000;
+const REG_MAX = envInt('REGISTER_MAX_PER_HOUR', 20), REG_WINDOW_MS = 60 * 60 * 1000;
+const blocked = (retryAfterSec) => bad(429, 'too-many-attempts', { retryAfterSec });
 
 const wrap = (fn) => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
 const isEmail = (s) => typeof s === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s) && s.length <= 200;
@@ -65,7 +57,6 @@ export function createApp(db, { allowedOrigins = process.env.ALLOWED_ORIGINS, al
   app.use(express.json({ limit: BODY_LIMIT }));
   const loginLimit = limiter(LOGIN_MAX, LOGIN_WINDOW_MS);
   const registerLimit = limiter(REG_MAX, REG_WINDOW_MS);
-  const validPassword = (p) => typeof p === 'string' && p.length >= MIN_PASSWORD && p.length <= MAX_PASSWORD;
 
   const audit = (orgId, userId, action, caseId = null, details = null) =>
     db.run('INSERT INTO audit (id, org_id, user_id, action, case_id, details, at) VALUES (?,?,?,?,?,?,?)',
@@ -101,7 +92,7 @@ export function createApp(db, { allowedOrigins = process.env.ALLOWED_ORIGINS, al
   // Регистрация организации вместе с первым администратором.
   app.post('/api/auth/register', wrap(async (req, res) => {
     if (!allowRegistration) bad(403, 'registration-closed');
-    registerLimit.check(req.ip);
+    registerLimit.check(req.ip, blocked);
     const { organisation, name, email, password } = req.body || {};
     const orgName = str(organisation, 200), userName = str(name, 200);
     if (!orgName) bad(400, 'organisation');
@@ -124,7 +115,7 @@ export function createApp(db, { allowedOrigins = process.env.ALLOWED_ORIGINS, al
     const { email, password } = req.body || {};
     const mail = isEmail(email) ? email.trim().toLowerCase() : '';
     const key = `${req.ip}|${mail}`;
-    loginLimit.check(key);
+    loginLimit.check(key, blocked);
     const user = mail ? (await db.q('SELECT * FROM app_user WHERE email = ?', [mail]))[0] : null;
     const pwd = typeof password === 'string' ? password.slice(0, MAX_PASSWORD) : '';
     if (!user || !verifyPassword(pwd, user.password_hash)) { loginLimit.hit(key); bad(401, 'bad-credentials'); }
@@ -239,7 +230,11 @@ export function createApp(db, { allowedOrigins = process.env.ALLOWED_ORIGINS, al
     const org = (await db.q('SELECT * FROM organisation WHERE id = ?', [req.user.org_id]))[0];
     await audit(req.user.org_id, req.user.id, 'org.export', null, { cases: rows.length });
     res.setHeader('Content-Disposition', `attachment; filename="soam-${org.id.slice(0, 8)}-${nowIso().slice(0, 10)}.json"`);
-    res.json({ format: 'soam-investigator/organisation', exportedAt: nowIso(), organisation: { id: org.id, name: org.name }, cases: rows.map((r) => ({ ...caseMeta(r), bundle: JSON.parse(r.bundle) })) });
+    res.type('application/json');
+    // Пакеты в БД уже лежат как JSON-текст — склеиваем строки, не разбирая и не сериализуя их заново (память на бесплатном тарифе).
+    const head = JSON.stringify({ format: 'soam-investigator/organisation', exportedAt: nowIso(), organisation: { id: org.id, name: org.name } }).slice(0, -1);
+    const cases = rows.map((r) => JSON.stringify(caseMeta(r)).slice(0, -1) + ',"bundle":' + r.bundle + '}').join(',');
+    res.send(head + ',"cases":[' + cases + ']}');
   }));
 
   app.delete('/api/cases/:id', auth('admin'), wrap(async (req, res) => {
@@ -253,10 +248,10 @@ export function createApp(db, { allowedOrigins = process.env.ALLOWED_ORIGINS, al
   const orgBundles = async (orgId) => (await db.q('SELECT id, title, bundle FROM occurrence_case WHERE org_id = ?', [orgId]))
     .map((r) => ({ id: r.id, title: r.title, bundle: JSON.parse(r.bundle) }));
 
-  app.get('/api/stats/actions', auth(), wrap(async (req, res) => {
+  const actionsSummary = (cases) => {
     const today = new Date().toISOString().slice(0, 10);
     const all = [];
-    for (const c of await orgBundles(req.user.org_id)) {
+    for (const c of cases) {
       const classById = Object.fromEntries((c.bundle.classifications || []).map((x) => [x.id, x]));
       for (const a of c.bundle.actions || []) {
         all.push({
@@ -266,15 +261,21 @@ export function createApp(db, { allowedOrigins = process.env.ALLOWED_ORIGINS, al
       }
     }
     const actions = actionsRegistry(all, today).map((a) => ({ ...a, overdue: actionOverdue(a, today) }));
-    res.json({ today, actions, overdue: actions.filter((a) => a.overdue).length, open: actions.filter((a) => a.status !== 'done').length });
-  }));
-
-  app.get('/api/stats/osf', auth(), wrap(async (req, res) => {
-    const cases = await orgBundles(req.user.org_id);
+    return { today, actions, overdue: actions.filter((a) => a.overdue).length, open: actions.filter((a) => a.status !== 'done').length };
+  };
+  const osfSummary = (cases) => {
     const classes = cases.flatMap((c) => (c.bundle.classifications || []).map((x) => ({ ...x, occurrenceId: c.id })));
     const withOsf = new Set(classes.filter((x) => x.element === 'OSF').map((x) => x.occurrenceId)).size;
-    res.json({ stats: osfStats(classes, OSF_CODES), casesWithOsf: withOsf, cases: cases.length });
+    return { stats: osfStats(classes, OSF_CODES), casesWithOsf: withOsf, cases: cases.length };
+  };
+
+  // Одна выборка и один разбор пакетов на обе сводки (клиент запрашивает их вместе).
+  app.get('/api/stats', auth(), wrap(async (req, res) => {
+    const cases = await orgBundles(req.user.org_id);
+    res.json({ actions: actionsSummary(cases), osf: osfSummary(cases) });
   }));
+  app.get('/api/stats/actions', auth(), wrap(async (req, res) => res.json(actionsSummary(await orgBundles(req.user.org_id)))));
+  app.get('/api/stats/osf', auth(), wrap(async (req, res) => res.json(osfSummary(await orgBundles(req.user.org_id)))));
 
   app.get('/api/audit', auth('admin', 'investigator'), wrap(async (req, res) => {
     const limit = Math.min(500, Math.max(1, Number(req.query.limit) || 100));

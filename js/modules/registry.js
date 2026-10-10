@@ -31,8 +31,8 @@ async function localData() {
 }
 
 async function serverData() {
-  const [a, s] = await Promise.all([api('GET', '/api/stats/actions'), api('GET', '/api/stats/osf')]);
-  return { actions: a.actions, stats: s.stats, casesWithOsf: s.casesWithOsf, cases: s.cases };
+  const { actions, osf } = await api('GET', '/api/stats'); // одна выборка на обе сводки
+  return { actions: actions.actions, stats: osf.stats, casesWithOsf: osf.casesWithOsf, cases: osf.cases };
 }
 
 export async function render(view) {

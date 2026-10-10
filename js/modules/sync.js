@@ -224,10 +224,8 @@ export async function render(view) {
       a.href = url; a.download = `soam-${session.org.name.replace(/[^\p{L}\p{N}]+/gu, '-').slice(0, 40)}-${new Date().toISOString().slice(0, 10)}.json`; a.click();
       setTimeout(() => URL.revokeObjectURL(url), 5000);
       toast(t('sync.orgExported', { n: data.cases.length }));
-      render(view); // журнал действий получит запись о копии
-      return;
     } catch (e) { toast(errText(e)); }
-    exp.disabled = false;
+    finally { exp.disabled = false; render(view); } // журнал действий получит запись о копии
   });
 
   body.querySelector('#logout').addEventListener('click', async () => {

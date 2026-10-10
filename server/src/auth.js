@@ -3,6 +3,10 @@ import { randomBytes, scryptSync, timingSafeEqual, createHash, randomUUID } from
 
 export const ROLES = ['admin', 'investigator', 'reader'];
 export const MIN_PASSWORD = 8;
+export const MAX_PASSWORD = 200; // scrypt на очень длинном пароле — лишняя нагрузка
+
+/** Правило пароля — единственное место: 8–200 символов. Клиент повторяет minlength=8 в формах. */
+export const validPassword = (p) => typeof p === 'string' && p.length >= MIN_PASSWORD && p.length <= MAX_PASSWORD;
 
 export function hashPassword(password) {
   const salt = randomBytes(16).toString('hex');
