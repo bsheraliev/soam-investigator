@@ -1,0 +1,10 @@
+# реальные материалы расследований — никогда не коммитить
+data/private/
+
+# служебное
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+node_modules/
+.claude/settings.local.json
