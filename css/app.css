@@ -138,3 +138,57 @@ code { background: var(--bg); padding: 1px 5px; border-radius: 4px; }
   .topbar { flex-wrap: wrap; }
   .nav { order: 3; width: 100%; }
 }
+
+/* ---------- этап 1: вкладки, формы, подсказки ---------- */
+.occ-head h1 { margin-bottom: 4px; }
+.tabs { display: flex; gap: 2px; border-bottom: 2px solid var(--line); margin: 8px 0 16px; overflow-x: auto; }
+.tabs a { padding: 8px 14px; text-decoration: none; color: var(--muted); border-bottom: 2px solid transparent; margin-bottom: -2px; white-space: nowrap; }
+.tabs a.active { color: var(--brand); border-bottom-color: var(--brand); font-weight: 600; }
+.tabs .count { font-size: .75rem; background: var(--line); border-radius: 999px; padding: 0 6px; }
+.tabs .count.warn { background: var(--accent); color: #fff; }
+
+.form .field { display: block; margin: 10px 0; }
+.form .field > span, .form legend { display: block; font-size: .85rem; color: var(--muted); margin-bottom: 4px; }
+.form input[type=text], .form input[type=search], .form input:not([type]), .form input[type=datetime-local], .form textarea, .form select {
+  width: 100%; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--text);
+}
+.form textarea { resize: vertical; }
+.form fieldset { border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; }
+.form fieldset.optional { opacity: .8; }
+.form .row { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+label.radio, label.check { display: inline-flex; gap: 6px; align-items: flex-start; margin: 4px 14px 4px 0; cursor: pointer; }
+label.radio.block, label.check.block { display: flex; }
+label.check.confirm { background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; display: flex; }
+.checklist { display: grid; gap: 2px; max-height: 260px; overflow: auto; }
+.checklist.cols { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); max-height: none; }
+.search { flex: 1; min-width: 180px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--text); }
+.btn-row.top { margin: 0 0 12px; align-items: center; }
+button.link { background: none; border: 0; color: var(--brand); cursor: pointer; padding: 0 4px; }
+button.link.danger { color: var(--accent); }
+
+.two-col { display: grid; gap: 14px; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; }
+.two-col.sort { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); }
+.three-col { display: grid; gap: 12px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 860px) { .two-col, .two-col.sort, .three-col { grid-template-columns: 1fr; } }
+
+.hint { background: var(--bg); border: 1px dashed var(--line); border-radius: 8px; padding: 8px 12px; margin: 8px 0; font-size: .9rem; }
+.hint summary { font-weight: 600; }
+.hint ul { margin: 4px 0 8px; padding-left: 18px; }
+.check-question { background: var(--soam-header); color: var(--soam-ink); border-radius: 8px; padding: 10px 12px; margin: 10px 0; }
+.check-question p { margin: 4px 0; }
+.check-question .muted { color: inherit; opacity: .75; }
+
+.fact-list li.selected { background: var(--bg); font-weight: 600; }
+.fact-list li { cursor: pointer; }
+.fact-text { font-size: 1.05rem; margin: 0 0 4px; }
+.tag.ok { border-color: #1a7f37; color: #1a7f37; }
+.tag.warn { border-color: var(--accent); color: var(--accent); }
+span.ok { color: #1a7f37; } span.warn { color: var(--accent); font-size: .85rem; }
+.node.unconfirmed { border-color: var(--accent); }
+
+.attachments { list-style: none; padding: 0; margin: 4px 0; }
+.attachments li { padding: 2px 0; }
+.timeline { list-style: none; padding: 0; margin: 0; }
+.timeline li { display: grid; grid-template-columns: 150px 1fr; gap: 10px; padding: 8px 0; border-bottom: 1px dashed var(--line); cursor: pointer; }
+.timeline time { color: var(--muted); font-variant-numeric: tabular-nums; font-size: .9rem; }
+.soam-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
