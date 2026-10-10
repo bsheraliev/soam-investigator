@@ -2,7 +2,7 @@
  "meta": {
   "source": "EUROCONTROL. Systemic Occurrence Analysis Methodology (SOAM) Quick Reference Guide, Version 3.0, April 2023. © EUROCONTROL 2023.",
   "source_note": "English text ('en') is reproduced verbatim from the QRG for non-commercial use. 'qrg_page' is the printed page number.",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "languages": [
    "ru",
    "tj",
@@ -4146,5 +4146,92 @@
    "tj_status": "todo",
    "qrg_page": 60
   }
- ]
+ ],
+ "pirate": {
+  "source_note": "PIRATe — Proactive Integrated Risk Assessment Technique (Hayward, Lowe & Branford, 2012); text from SOAM QRG V3, pp. 54–56, reproduced verbatim for non-commercial use.",
+  "intro": {
+   "id": "pirate.intro",
+   "en": "The Proactive Integrated Risk Assessment Technique (PIRATe) is designed to enable operational risks to be identified and managed proactively, so that the benefits of this systemic approach can be realised without the cost of a serious incident or accident.",
+   "ru": "Проактивная интегрированная методика оценки рисков (PIRATe) позволяет выявлять эксплуатационные риски и управлять ими заранее, чтобы получить выгоды системного подхода без цены серьёзного инцидента или авиационного происшествия.",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 54
+  },
+  "principle": {
+   "id": "pirate.principle",
+   "en": "PIRATe is based on the idea that frontline workers in safety-critical roles have an implicit awareness of the hazards in their operational environment and therefore possess valuable, first-hand knowledge about current risks and the potential for accidents. In this sense, every experienced air traffic controller, ATSEP, airline pilot, cabin crew, maintenance technician and ramp worker is a local subject matter expert (SME).",
+   "ru": "В основе PIRATe — мысль, что работники «переднего края» в критичных для безопасности ролях неявно осознают опасности своей рабочей среды и потому владеют ценным знанием из первых рук о текущих рисках и возможных происшествиях. В этом смысле каждый опытный диспетчер, специалист ATSEP, пилот, бортпроводник, техник и работник перрона — местный эксперт (SME).",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 54
+  },
+  "steps": [
+   {
+    "id": "pirate.step.01",
+    "en": "Assemble an appropriate group of subject matter experts. Ideally, the exercise can be included as part of other safety-related training or meetings, where managing safety issues is already a focus.",
+    "ru": "Соберите подходящую группу экспертов-практиков. Лучше всего встроить упражнение в другое обучение или совещание по безопасности, где управление рисками уже в фокусе.",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 55
+   },
+   {
+    "id": "pirate.step.02",
+    "en": "Explain the SOAM analysis approach and process, which participants will use in developing and analysing their own hypothetical accident scenario.",
+    "ru": "Объясните подход и процесс анализа SOAM, которыми участники будут пользоваться при разработке и разборе собственного гипотетического сценария происшествия.",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 55
+   },
+   {
+    "id": "pirate.step.03",
+    "en": "Allocate participants to work in small groups to ‘design our next accident’ – developing a scenario in which your organisation could have an accident, using their implicit awareness of local hazards and risks within their own work environments to identify contributing factors. Available empirical data can be provided to identify likely accident scenarios or potential contributing factors.",
+    "ru": "Разделите участников на малые группы, чтобы «спроектировать наше следующее происшествие» — сценарий, при котором в организации могло бы случиться происшествие, опираясь на их знание местных опасностей и рисков для выявления способствующих факторов. Можно дать имеющиеся данные, чтобы определить вероятные сценарии или возможные способствующие факторы.",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 55
+   },
+   {
+    "id": "pirate.step.04",
+    "en": "Once they have developed their accident scenarios, help the groups to classify contributing factors using the four SOAM / PIRATe elements: Human Involvement; Contextual Conditions; Organisational and System Factors; and Absent or Failed Barriers.",
+    "ru": "Когда сценарии готовы, помогите группам классифицировать способствующие факторы по четырём элементам SOAM / PIRATe: участие человека; контекстные условия; организационные и системные факторы; отсутствующие или отказавшие барьеры.",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 55
+   },
+   {
+    "id": "pirate.step.05",
+    "en": "Have participants create PIRATe charts depicting their scenarios, and then develop safety actions designed to prevent them, adopting the process used in SOAM. Once again, specific and practical safety actions must be provided to address each identified Absent or Failed Barrier and each Organisational or System Factor.",
+    "ru": "Пусть участники построят схемы PIRATe по своим сценариям и разработают меры безопасности для их предотвращения — тем же процессом, что в SOAM. И снова: конкретные и практичные меры должны закрывать каждый выявленный отсутствующий или отказавший барьер и каждый организационный или системный фактор.",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 55
+   }
+  ],
+  "uses": [
+   {
+    "id": "pirate.use.01",
+    "en": "Forecast potential serious incident or accident scenarios, harvesting the knowledge of front-line workers regarding existing hazards and risks in their local work environments.",
+    "ru": "Прогноз возможных сценариев серьёзного инцидента или происшествия на основе знаний работников о существующих опасностях и рисках на их рабочих местах.",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 55
+   },
+   {
+    "id": "pirate.use.02",
+    "en": "Complement a more formal risk assessment process, for example when identifying and assessing the risks associated with a new work activity or aspect of operations like implementing a new procedure or technology, acquiring new equipment, or opening new facilities.",
+    "ru": "Дополнение к формальной оценке рисков: новая деятельность или сторона эксплуатации — внедрение процедуры или технологии, новое оборудование, открытие объектов.",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 56
+   },
+   {
+    "id": "pirate.use.03",
+    "en": "Apply it to repetitive safety events within a unit or organisation, such as AIRPROX or potential runway incursions, or perhaps technical failures: a group of local SMEs can be assembled to identify and analyse common contributing factors using the PIRATe approach and create safety actions to address these.",
+    "ru": "Повторяющиеся события в подразделении или организации (AIRPROX, потенциальные несанкционированные выезды на ВПП, технические отказы): группа местных экспертов выявляет и анализирует общие способствующие факторы и разрабатывает меры.",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 56
+   }
+  ]
+ }
 }

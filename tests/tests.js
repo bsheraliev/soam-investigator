@@ -296,6 +296,22 @@ await test('rules: уровень расследования по тяжести
   eq(R.investigationAdvice({ type: 'incident', severity: 'A', investigate: true }).conflict, false);
 });
 
+await test('rules: режим PIRATe — тяжесть и решение о расследовании не требуются, остальное как в SOAM', () => {
+  eq(R.isPirate({ mode: 'pirate' }), true); eq(R.isPirate({}), false); eq(R.isPirate(null), false);
+  eq(R.severityRequired({ mode: 'pirate', type: 'incident' }), false);
+  eq(R.severityRequired({ mode: 'soam', type: 'incident' }), true);
+  eq(R.investigationAdvice({ mode: 'pirate', type: 'accident', investigate: false }).level, 'pirate');
+  eq(R.investigationAdvice({ mode: 'pirate', type: 'accident', investigate: false }).conflict, false);
+  // правило 4 действует и для PIRATe (QRG, стр. 55)
+  eq(R.coverage([{ id: 'c', element: 'OSF' }], []).ok, false);
+});
+
+await test('taxonomy: PIRATe (QRG, стр. 54–56) — вступление, принцип, 5 шагов, 3 применения', () => {
+  assert(tax.pirate && tax.pirate.intro.en && tax.pirate.principle.ru, 'нет pirate');
+  eq(tax.pirate.steps.length, 5); eq(tax.pirate.uses.length, 3);
+  for (const e of [...tax.pirate.steps, ...tax.pirate.uses]) assert(e.en && e.ru && e.qrg_page >= 54 && e.qrg_page <= 56, e.id);
+});
+
 await test('rules: автопродвижение статуса — только вперёд, «Завершено» не трогаем', () => {
   eq(R.advanceStatus('draft', 'collection'), 'collection');
   eq(R.advanceStatus('draft', 'actions'), 'actions', 'можно перепрыгнуть');
