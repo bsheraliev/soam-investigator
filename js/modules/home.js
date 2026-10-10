@@ -2,9 +2,33 @@
 import { db } from '../db.js';
 import { t, tx } from '../i18n.js';
 import { severity } from '../taxonomy.js';
-import { escapeHtml, toast } from '../ui.js';
+import { escapeHtml, toast, fmtDateTime } from '../ui.js';
+import { getSession, api, pullOccurrence } from './sync.js';
 
 let query = '';
+
+/** Дела организации на сервере (если выполнен вход на экране «Сервер»). */
+async function serverCasesHtml(localById) {
+  const session = getSession();
+  if (!session || !session.token) return '';
+  let cases;
+  try { cases = (await api('GET', '/api/cases')).cases; } catch (e) {
+    return `<div class="card"><h3>${t('home.serverCases', { org: escapeHtml(session.org.name) })}</h3><p class="muted small">${t('sync.err.' + (e.code || 'generic'))}</p></div>`;
+  }
+  const state = (c) => {
+    const o = localById[c.id];
+    if (!o) return `<span class="tag">${t('home.notLocal')}</span>`;
+    const v = o.remote && o.remote.version;
+    return v === c.version ? `<span class="tag ok">${t('sync.inSync', { v: c.version })}</span>` : `<span class="tag warn">${t('sync.remoteNewer', { v: c.version, mine: v || '—' })}</span>`;
+  };
+  return `<div class="card">
+    <h3>${t('home.serverCases', { org: escapeHtml(session.org.name) })} <span class="muted">(${cases.length})</span></h3>
+    ${cases.length ? `<table><thead><tr><th>${t('field.title')}</th><th>${t('field.status')}</th><th>${t('sync.updated')}</th><th>${t('home.localState')}</th><th></th></tr></thead><tbody>
+      ${cases.map((c) => `<tr><td>${localById[c.id] ? `<a href="#/occurrence/${encodeURIComponent(c.id)}">${escapeHtml(c.title)}</a>` : escapeHtml(c.title)}</td><td>${c.status ? t('status.' + c.status) : '—'}</td>
+        <td class="nowrap">${escapeHtml(fmtDateTime(c.updatedAt))}</td><td>${state(c)}</td>
+        <td><button class="btn secondary small" data-pull="${escapeHtml(c.id)}">${t('sync.pull')}</button></td></tr>`).join('')}</tbody></table>` : `<p class="muted">${t('sync.none')}</p>`}
+  </div>`;
+}
 
 export async function render(view) {
   const store = await db();
@@ -39,7 +63,10 @@ export async function render(view) {
         <thead><tr><th>${t('field.title')}</th><th>${t('field.date')}</th><th>${t('field.type')}</th><th>${t('field.severity')}</th><th>${t('field.status')}</th><th></th></tr></thead>
         <tbody>${rows}</tbody></table>`
         : `<p class="muted">${all.length ? t('home.noMatch') : t('home.empty')}</p>`}
-    </div>`;
+    </div>
+    ${await serverCasesHtml(Object.fromEntries(all.map((o) => [o.id, o])))}`;
+
+  view.querySelectorAll('[data-pull]').forEach((b) => b.addEventListener('click', async () => { b.disabled = true; await pullOccurrence(store, b.dataset.pull); render(view); }));
 
   view.querySelector('#search').addEventListener('input', (e) => { query = e.target.value; render(view); view.querySelector('#search').focus(); });
   view.querySelector('#importFile').addEventListener('change', async (e) => {
