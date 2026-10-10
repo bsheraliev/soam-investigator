@@ -164,6 +164,32 @@ test('сводки организации: реестр мер с просроч
   assert.equal((await api('GET', '/api/stats/osf', { token: adminTok })).json.cases, 0);
 });
 
+test('резервная копия организации (admin): все дела пакетами, чужая организация не попадает', async () => {
+  assert.equal((await api('GET', '/api/export', { token: invTok })).status, 401, 'сессия inv закрыта выше'); // вышел в прошлом тесте
+  const rdr = await api('GET', '/api/export', { token: readerTok });
+  assert.equal(rdr.status, 403);
+  const exp = await api('GET', '/api/export', { token: otherTok });
+  assert.equal(exp.status, 200); assert.equal(exp.json.format, 'soam-investigator/organisation');
+  assert.equal(exp.json.organisation.name, 'АНСП'); assert.equal(exp.json.cases.length, 2);
+  assert.equal(exp.json.cases[0].bundle.occurrence.id, 's-1'); assert.equal(exp.json.cases[0].version, 1);
+  const mine = await api('GET', '/api/export', { token: adminTok });
+  assert.equal(mine.json.cases.length, 0);
+  const au = await api('GET', '/api/audit', { token: otherTok });
+  assert.ok(au.json.audit.some((a) => a.action === 'org.export'));
+});
+
+test('перебор паролей: после 10 неудач — 429 даже с верным паролем; заголовки безопасности', async () => {
+  const body = { email: 'rd@aga.tj', password: 'wrong' };
+  for (let i = 0; i < 10; i++) assert.equal((await api('POST', '/api/auth/login', { body })).status, 401);
+  const blocked = await api('POST', '/api/auth/login', { body: { email: 'rd@aga.tj', password: 'secret-123' } });
+  assert.equal(blocked.status, 429); assert.equal(blocked.json.error, 'too-many-attempts'); assert.ok(blocked.json.retryAfterSec > 0);
+  // другая почта с того же IP не заблокирована
+  assert.equal((await api('POST', '/api/auth/login', { body: { email: A.email, password: A.password } })).status, 200);
+  assert.equal((await api('POST', '/api/auth/register', { body: { ...A, email: 'x@y.z', password: 'p'.repeat(201) } })).json.error, 'password', 'слишком длинный пароль');
+  const h = await fetch(base + '/api/health');
+  assert.equal(h.headers.get('x-content-type-options'), 'nosniff'); assert.equal(h.headers.get('cache-control'), 'no-store'); assert.equal(h.headers.get('x-powered-by'), null);
+});
+
 test('регистрация закрыта флагом', async () => {
   const closed = createApp(db, { allowRegistration: false });
   const s = await new Promise((r) => { const x = closed.listen(0, () => r(x)); });

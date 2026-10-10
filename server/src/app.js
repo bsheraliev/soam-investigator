@@ -32,6 +32,20 @@ function cors(allowed) {
   };
 }
 
+// Защита от перебора паролей: 10 неудачных попыток на пару IP+почта → блок на 15 минут; регистрация — 20 в час на IP.
+const LOGIN_MAX = Number(process.env.LOGIN_MAX_ATTEMPTS || 10), LOGIN_WINDOW_MS = 15 * 60 * 1000;
+const REG_MAX = Number(process.env.REGISTER_MAX_PER_HOUR || 20), REG_WINDOW_MS = 60 * 60 * 1000;
+function limiter(max, windowMs) {
+  const hits = new Map();
+  const sweep = () => { const now = Date.now(); for (const [k, v] of hits) if (v.until < now) hits.delete(k); };
+  return {
+    check(key) { const h = hits.get(key); if (h && h.count >= max && h.until > Date.now()) bad(429, 'too-many-attempts', { retryAfterSec: Math.ceil((h.until - Date.now()) / 1000) }); },
+    hit(key) { if (hits.size > 10000) sweep(); const now = Date.now(); const h = hits.get(key); if (!h || h.until < now) hits.set(key, { count: 1, until: now + windowMs }); else h.count += 1; },
+    reset(key) { hits.delete(key); },
+  };
+}
+const MAX_PASSWORD = 200; // scrypt на очень длинном пароле — лишняя нагрузка
+
 const wrap = (fn) => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
 const isEmail = (s) => typeof s === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s) && s.length <= 200;
 const str = (v, max = 300) => (typeof v === 'string' ? v.trim().slice(0, max) : '');
@@ -40,8 +54,18 @@ const titleOf = (occ) => (typeof occ.title === 'string' ? occ.title : (occ.title
 export function createApp(db, { allowedOrigins = process.env.ALLOWED_ORIGINS, allowRegistration = process.env.ALLOW_REGISTRATION !== 'false' } = {}) {
   const app = express();
   app.disable('x-powered-by');
+  app.set('trust proxy', 1); // Render: реальный IP клиента в X-Forwarded-For
+  app.use((req, res, next) => {
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('Referrer-Policy', 'no-referrer');
+    res.setHeader('Cache-Control', 'no-store');
+    next();
+  });
   app.use(cors(allowedOrigins));
   app.use(express.json({ limit: BODY_LIMIT }));
+  const loginLimit = limiter(LOGIN_MAX, LOGIN_WINDOW_MS);
+  const registerLimit = limiter(REG_MAX, REG_WINDOW_MS);
+  const validPassword = (p) => typeof p === 'string' && p.length >= MIN_PASSWORD && p.length <= MAX_PASSWORD;
 
   const audit = (orgId, userId, action, caseId = null, details = null) =>
     db.run('INSERT INTO audit (id, org_id, user_id, action, case_id, details, at) VALUES (?,?,?,?,?,?,?)',
@@ -77,12 +101,14 @@ export function createApp(db, { allowedOrigins = process.env.ALLOWED_ORIGINS, al
   // Регистрация организации вместе с первым администратором.
   app.post('/api/auth/register', wrap(async (req, res) => {
     if (!allowRegistration) bad(403, 'registration-closed');
+    registerLimit.check(req.ip);
     const { organisation, name, email, password } = req.body || {};
     const orgName = str(organisation, 200), userName = str(name, 200);
     if (!orgName) bad(400, 'organisation');
     if (!userName) bad(400, 'name');
     if (!isEmail(email)) bad(400, 'email');
-    if (typeof password !== 'string' || password.length < MIN_PASSWORD) bad(400, 'password');
+    if (!validPassword(password)) bad(400, 'password');
+    registerLimit.hit(req.ip);
     const mail = email.trim().toLowerCase();
     if ((await db.q('SELECT id FROM app_user WHERE email = ?', [mail])).length) bad(409, 'email-taken');
     const orgId = uuid(), userId = uuid(), now = nowIso();
@@ -96,9 +122,15 @@ export function createApp(db, { allowedOrigins = process.env.ALLOWED_ORIGINS, al
 
   app.post('/api/auth/login', wrap(async (req, res) => {
     const { email, password } = req.body || {};
-    const user = isEmail(email) ? (await db.q('SELECT * FROM app_user WHERE email = ?', [email.trim().toLowerCase()]))[0] : null;
-    if (!user || !verifyPassword(String(password || ''), user.password_hash)) bad(401, 'bad-credentials');
+    const mail = isEmail(email) ? email.trim().toLowerCase() : '';
+    const key = `${req.ip}|${mail}`;
+    loginLimit.check(key);
+    const user = mail ? (await db.q('SELECT * FROM app_user WHERE email = ?', [mail]))[0] : null;
+    const pwd = typeof password === 'string' ? password.slice(0, MAX_PASSWORD) : '';
+    if (!user || !verifyPassword(pwd, user.password_hash)) { loginLimit.hit(key); bad(401, 'bad-credentials'); }
     if (user.disabled) bad(403, 'disabled');
+    loginLimit.reset(key);
+    await db.run('DELETE FROM session WHERE expires_at < ?', [nowIso()]); // чистим просроченные сессии
     await audit(user.org_id, user.id, 'login');
     res.json(await issueSession(user));
   }));
@@ -115,8 +147,8 @@ export function createApp(db, { allowedOrigins = process.env.ALLOWED_ORIGINS, al
 
   app.post('/api/auth/password', auth(), wrap(async (req, res) => {
     const { current, next } = req.body || {};
-    if (!verifyPassword(String(current || ''), req.user.password_hash)) bad(401, 'bad-credentials');
-    if (typeof next !== 'string' || next.length < MIN_PASSWORD) bad(400, 'password');
+    if (!verifyPassword(String(current || '').slice(0, MAX_PASSWORD), req.user.password_hash)) bad(401, 'bad-credentials');
+    if (!validPassword(next)) bad(400, 'password');
     await db.run('UPDATE app_user SET password_hash = ? WHERE id = ?', [hashPassword(next), req.user.id]);
     await db.run('DELETE FROM session WHERE user_id = ? AND token_hash <> ?', [req.user.id, req.tokenHash]);
     await audit(req.user.org_id, req.user.id, 'password.change');
@@ -134,7 +166,7 @@ export function createApp(db, { allowedOrigins = process.env.ALLOWED_ORIGINS, al
     const userName = str(name, 200);
     if (!userName) bad(400, 'name');
     if (!isEmail(email)) bad(400, 'email');
-    if (typeof password !== 'string' || password.length < MIN_PASSWORD) bad(400, 'password');
+    if (!validPassword(password)) bad(400, 'password');
     if (!ROLES.includes(role)) bad(400, 'role');
     const mail = email.trim().toLowerCase();
     if ((await db.q('SELECT id FROM app_user WHERE email = ?', [mail])).length) bad(409, 'email-taken');
@@ -155,7 +187,7 @@ export function createApp(db, { allowedOrigins = process.env.ALLOWED_ORIGINS, al
     if (u.id === req.user.id && (nextRole !== 'admin' || nextDisabled)) bad(400, 'self-lockout');
     await db.run('UPDATE app_user SET role = ?, disabled = ? WHERE id = ?', [nextRole, nextDisabled ? 1 : 0, u.id]);
     if (password !== undefined) {
-      if (typeof password !== 'string' || password.length < MIN_PASSWORD) bad(400, 'password');
+      if (!validPassword(password)) bad(400, 'password');
       await db.run('UPDATE app_user SET password_hash = ? WHERE id = ?', [hashPassword(password), u.id]);
       await db.run('DELETE FROM session WHERE user_id = ?', [u.id]);
     }
@@ -199,6 +231,15 @@ export function createApp(db, { allowedOrigins = process.env.ALLOWED_ORIGINS, al
     }
     await audit(req.user.org_id, req.user.id, existing ? 'case.update' : 'case.create', o.id, { version, status: o.status || null, bytes: text.length });
     res.status(existing ? 200 : 201).json({ id: o.id, version, updatedAt: now });
+  }));
+
+  // Резервная копия всех дел организации (admin): массив пакетов того же формата, что экспорт в приложении.
+  app.get('/api/export', auth('admin'), wrap(async (req, res) => {
+    const rows = await db.q('SELECT * FROM occurrence_case WHERE org_id = ? ORDER BY updated_at', [req.user.org_id]);
+    const org = (await db.q('SELECT * FROM organisation WHERE id = ?', [req.user.org_id]))[0];
+    await audit(req.user.org_id, req.user.id, 'org.export', null, { cases: rows.length });
+    res.setHeader('Content-Disposition', `attachment; filename="soam-${org.id.slice(0, 8)}-${nowIso().slice(0, 10)}.json"`);
+    res.json({ format: 'soam-investigator/organisation', exportedAt: nowIso(), organisation: { id: org.id, name: org.name }, cases: rows.map((r) => ({ ...caseMeta(r), bundle: JSON.parse(r.bundle) })) });
   }));
 
   app.delete('/api/cases/:id', auth('admin'), wrap(async (req, res) => {
