@@ -2,7 +2,7 @@
 import { db, newId } from '../db.js';
 import { t, tx } from '../i18n.js';
 import { taxonomy } from '../taxonomy.js';
-import { escapeHtml, toast, formValues, nowIso } from '../ui.js';
+import { escapeHtml, toast, formValues, nowIso, fmtDateTime } from '../ui.js';
 import { STATUSES, canTransition, severityRequired, investigationAdvice } from '../rules.js';
 
 const TYPES = ['accident', 'incident'];
@@ -123,11 +123,15 @@ export async function render(view) {
 /** Вкладка «Событие» */
 export async function renderTab(container, ctx) {
   const ready = !!(ctx.readiness && ctx.readiness.ok);
+  const sync = await import('./sync.js');
+  const connected = sync.isConnected();
   container.innerHTML = formHtml(ctx.occurrence, ready) + `
     <div class="card">
       <h3>${t('export.button')}</h3>
       <p class="small muted">${t('export.hint')}</p>
       <button class="btn secondary" id="expOcc">${t('export.button')}</button>
+      ${connected ? `<button class="btn secondary" id="pushOcc">${t('sync.pushButton')}</button>
+      <p class="small muted">${ctx.occurrence.remote ? t('sync.remoteInfo', { v: ctx.occurrence.remote.version, at: escapeHtml(fmtDateTime(ctx.occurrence.remote.at)) }) : t('sync.notRemote')}</p>` : ''}
     </div>
     <div class="card">
       <h3>${t('occ.dangerZone')}</h3>
@@ -143,6 +147,8 @@ export async function renderTab(container, ctx) {
     a.href = url; a.download = ('soam-' + tx(ctx.occurrence.title)).replace(/[^\p{L}\p{N}]+/gu, '-').slice(0, 60) + '.json'; a.click();
     setTimeout(() => URL.revokeObjectURL(url), 5000);
   });
+  const pushBtn = container.querySelector('#pushOcc');
+  if (pushBtn) pushBtn.addEventListener('click', async () => { pushBtn.disabled = true; await sync.pushOccurrence(ctx.store, ctx.id); ctx.refresh(); });
   const form = container.querySelector('#occForm');
   bindSeverity(form);
   form.addEventListener('submit', async (e) => {

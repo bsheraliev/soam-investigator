@@ -1,0 +1,23 @@
+# Render Blueprint: сервер синхронизации SOAM Investigator (бесплатный тариф).
+# База — Neon Postgres (бесплатный тариф): DATABASE_URL задаёт владелец в панели Render, в репозиторий не попадает.
+services:
+  - type: web
+    name: soam-investigator-api
+    runtime: node
+    plan: free
+    rootDir: .
+    buildCommand: cd server && npm ci --omit=dev
+    startCommand: node server/src/index.js
+    healthCheckPath: /api/health
+    autoDeployTrigger: commit
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+      - key: DATABASE_URL
+        sync: false
+      - key: ALLOWED_ORIGINS
+        value: https://bsheraliev.github.io
+      - key: ALLOW_REGISTRATION
+        value: "true"
+      - key: SESSION_DAYS
+        value: "30"

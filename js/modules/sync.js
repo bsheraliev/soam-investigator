@@ -1,0 +1,161 @@
+// «Сервер»: подключение к серверу организации по желанию (этап 4). Без входа приложение ничего не отправляет.
+// Дела передаются целиком пакетом JSON (как экспорт), с проверкой версии на сервере.
+import { db } from '../db.js';
+import { t, tx } from '../i18n.js';
+import { escapeHtml, toast, formValues, fmtDateTime } from '../ui.js';
+
+const KEY = 'soam.sync';
+
+export function getSession() {
+  try { return JSON.parse(localStorage.getItem(KEY) || 'null'); } catch { return null; }
+}
+function setSession(s) {
+  if (s) localStorage.setItem(KEY, JSON.stringify(s)); else localStorage.removeItem(KEY);
+}
+export const isConnected = () => !!(getSession() && getSession().token);
+
+/** Запрос к серверу текущей сессии. Ошибка — Error с .code (для t('sync.err.' + code)). */
+export async function api(method, path, body, session = getSession()) {
+  if (!session || !session.url) { const e = new Error('no-server'); e.code = 'no-server'; throw e; }
+  let res;
+  try {
+    res = await fetch(session.url.replace(/\/+$/, '') + path, {
+      method,
+      headers: { 'Content-Type': 'application/json', ...(session.token ? { Authorization: 'Bearer ' + session.token } : {}) },
+      body: body === undefined ? undefined : JSON.stringify(body),
+    });
+  } catch { const e = new Error('network'); e.code = 'network'; throw e; }
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok) { const e = new Error(json.error || 'generic'); e.code = json.error || 'generic'; e.extra = json; throw e; }
+  return json;
+}
+const errText = (e) => { const k = 'sync.err.' + (e.code || 'generic'); const s = t(k); return s === k ? t('sync.err.generic') + ' (' + e.message + ')' : s; };
+
+/** Отправить дело на сервер. Возвращает { version } или null (отменено / ошибка показана). */
+export async function pushOccurrence(store, id) {
+  const bundle = await store.exportOccurrence(id);
+  const { toPortable } = await import('../bundle.js');
+  const { APP_VERSION } = await import('../app.js');
+  const portable = await toPortable(bundle, APP_VERSION);
+  const o = bundle.occurrence;
+  let base = o.remote && o.remote.version;
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const r = await api('PUT', '/api/cases/' + encodeURIComponent(id), { bundle: portable, baseVersion: base ?? null });
+      await store.put('occurrence', { ...o, remote: { url: getSession().url, version: r.version, at: r.updatedAt } });
+      toast(t('sync.pushed', { v: r.version }));
+      return r;
+    } catch (e) {
+      if (e.code === 'version-conflict' && attempt === 0) {
+        if (!confirm(t('sync.conflict', { v: e.extra.version }))) return null;
+        base = e.extra.version; continue;
+      }
+      toast(errText(e)); return null;
+    }
+  }
+  return null;
+}
+
+/** Получить дело с сервера и записать локально (с подтверждением замены). */
+export async function pullOccurrence(store, id) {
+  try {
+    const r = await api('GET', '/api/cases/' + encodeURIComponent(id));
+    const { fromPortable, validatePortable } = await import('../bundle.js');
+    const errors = validatePortable(r.bundle);
+    if (errors.length) { toast(t('sync.err.bundle')); return null; }
+    const existing = await store.get('occurrence', id);
+    if (existing && !confirm(t('sync.replaceLocal', { title: tx(existing.title) }))) return null;
+    const b = fromPortable(r.bundle);
+    b.occurrence.remote = { url: getSession().url, version: r.version, at: r.updatedAt };
+    await store.importOccurrence(b);
+    toast(t('sync.pulled'));
+    return r;
+  } catch (e) { toast(errText(e)); return null; }
+}
+
+function loginHtml(saved) {
+  return `
+    <div class="card"><p class="small muted">${t('sync.privacy')}</p></div>
+    <form id="loginForm" class="card form">
+      <h3>${t('sync.login')}</h3>
+      <label class="field"><span>${t('sync.url')}</span><input name="url" type="url" required placeholder="https://soam-investigator-api.onrender.com" value="${escapeHtml((saved && saved.url) || '')}"></label>
+      <div class="row">
+        <label class="field"><span>${t('sync.email')}</span><input name="email" type="email" required autocomplete="username"></label>
+        <label class="field"><span>${t('sync.password')}</span><input name="password" type="password" required autocomplete="current-password"></label>
+      </div>
+      <div class="btn-row"><button class="btn" type="submit">${t('sync.login')}</button></div>
+    </form>
+    <details class="card"><summary><strong>${t('sync.register')}</strong></summary>
+      <p class="small muted">${t('sync.registerHint')}</p>
+      <form id="regForm" class="form">
+        <label class="field"><span>${t('sync.url')}</span><input name="url" type="url" required value="${escapeHtml((saved && saved.url) || '')}"></label>
+        <label class="field"><span>${t('sync.org')}</span><input name="organisation" required maxlength="200"></label>
+        <div class="row">
+          <label class="field"><span>${t('sync.name')}</span><input name="name" required maxlength="200"></label>
+          <label class="field"><span>${t('sync.email')}</span><input name="email" type="email" required></label>
+          <label class="field"><span>${t('sync.password')}</span><input name="password" type="password" required minlength="8"></label>
+        </div>
+        <div class="btn-row"><button class="btn secondary" type="submit">${t('sync.register')}</button></div>
+      </form>
+    </details>`;
+}
+
+export async function render(view) {
+  const session = getSession();
+  view.innerHTML = `<h1>${t('sync.title')}</h1><p class="lead">${t('sync.lead')}</p><div id="syncBody"></div>`;
+  const body = view.querySelector('#syncBody');
+
+  if (!session || !session.token) {
+    body.innerHTML = loginHtml(session);
+    const doAuth = async (path, v) => {
+      try {
+        const r = await api('POST', path, v, { url: v.url });
+        setSession({ url: v.url.replace(/\/+$/, ''), token: r.token, user: r.user, org: r.organisation });
+        toast(t('sync.connected')); render(view);
+      } catch (e) { toast(errText(e)); }
+    };
+    body.querySelector('#loginForm').addEventListener('submit', (e) => { e.preventDefault(); const v = formValues(e.target); doAuth('/api/auth/login', { url: v.url, email: v.email, password: v.password }); });
+    body.querySelector('#regForm').addEventListener('submit', (e) => { e.preventDefault(); doAuth('/api/auth/register', formValues(e.target)); });
+    return;
+  }
+
+  const store = await db();
+  let remote = [];
+  try { remote = (await api('GET', '/api/cases')).cases; } catch (e) {
+    if (e.code === 'unauthorized') { setSession(null); toast(t('sync.err.unauthorized')); return render(view); }
+    toast(errText(e));
+  }
+  const local = (await store.all('occurrence')).sort((a, b) => String(b.updatedAt || '').localeCompare(String(a.updatedAt || '')));
+  const remoteById = Object.fromEntries(remote.map((c) => [c.id, c]));
+  const canWrite = ['admin', 'investigator'].includes(session.user.role);
+
+  body.innerHTML = `
+    <div class="card">
+      <p>${t('sync.loggedAs', { name: escapeHtml(session.user.name), role: t('sync.role.' + session.user.role), org: escapeHtml(session.org.name) })} <span class="small muted">· ${escapeHtml(session.url)}</span></p>
+      <div class="btn-row"><button class="btn secondary small" id="logout">${t('sync.logout')}</button></div>
+    </div>
+    <div class="card">
+      <h3>${t('sync.serverCases')} <span class="muted">(${remote.length})</span></h3>
+      ${remote.length ? `<table><thead><tr><th>${t('field.title')}</th><th>${t('field.status')}</th><th>${t('sync.version')}</th><th>${t('sync.updated')}</th><th></th></tr></thead><tbody>
+        ${remote.map((c) => `<tr><td>${escapeHtml(c.title)}</td><td>${c.status ? t('status.' + c.status) : '—'}</td><td>${c.version}</td><td class="nowrap">${escapeHtml(fmtDateTime(c.updatedAt))}</td>
+          <td><button class="btn secondary small" data-pull="${escapeHtml(c.id)}">${t('sync.pull')}</button></td></tr>`).join('')}</tbody></table>` : `<p class="muted">${t('sync.none')}</p>`}
+    </div>
+    <div class="card">
+      <h3>${t('sync.localCases')} <span class="muted">(${local.length})</span></h3>
+      ${local.length ? `<table><thead><tr><th>${t('field.title')}</th><th>${t('field.status')}</th><th>${t('sync.remoteState')}</th><th></th></tr></thead><tbody>
+        ${local.map((o) => {
+          const r = remoteById[o.id];
+          const mine = o.remote && o.remote.version;
+          const state = !r ? t('sync.notRemote') : (mine === r.version ? t('sync.inSync', { v: r.version }) : t('sync.remoteNewer', { v: r.version, mine: mine || '—' }));
+          return `<tr><td><a href="#/occurrence/${encodeURIComponent(o.id)}">${escapeHtml(tx(o.title))}</a></td><td>${t('status.' + (o.status || 'draft'))}</td><td class="small">${state}</td>
+            <td>${canWrite ? `<button class="btn secondary small" data-push="${escapeHtml(o.id)}">${t('sync.push')}</button>` : ''}</td></tr>`;
+        }).join('')}</tbody></table>` : `<p class="muted">${t('home.empty')}</p>`}
+    </div>`;
+
+  body.querySelector('#logout').addEventListener('click', async () => {
+    try { await api('POST', '/api/auth/logout'); } catch { /* сессия всё равно забывается */ }
+    setSession({ url: session.url }); render(view);
+  });
+  body.querySelectorAll('[data-pull]').forEach((b) => b.addEventListener('click', async () => { b.disabled = true; await pullOccurrence(store, b.dataset.pull); render(view); }));
+  body.querySelectorAll('[data-push]').forEach((b) => b.addEventListener('click', async () => { b.disabled = true; await pushOccurrence(store, b.dataset.push); render(view); }));
+}

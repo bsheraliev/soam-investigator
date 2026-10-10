@@ -11,3 +11,7 @@ node_modules/
 
 # методология EUROCONTROL — только локально, в публичный репозиторий не попадает
 docs/SOAM_QRG_V3.pdf
+
+# сервер: локальная БД и зависимости
+server/data/
+server/node_modules/
