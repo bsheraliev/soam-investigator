@@ -189,6 +189,60 @@ await test('cases: загрузка трёх кейсов в БД и чтени�
   await deleteDB(name);
 });
 
+// ---------------------------------------------------------------- rules.js
+const R = await import('../js/rules.js');
+
+await test('rules: правило 1 — в анализ только факты, прошедшие тест вклада', () => {
+  const facts = [{ id: 1, contributes: true }, { id: 2, contributes: false }, { id: 3 }, { id: 4, contributes: undefined }];
+  eq(R.contributingFacts(facts).map((f) => f.id).join(), '1');
+  eq(R.otherSafetyIssues(facts).map((f) => f.id).join(), '2');
+  eq(R.unsortedFacts(facts).map((f) => f.id).join(), '3,4');
+  eq(R.canClassify(facts[0]), true); eq(R.canClassify(facts[1]), false); eq(R.canClassify(facts[2]), false);
+});
+
+await test('rules: правило 2 — классификация требует подтверждения и подкатегории', () => {
+  eq(R.validateClassification({ element: 'HI', confirmed: true }).length, 0);
+  eq(R.validateClassification({ element: 'HI', confirmed: false }).join(), 'confirmed');
+  eq(R.validateClassification({ element: 'CC', confirmed: true }).join(), 'ccCategory');
+  eq(R.validateClassification({ element: 'OSF', confirmed: true, osfCodes: [] }).join(), 'osfCodes');
+  eq(R.validateClassification({ element: 'OSF', confirmed: true, osfCodes: ['TR'] }).length, 0);
+  eq(R.validateClassification({ element: 'BAR', confirmed: true, barrierType: 'detection' }).join(), 'barrierState');
+  eq(R.validateClassification({ element: 'BAR', confirmed: true, barrierType: 'detection', barrierState: 'failed' }).length, 0);
+  eq(R.validateClassification({ element: 'XX', confirmed: true }).join(), 'element');
+});
+
+await test('rules: статусы — «Завершено» недоступно до этапа 2, переходы по цепочке', () => {
+  eq(R.canTransition('draft', 'collection'), true);
+  eq(R.canTransition('draft', 'analysis'), false);
+  eq(R.canTransition('analysis', 'completed'), false);
+  eq(R.canTransition('actions', 'completed'), false);
+  eq(R.canTransition('collection', 'draft'), true);
+});
+
+await test('rules: тяжесть обязательна для инцидента, не для АП; лимит вложений 5 МБ; сортировка хронологии', () => {
+  eq(R.severityRequired({ type: 'incident' }), true);
+  eq(R.severityRequired({ type: 'accident' }), false);
+  eq(R.attachmentAllowed({ size: 5 * 1024 * 1024 }), true);
+  eq(R.attachmentAllowed({ size: 5 * 1024 * 1024 + 1 }), false);
+  const ev = R.sortEvents([{ id: 'c', seq: 3 }, { id: 'b', time: '2026-01-01T10:00', seq: 2 }, { id: 'a', time: '2026-01-01T09:00', seq: 1 }, { id: 'd', time: '2026-01-01T09:00', seq: 0 }]);
+  eq(ev.map((e) => e.id).join(''), 'dabc');
+});
+
+await test('db: факт с вложением (Blob) сохраняется и читается', async () => {
+  const name = TEST_DB + '-blob';
+  const s = await openDB(name);
+  const blob = new Blob(['hello'], { type: 'text/plain' });
+  await s.put('fact', { id: 'f', occurrenceId: 'o', text: 'x', attachments: [{ id: 'a', name: 'a.txt', type: 'text/plain', size: 5, blob }] });
+  const f = await s.get('fact', 'f');
+  eq(await f.attachments[0].blob.text(), 'hello');
+  s.close(); await deleteDB(name);
+});
+
+await test('taxonomy: подсказки «Участие человека» (QRG, стр. 45)', () => {
+  eq(tax.hi_guidance.length, 3);
+  assert(tax.hi_guidance[2].en.includes('[Someone]'), 'формат');
+});
+
 // ---------------------------------------------------------------- i18n
 await test('i18n: ru, tj, en содержат один и тот же набор ключей', async () => {
   const [ru, tj, en] = await Promise.all(['ru', 'tj', 'en'].map((l) => json(`../data/i18n/${l}.json`)));
