@@ -275,6 +275,48 @@ await test('taxonomy: подсказки «Участие человека» (QR
   assert(tax.hi_guidance[2].en.includes('[Someone]'), 'формат');
 });
 
+// ---------------------------------------------------------------- bundle.js (экспорт/импорт JSON)
+const B = await import('../js/bundle.js');
+
+await test('bundle: экспорт → JSON → импорт сохраняет вложения, связи и меры', async () => {
+  const name = TEST_DB + '-bundle';
+  const s = await openDB(name);
+  const blob = new Blob(['attached text'], { type: 'text/plain' });
+  await s.importOccurrence({
+    occurrence: { id: 'b1', title: 'Экспорт', type: 'incident', status: 'analysis' },
+    facts: [{ id: 'b1f1', text: 'факт', attachments: [{ id: 'a1', name: 'a.txt', type: 'text/plain', size: 13, blob }] }],
+    classifications: [{ id: 'b1c1', factId: 'b1f1', element: 'OSF', osfCodes: ['TR'], confirmed: true }],
+    links: [{ id: 'b1l1', fromId: 'b1c1', toId: 'b1' }],
+    actions: [{ id: 'b1a1', text: 'мера', addresses: ['b1c1'], responsible: 'отдел', status: 'planned' }],
+    events: [{ id: 'b1e1', time: '2026-01-01T10:00', description: 'событие', factIds: ['b1f1'] }],
+    qa: { items: { 'qa.01': { checked: true, note: 'ok' } } },
+  });
+  const portable = await B.toPortable(await s.exportOccurrence('b1'), '0.3.0');
+  eq(portable.format, B.BUNDLE_FORMAT);
+  eq(portable.facts[0].attachments[0].data, btoa('attached text'), 'base64');
+  const text = JSON.stringify(portable);
+  const parsed = JSON.parse(text);
+  eq(B.validatePortable(parsed).join(), '', 'валидация');
+  eq(B.validatePortable({ hello: 1 }).includes('occurrence'), true);
+  eq(B.validatePortable({ ...parsed, classifications: [{ id: 'x', factId: 'nope' }] }).join(), 'classification-orphan');
+  // копия под новым id: все ссылки переписаны
+  const copy = B.fromPortable(parsed, { newId: 'b2' });
+  eq(copy.occurrence.id, 'b2'); eq(copy.facts[0].occurrenceId, 'b2');
+  eq(copy.classifications[0].factId, copy.facts[0].id, 'factId переписан');
+  eq(copy.links[0].toId, 'b2', 'связь на исход переписана'); eq(copy.links[0].fromId, copy.classifications[0].id);
+  eq(copy.actions[0].addresses[0], copy.classifications[0].id, 'адресация переписана');
+  eq(copy.events[0].factIds[0], copy.facts[0].id);
+  eq(await copy.facts[0].attachments[0].blob.text(), 'attached text', 'blob восстановлен');
+  await s.importOccurrence(copy);
+  eq((await s.all('occurrence')).length, 2);
+  // замена под тем же id
+  const same = B.fromPortable(parsed);
+  eq(same.occurrence.id, 'b1');
+  await s.importOccurrence(same);
+  eq((await s.byIndex('fact', 'occurrenceId', 'b1')).length, 1);
+  s.close(); await deleteDB(name);
+});
+
 // ---------------------------------------------------------------- i18n
 await test('i18n: ru — эталон; tj и en — подмножества без лишних ключей (до приёмки новые строки только RU)', async () => {
   const [ru, tj, en] = await Promise.all(['ru', 'tj', 'en'].map((l) => json(`../data/i18n/${l}.json`)));

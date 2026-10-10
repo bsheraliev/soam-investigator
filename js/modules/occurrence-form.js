@@ -109,9 +109,24 @@ export async function renderTab(container, ctx) {
   const ready = !!(ctx.readiness && ctx.readiness.ok);
   container.innerHTML = formHtml(ctx.occurrence, ready) + `
     <div class="card">
+      <h3>${t('export.button')}</h3>
+      <p class="small muted">${t('export.hint')}</p>
+      <button class="btn secondary" id="expOcc">${t('export.button')}</button>
+    </div>
+    <div class="card">
       <h3>${t('occ.dangerZone')}</h3>
       <button class="btn danger" id="delOcc">${t('btn.deleteOccurrence')}</button>
     </div>`;
+  container.querySelector('#expOcc').addEventListener('click', async () => {
+    const { toPortable } = await import('../bundle.js');
+    const bundle = await ctx.store.exportOccurrence(ctx.id);
+    const portable = await toPortable(bundle, ctx.appVersion);
+    const blob = new Blob([JSON.stringify(portable, null, 1)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = ('soam-' + tx(ctx.occurrence.title)).replace(/[^\p{L}\p{N}]+/gu, '-').slice(0, 60) + '.json'; a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 5000);
+  });
   const form = container.querySelector('#occForm');
   bindSeverity(form);
   form.addEventListener('submit', async (e) => {

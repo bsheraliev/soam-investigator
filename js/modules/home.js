@@ -31,6 +31,8 @@ export async function render(view) {
       <div class="btn-row top">
         <a class="btn" href="#/occurrence/new">＋ ${t('home.new')}</a>
         <a class="btn secondary" href="#/cases">${t('home.loadCases')}</a>
+        <label class="btn secondary" for="importFile">${t('import.button')}</label>
+        <input id="importFile" type="file" accept="application/json,.json" hidden>
         <input id="search" class="search" type="search" placeholder="${t('home.search')}" value="${escapeHtml(query)}">
       </div>
       ${list.length ? `<table>
@@ -40,6 +42,30 @@ export async function render(view) {
     </div>`;
 
   view.querySelector('#search').addEventListener('input', (e) => { query = e.target.value; render(view); view.querySelector('#search').focus(); });
+  view.querySelector('#importFile').addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    e.target.value = '';
+    if (!file) return;
+    try {
+      const { validatePortable, fromPortable } = await import('../bundle.js');
+      const p = JSON.parse(await file.text());
+      const errors = validatePortable(p);
+      if (errors.length) {
+        const code = errors[0];
+        toast(t(['format', 'schema-newer'].includes(code) ? 'import.err.' + code : 'import.err.generic', { code }));
+        return;
+      }
+      const existing = await store.get('occurrence', p.occurrence.id);
+      let newId = null;
+      if (existing && !confirm(t('import.replace', { title: tx(existing.title) }))) newId = crypto.randomUUID();
+      const bundle = fromPortable(p, { newId });
+      const id = await store.importOccurrence(bundle);
+      toast(t('import.done'));
+      location.hash = `#/occurrence/${encodeURIComponent(id)}`;
+    } catch (err) {
+      toast(t('import.err.format') + ' (' + err.message + ')');
+    }
+  });
   view.querySelectorAll('tr.link-row').forEach((tr) => {
     tr.addEventListener('click', (e) => {
       if (e.target.closest('button')) return;
