@@ -220,6 +220,7 @@ p.warn { color: var(--accent); }
 .rep-table th { background: #f4f6f9; }
 .report .nowrap { white-space: nowrap; }
 .rep-svg { overflow: auto; } .rep-svg svg { max-width: 100%; height: auto; }
+.rep-evidence { color: #5b6673; }
 .rep-qa { padding-left: 20px; } .rep-foot { margin-top: 24px; font-size: .8rem; color: #5b6673; border-top: 1px solid #d9dee5; padding-top: 8px; }
 @media print {
   .topbar, .footer, .tabs, .occ-head, .no-print, #toast { display: none !important; }

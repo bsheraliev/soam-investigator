@@ -3,7 +3,7 @@ import { db, newId } from '../db.js';
 import { t, tx } from '../i18n.js';
 import { taxonomy } from '../taxonomy.js';
 import { escapeHtml, toast, formValues, nowIso } from '../ui.js';
-import { STATUSES, canTransition, severityRequired } from '../rules.js';
+import { STATUSES, canTransition, severityRequired, investigationAdvice } from '../rules.js';
 
 const TYPES = ['accident', 'incident'];
 
@@ -32,6 +32,7 @@ function formHtml(o, ready = false) {
       <label class="radio block"><input type="radio" name="severity" value="" ${!o.severity ? 'checked' : ''}> ${t('occ.severityNone')}</label>
     </fieldset>
     <fieldset class="field"><legend>${t('occ.investigate')}</legend>
+      <div class="hint" id="adviceBox"></div>
       <label class="radio"><input type="radio" name="investigate" value="yes" ${o.investigate === true ? 'checked' : ''}> ${t('occ.investigateYes')}</label>
       <label class="radio"><input type="radio" name="investigate" value="no" ${o.investigate === false ? 'checked' : ''}> ${t('occ.investigateNo')}</label>
       <label class="radio"><input type="radio" name="investigate" value="" ${o.investigate == null ? 'checked' : ''}> ${t('occ.investigateUndecided')}</label>
@@ -48,14 +49,29 @@ function formHtml(o, ready = false) {
   </form>`;
 }
 
+/** Рекомендация методологии о расследовании (QRG, стр. 7) — по типу и тяжести, с учётом принятого решения. */
+export function adviceHtml(o) {
+  const { level, conflict } = investigationAdvice(o);
+  const key = { required: 'occ.advice.required', recommended: 'occ.advice.recommended', cost_benefit: 'occ.advice.costBenefit', unknown: 'occ.advice.unknown' }[level];
+  let html = `<strong>${t('occ.advice.label')}:</strong> ${t(key, { severity: o.severity || '' })}`;
+  if (level === 'cost_benefit') html += `<ul><li>${t('occ.advice.cb1')}</li><li>${t('occ.advice.cb2')}</li></ul>`;
+  if (conflict) html += `<p class="warn">${t('occ.advice.conflict')}</p>`;
+  return html;
+}
+
 function bindSeverity(form) {
   const upd = () => {
-    const type = formValues(form).type;
-    const req = severityRequired({ type });
+    const v = formValues(form);
+    const req = severityRequired({ type: v.type });
     form.querySelector('#sevReq').hidden = !req;
     form.querySelector('#severityBox').classList.toggle('optional', !req);
+    form.querySelector('#adviceBox').innerHTML = adviceHtml({
+      type: v.type,
+      severity: v.severity || null,
+      investigate: v.investigate === 'yes' ? true : v.investigate === 'no' ? false : null,
+    });
   };
-  form.querySelectorAll('input[name=type]').forEach((r) => r.addEventListener('change', upd));
+  form.querySelectorAll('input[name=type], input[name=severity], input[name=investigate]').forEach((r) => r.addEventListener('change', upd));
   upd();
 }
 

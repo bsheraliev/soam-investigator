@@ -113,6 +113,22 @@ export function severityRequired(occurrence) {
   return occurrence.type !== 'accident';
 }
 
+/**
+ * Уровень расследования по QRG (стр. 7): АП всегда расследуется (Приложение 13);
+ * для A, B, C SOAM крайне желателен; для E и D — по оценке затраты/польза
+ * (потенциальные уроки для безопасности против ресурсов на расследование).
+ * level: required | recommended | cost_benefit | unknown (тяжесть инцидента не оценена).
+ * conflict: выбрано «не расследовать», хотя методология требует или рекомендует расследование.
+ */
+export function investigationAdvice(occurrence = {}) {
+  let level = 'unknown';
+  if (occurrence.type === 'accident') level = 'required';
+  else if (['A', 'B', 'C'].includes(occurrence.severity)) level = 'recommended';
+  else if (['E', 'D'].includes(occurrence.severity)) level = 'cost_benefit';
+  const conflict = occurrence.investigate === false && (level === 'required' || level === 'recommended');
+  return { level, conflict };
+}
+
 /** Правило 1: в анализ SOAM попадают только факты, прошедшие тест вклада. */
 export function contributingFacts(facts) {
   return facts.filter((f) => f.contributes === true);

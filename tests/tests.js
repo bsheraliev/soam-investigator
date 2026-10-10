@@ -284,6 +284,18 @@ await test('rules: тяжесть обязательна для инцидент
   eq(ev.map((e) => e.id).join(''), 'dabc');
 });
 
+await test('rules: уровень расследования по тяжести (QRG, стр. 7) и конфликт с решением «не расследовать»', () => {
+  eq(R.investigationAdvice({ type: 'accident' }).level, 'required');
+  eq(R.investigationAdvice({ type: 'accident', severity: 'E' }).level, 'required', 'тяжесть для АП не меняет уровень');
+  for (const s of ['A', 'B', 'C']) eq(R.investigationAdvice({ type: 'incident', severity: s }).level, 'recommended', s);
+  for (const s of ['E', 'D']) eq(R.investigationAdvice({ type: 'incident', severity: s }).level, 'cost_benefit', s);
+  eq(R.investigationAdvice({ type: 'incident' }).level, 'unknown');
+  eq(R.investigationAdvice({ type: 'incident', severity: 'A', investigate: false }).conflict, true);
+  eq(R.investigationAdvice({ type: 'accident', investigate: false }).conflict, true);
+  eq(R.investigationAdvice({ type: 'incident', severity: 'E', investigate: false }).conflict, false);
+  eq(R.investigationAdvice({ type: 'incident', severity: 'A', investigate: true }).conflict, false);
+});
+
 await test('db: факт с вложением (Blob) сохраняется и читается', async () => {
   const name = TEST_DB + '-blob';
   const s = await openDB(name);
