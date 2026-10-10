@@ -181,6 +181,35 @@ test('резервная копия организации (admin): все де�
   assert.ok(au.json.audit.some((a) => a.action === 'org.export'));
 });
 
+test('восстановление из резервной копии (admin): новые дела, более новые версии, пропуск старых и чужих, отчёт об ошибках', async () => {
+  // в организации «АНСП» (otherTok) лежат s-1 v1 и s-2 v1; в «АГА РТ» (adminTok) — ничего
+  assert.equal((await api('POST', '/api/import', { token: readerTok, body: { format: 'soam-investigator/organisation', cases: [] } })).status, 403);
+  assert.equal((await api('POST', '/api/import', { token: otherTok, body: { format: 'x', cases: [] } })).json.error, 'format');
+  const file = {
+    format: 'soam-investigator/organisation', exportedAt: 'x', organisation: { id: 'any', name: 'any' },
+    cases: [
+      { id: 's-1', version: 1, bundle: bundle('s-1') },                       // та же версия → пропуск
+      { id: 's-2', version: 5, bundle: bundle('s-2', { status: 'completed' }) }, // новее → обновление до версии 5
+      { id: 's-9', version: 3, bundle: bundle('s-9') },                       // новое → вставка с версией 3
+      { id: 's-bad', version: 1, bundle: { occurrence: { id: 's-bad' }, facts: [], classifications: [{ id: 'c', factId: 'nope' }] } }, // битый пакет
+      { id: 's-mis', version: 1, bundle: bundle('s-other') },                 // id не совпадает
+    ],
+  };
+  const r = await api('POST', '/api/import', { token: otherTok, body: file });
+  assert.equal(r.status, 200);
+  assert.equal(r.json.imported, 1); assert.equal(r.json.updated, 1); assert.equal(r.json.skipped, 1); assert.equal(r.json.errors.length, 2);
+  assert.equal((await api('GET', '/api/cases/s-2', { token: otherTok })).json.version, 5);
+  assert.equal((await api('GET', '/api/cases/s-2', { token: otherTok })).json.status, 'completed');
+  assert.equal((await api('GET', '/api/cases/s-9', { token: otherTok })).json.version, 3);
+  // чужая организация: s-1 принадлежит «АНСП» — для «АГА РТ» пропуск, не перезапись
+  const foreign = await api('POST', '/api/import', { token: adminTok, body: { ...file, cases: [{ id: 's-1', version: 99, bundle: bundle('s-1') }] } });
+  assert.equal(foreign.json.skipped, 1); assert.equal(foreign.json.imported, 0);
+  assert.equal((await api('GET', '/api/cases/s-1', { token: otherTok })).json.version, 1);
+  const au = await api('GET', '/api/audit', { token: otherTok });
+  assert.ok(au.json.audit.some((a) => a.action === 'org.import' && a.details.updated === 1));
+  await api('DELETE', '/api/cases/s-9', { token: otherTok });
+});
+
 test('перебор паролей: после 10 неудач — 429 даже с верным паролем; заголовки безопасности', async () => {
   const body = { email: 'rd@aga.tj', password: 'wrong' };
   for (let i = 0; i < 10; i++) assert.equal((await api('POST', '/api/auth/login', { body })).status, 401);

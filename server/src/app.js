@@ -237,6 +237,37 @@ export function createApp(db, { allowedOrigins = process.env.ALLOWED_ORIGINS, al
     res.send(head + ',"cases":[' + cases + ']}');
   }));
 
+  // Восстановление из резервной копии (admin): файл формата /api/export. Дело берётся, если его нет
+  // или версия в файле выше серверной; дела других организаций и битые пакеты пропускаются с отчётом.
+  app.post('/api/import', auth('admin'), express.json({ limit: process.env.IMPORT_LIMIT || '200mb' }), wrap(async (req, res) => {
+    const body = req.body || {};
+    if (body.format !== 'soam-investigator/organisation' || !Array.isArray(body.cases)) bad(400, 'format');
+    const result = { imported: 0, updated: 0, skipped: 0, errors: [] };
+    for (const c of body.cases) {
+      const bundle = c && c.bundle;
+      const errors = validatePortable(bundle);
+      if (errors.length || !c.id || bundle.occurrence.id !== c.id) { result.errors.push({ id: c && c.id, errors: errors.length ? errors : ['id-mismatch'] }); continue; }
+      const existing = (await db.q('SELECT org_id, version FROM occurrence_case WHERE id = ?', [c.id]))[0];
+      const incoming = Number(c.version) || 1;
+      if (existing && (existing.org_id !== req.user.org_id || incoming <= Number(existing.version))) { result.skipped += 1; continue; }
+      const o = bundle.occurrence;
+      const version = existing ? Math.max(Number(existing.version) + 1, incoming) : incoming;
+      const now = nowIso();
+      const text = JSON.stringify(bundle);
+      if (existing) {
+        await db.run('UPDATE occurrence_case SET title = ?, status = ?, type = ?, severity = ?, date = ?, bundle = ?, version = ?, updated_at = ?, updated_by = ? WHERE id = ?',
+          [titleOf(o), o.status || null, o.type || null, o.severity || null, o.date || null, text, version, now, req.user.id, o.id]);
+        result.updated += 1;
+      } else {
+        await db.run('INSERT INTO occurrence_case (id, org_id, title, status, type, severity, date, bundle, version, updated_at, updated_by) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
+          [o.id, req.user.org_id, titleOf(o), o.status || null, o.type || null, o.severity || null, o.date || null, text, version, now, req.user.id]);
+        result.imported += 1;
+      }
+    }
+    await audit(req.user.org_id, req.user.id, 'org.import', null, { imported: result.imported, updated: result.updated, skipped: result.skipped, errors: result.errors.length });
+    res.json(result);
+  }));
+
   app.delete('/api/cases/:id', auth('admin'), wrap(async (req, res) => {
     const r = await db.run('DELETE FROM occurrence_case WHERE id = ? AND org_id = ?', [req.params.id, req.user.org_id]);
     if (!r.changes) bad(404, 'not-found');

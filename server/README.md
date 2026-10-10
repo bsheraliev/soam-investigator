@@ -29,6 +29,7 @@
 | GET | `/api/stats/actions` | вход | реестр мер по всем делам организации (просрочка, порядок) |
 | GET | `/api/stats/osf` | вход | статистика по 12 кодам OSF по всем делам |
 | GET | `/api/export` | admin | резервная копия: все дела организации пакетами (JSON) |
+| POST | `/api/import` | admin | восстановление из файла `/api/export`: новые дела и более новые версии; старые и чужие пропускаются; `{ imported, updated, skipped, errors }` (`IMPORT_LIMIT`, по умолчанию 200mb) |
 
 Ошибки: `{ "error": "<код>" }` — `unauthorized`, `forbidden`, `disabled`, `not-found`, `email-taken`, `bad-credentials`, `too-many-attempts` (+ `retryAfterSec`), `version-conflict` (+ `version`), `bundle` (+ `errors`), `registration-closed`, `too-large`.
 
