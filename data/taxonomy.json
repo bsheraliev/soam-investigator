@@ -2,7 +2,7 @@
  "meta": {
   "source": "EUROCONTROL. Systemic Occurrence Analysis Methodology (SOAM) Quick Reference Guide, Version 3.0, April 2023. © EUROCONTROL 2023.",
   "source_note": "English text ('en') is reproduced verbatim from the QRG for non-commercial use. 'qrg_page' is the printed page number.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "languages": [
    "ru",
    "tj",
@@ -3801,6 +3801,32 @@
    "tj": "",
    "tj_status": "todo",
    "qrg_page": 53
+  }
+ ],
+ "hi_guidance": [
+  {
+   "id": "hi.guide.01",
+   "en": "Test question: Does the fact describe an action (or non-action) that triggered the event or make it more likely?",
+   "ru": "Контрольный вопрос: описывает ли факт действие (или бездействие), которое стало триггером события или сделало его более вероятным?",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 45
+  },
+  {
+   "id": "hi.guide.02",
+   "en": "Critical test: Must be an error or a violation (not a normal, correct action)",
+   "ru": "Критический тест: это должна быть ошибка или нарушение (не нормальное, правильное действие)",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 45
+  },
+  {
+   "id": "hi.guide.03",
+   "en": "Typical format: [Someone] … [did / didn't do something]",
+   "ru": "Типовая формулировка: [Кто-то] … [сделал / не сделал что-то]",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 45
   }
  ]
 }
