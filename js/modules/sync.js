@@ -132,7 +132,9 @@ export async function render(view) {
   body.innerHTML = `
     <div class="card">
       <p>${t('sync.loggedAs', { name: escapeHtml(session.user.name), role: t('sync.role.' + session.user.role), org: escapeHtml(session.org.name) })} <span class="small muted">· ${escapeHtml(session.url)}</span></p>
-      <div class="btn-row"><button class="btn secondary small" id="logout">${t('sync.logout')}</button></div>
+      <div class="btn-row"><button class="btn secondary small" id="logout">${t('sync.logout')}</button>
+        ${session.user.role === 'admin' ? `<button class="btn secondary small" id="orgExport">${t('sync.orgExport')}</button>` : ''}</div>
+      ${session.user.role === 'admin' ? `<p class="small muted">${t('sync.orgExportHint')}</p>` : ''}
     </div>
     <div class="card">
       <h3>${t('sync.serverCases')} <span class="muted">(${remote.length})</span></h3>
@@ -210,6 +212,23 @@ export async function render(view) {
   const uf = body.querySelector('#userForm');
   if (uf) uf.addEventListener('submit', (e) => { e.preventDefault(); call(() => api('POST', '/api/users', formValues(uf)), t('sync.userAdded')); });
   body.querySelector('#pwdForm').addEventListener('submit', (e) => { e.preventDefault(); call(() => api('POST', '/api/auth/password', formValues(e.target)), t('sync.passwordChanged')); });
+
+  const exp = body.querySelector('#orgExport');
+  if (exp) exp.addEventListener('click', async () => {
+    exp.disabled = true;
+    try {
+      const data = await api('GET', '/api/export');
+      const blob = new Blob([JSON.stringify(data, null, 1)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = `soam-${session.org.name.replace(/[^\p{L}\p{N}]+/gu, '-').slice(0, 40)}-${new Date().toISOString().slice(0, 10)}.json`; a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 5000);
+      toast(t('sync.orgExported', { n: data.cases.length }));
+      render(view); // журнал действий получит запись о копии
+      return;
+    } catch (e) { toast(errText(e)); }
+    exp.disabled = false;
+  });
 
   body.querySelector('#logout').addEventListener('click', async () => {
     try { await api('POST', '/api/auth/logout'); } catch { /* сессия всё равно забывается */ }
