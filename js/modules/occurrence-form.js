@@ -7,11 +7,11 @@ import { STATUSES, canTransition, severityRequired } from '../rules.js';
 
 const TYPES = ['accident', 'incident'];
 
-function formHtml(o) {
+function formHtml(o, ready = false) {
   const tax = taxonomy();
   const isNew = !o.id;
   const statusOptions = STATUSES.map((s) => {
-    const allowed = s === o.status || canTransition(o.status || 'draft', s);
+    const allowed = s === o.status || canTransition(o.status || 'draft', s, ready);
     return `<option value="${s}" ${s === (o.status || 'draft') ? 'selected' : ''} ${allowed ? '' : 'disabled'}>${t('status.' + s)}${s === 'completed' ? ' — ' + t('status.completedLocked') : ''}</option>`;
   }).join('');
   return `
@@ -39,7 +39,8 @@ function formHtml(o) {
     </fieldset>
     <label class="field"><span>${t('occ.outcome')}</span>
       <textarea name="outcome" rows="3" placeholder="${t('occ.outcomePlaceholder')}">${escapeHtml((o.outcome || []).join('\n'))}</textarea></label>
-    <label class="field"><span>${t('field.status')}</span><select name="status" ${isNew ? 'disabled' : ''}>${statusOptions}</select></label>
+    <label class="field"><span>${t('field.status')}</span><select name="status" ${isNew ? 'disabled' : ''}>${statusOptions}</select>
+      ${!isNew ? `<span class="small muted">${t('occ.statusHint')}</span>` : ''}</label>
     <div class="btn-row">
       <button class="btn" type="submit">${isNew ? t('btn.create') : t('btn.save')}</button>
       ${isNew ? `<a class="btn secondary" href="#/">${t('btn.cancel')}</a>` : ''}
@@ -58,7 +59,7 @@ function bindSeverity(form) {
   upd();
 }
 
-async function save(form, o) {
+async function save(form, o, ready = false) {
   const v = formValues(form);
   if (!v.title) { toast(t('occ.err.title')); return null; }
   if (!v.type) { toast(t('occ.err.type')); return null; }
@@ -80,9 +81,10 @@ async function save(form, o) {
     createdAt: o.createdAt || now,
     updatedAt: now,
   };
-  if (o.id && next.status !== o.status && !canTransition(o.status, next.status)) {
+  if (o.id && next.status !== o.status && !canTransition(o.status, next.status, ready)) {
     toast(t('occ.err.status')); return null;
   }
+  if (next.status === 'completed' && o.status !== 'completed') next.completedAt = now;
   await store.put('occurrence', next);
   return next;
 }
@@ -104,7 +106,8 @@ export async function render(view) {
 
 /** Вкладка «Событие» */
 export async function renderTab(container, ctx) {
-  container.innerHTML = formHtml(ctx.occurrence) + `
+  const ready = !!(ctx.readiness && ctx.readiness.ok);
+  container.innerHTML = formHtml(ctx.occurrence, ready) + `
     <div class="card">
       <h3>${t('occ.dangerZone')}</h3>
       <button class="btn danger" id="delOcc">${t('btn.deleteOccurrence')}</button>
@@ -113,7 +116,7 @@ export async function renderTab(container, ctx) {
   bindSeverity(form);
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const o = await save(form, ctx.occurrence);
+    const o = await save(form, ctx.occurrence, ready);
     if (o) { toast(t('toast.saved')); ctx.refresh(); }
   });
   container.querySelector('#delOcc').addEventListener('click', async () => {
