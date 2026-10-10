@@ -1,0 +1,1482 @@
+{
+ "schema": 1,
+ "source": {
+  "title": "EUROCONTROL SOAM Quick Reference Guide V3 (April 2023)",
+  "qrg_page": 49,
+  "note": "Test case reproduced from the published SOAM chart; text verbatim (EN). Place/date beyond the chart title: TODO: сверить с первоисточником."
+ },
+ "occurrence": {
+  "id": "case-hamilton-2015",
+  "title": {
+   "en": "Loss of Separation at Hamilton, NZ, December 2015",
+   "ru": "Нарушение интервалов эшелонирования, Гамильтон, Новая Зеландия, декабрь 2015"
+  },
+  "date": "2015-12",
+  "place": "Hamilton, New Zealand",
+  "type": "incident",
+  "severity": null,
+  "investigate": true,
+  "status": "analysis",
+  "outcome": [
+   "Loss of separation safety occurrence",
+   "Potential mid-air collision",
+   "No injuries or damage"
+  ],
+  "isTestCase": true
+ },
+ "facts": [
+  {
+   "id": "case-hamilton-2015:f-other-01",
+   "occurrenceId": "case-hamilton-2015",
+   "text": "Regulatory surveillance of Airways NZ operations did not identify the increased safety risks at Hamilton",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.49",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-hamilton-2015:f-osf-01",
+   "occurrenceId": "case-hamilton-2015",
+   "text": "Teamwork and professional standards (TRM) training had not been completed by any Hamilton controllers",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.49",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-hamilton-2015:f-osf-02",
+   "occurrenceId": "case-hamilton-2015",
+   "text": "Redesign of airspace around Hamilton and the traffic density and complexity created a hazard in uncontrolled airspace",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.49",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-hamilton-2015:f-osf-03",
+   "occurrenceId": "case-hamilton-2015",
+   "text": "Hamilton is not a popular posting, as employment conditions are the same as other locations involving lower & more varied workload",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.49",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-hamilton-2015:f-osf-04",
+   "occurrenceId": "case-hamilton-2015",
+   "text": "Airways NZ had no formal strategy or processes for staff retention at unpopular locations",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.49",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-hamilton-2015:f-osf-05",
+   "occurrenceId": "case-hamilton-2015",
+   "text": "Airways NZ traditionally posted recently qualified controllers with limited experience to Hamilton",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.49",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-hamilton-2015:f-osf-06",
+   "occurrenceId": "case-hamilton-2015",
+   "text": "Airways NZ had no policy or processes to ensure a blend of controller seniority or experience at complex workplaces",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.49",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-hamilton-2015:f-osf-07",
+   "occurrenceId": "case-hamilton-2015",
+   "text": "Airways NZ had not identified the increased risks associated with the blend of complex traffic and low controller experience at Hamilton",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.49",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-hamilton-2015:f-cc-01",
+   "occurrenceId": "case-hamilton-2015",
+   "text": "The controller was anxious about his annual proficiency assessment",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.49",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-hamilton-2015:f-cc-02",
+   "occurrenceId": "case-hamilton-2015",
+   "text": "Hamilton aerodrome is one of the busiest in NZ with the highest number of VFR movements in NZ",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.49",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-hamilton-2015:f-cc-03",
+   "occurrenceId": "case-hamilton-2015",
+   "text": "The controller became overwhelmed and lost SA",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.49",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-hamilton-2015:f-cc-04",
+   "occurrenceId": "case-hamilton-2015",
+   "text": "The high number of trainee pilots at Hamilton intensified controller workload",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.49",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-hamilton-2015:f-cc-05",
+   "occurrenceId": "case-hamilton-2015",
+   "text": "Many pilot trainees do not have English as first language",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.49",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-hamilton-2015:f-cc-06",
+   "occurrenceId": "case-hamilton-2015",
+   "text": "Staff turnover was high, with short tenure and many inexperienced controllers",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.49",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-hamilton-2015:f-cc-07",
+   "occurrenceId": "case-hamilton-2015",
+   "text": "The assessor arrived just before the shift started",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.49",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-hamilton-2015:f-cc-08",
+   "occurrenceId": "case-hamilton-2015",
+   "text": "The assessor did not conduct a standard pre-assessment briefing, \"set the scene\" or discuss teamwork expectations",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.49",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-hamilton-2015:f-cc-09",
+   "occurrenceId": "case-hamilton-2015",
+   "text": "The standard of TRM in Hamilton Tower was below industry good practice",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.49",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-hamilton-2015:f-cc-10",
+   "occurrenceId": "case-hamilton-2015",
+   "text": "There was a breakdown in effective teamwork",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.49",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-hamilton-2015:f-cc-11",
+   "occurrenceId": "case-hamilton-2015",
+   "text": "Some controllers were \"over-controlling\" VFR traffic",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.49",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-hamilton-2015:f-cc-12",
+   "occurrenceId": "case-hamilton-2015",
+   "text": "Cultural factors led to high student pilot compliance (Power Distance)",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.49",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-hamilton-2015:f-hi-01",
+   "occurrenceId": "case-hamilton-2015",
+   "text": "The controller did not effectively manage the number of aircraft within the circuit",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.49",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-hamilton-2015:f-hi-02",
+   "occurrenceId": "case-hamilton-2015",
+   "text": "Standard protocol to provide a clear space around first solo pilots was not followed",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.49",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-hamilton-2015:f-hi-03",
+   "occurrenceId": "case-hamilton-2015",
+   "text": "Non-standard instructions were given to a pilot on their first solo flight",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.49",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-hamilton-2015:f-bar-01",
+   "occurrenceId": "case-hamilton-2015",
+   "text": "A standard pre-assessment briefing was not conducted",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.49",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-hamilton-2015:f-bar-02",
+   "occurrenceId": "case-hamilton-2015",
+   "text": "Effective teamwork & communication (TRM) between controllers",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.49",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-hamilton-2015:f-bar-03",
+   "occurrenceId": "case-hamilton-2015",
+   "text": "Standard phraseology & steady pace of delivery",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.49",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-hamilton-2015:f-bar-04",
+   "occurrenceId": "case-hamilton-2015",
+   "text": "Standard instructions to first solo pilots",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.49",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-hamilton-2015:f-bar-05",
+   "occurrenceId": "case-hamilton-2015",
+   "text": "Cultural awareness of issues faced by foreign students",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.49",
+   "attachments": [],
+   "contributes": true
+  }
+ ],
+ "events": [],
+ "classifications": [
+  {
+   "id": "case-hamilton-2015:c-other-01",
+   "factId": "case-hamilton-2015:f-other-01",
+   "occurrenceId": "case-hamilton-2015",
+   "element": "OSF",
+   "order": 1,
+   "osfCodes": [
+    "EE",
+    "RM"
+   ],
+   "otherSystem": true
+  },
+  {
+   "id": "case-hamilton-2015:c-osf-01",
+   "factId": "case-hamilton-2015:f-osf-01",
+   "occurrenceId": "case-hamilton-2015",
+   "element": "OSF",
+   "order": 1,
+   "osfCodes": [
+    "TR",
+    "RM",
+    "CM"
+   ],
+   "otherSystem": false
+  },
+  {
+   "id": "case-hamilton-2015:c-osf-02",
+   "factId": "case-hamilton-2015:f-osf-02",
+   "occurrenceId": "case-hamilton-2015",
+   "element": "OSF",
+   "order": 2,
+   "osfCodes": [
+    "CO",
+    "OC"
+   ],
+   "otherSystem": false
+  },
+  {
+   "id": "case-hamilton-2015:c-osf-03",
+   "factId": "case-hamilton-2015:f-osf-03",
+   "occurrenceId": "case-hamilton-2015",
+   "element": "OSF",
+   "order": 3,
+   "osfCodes": [
+    "TR",
+    "WM"
+   ],
+   "otherSystem": false
+  },
+  {
+   "id": "case-hamilton-2015:c-osf-04",
+   "factId": "case-hamilton-2015:f-osf-04",
+   "occurrenceId": "case-hamilton-2015",
+   "element": "OSF",
+   "order": 4,
+   "osfCodes": [
+    "WM",
+    "PP"
+   ],
+   "otherSystem": false
+  },
+  {
+   "id": "case-hamilton-2015:c-osf-05",
+   "factId": "case-hamilton-2015:f-osf-05",
+   "occurrenceId": "case-hamilton-2015",
+   "element": "OSF",
+   "order": 5,
+   "osfCodes": [
+    "WM",
+    "RM",
+    "PP"
+   ],
+   "otherSystem": false
+  },
+  {
+   "id": "case-hamilton-2015:c-osf-06",
+   "factId": "case-hamilton-2015:f-osf-06",
+   "occurrenceId": "case-hamilton-2015",
+   "element": "OSF",
+   "order": 6,
+   "osfCodes": [
+    "WM",
+    "PP",
+    "OC"
+   ],
+   "otherSystem": false
+  },
+  {
+   "id": "case-hamilton-2015:c-osf-07",
+   "factId": "case-hamilton-2015:f-osf-07",
+   "occurrenceId": "case-hamilton-2015",
+   "element": "OSF",
+   "order": 7,
+   "osfCodes": [
+    "RM",
+    "CM"
+   ],
+   "otherSystem": false
+  },
+  {
+   "id": "case-hamilton-2015:c-cc-01",
+   "factId": "case-hamilton-2015:f-cc-01",
+   "occurrenceId": "case-hamilton-2015",
+   "element": "CC",
+   "order": 1
+  },
+  {
+   "id": "case-hamilton-2015:c-cc-02",
+   "factId": "case-hamilton-2015:f-cc-02",
+   "occurrenceId": "case-hamilton-2015",
+   "element": "CC",
+   "order": 2
+  },
+  {
+   "id": "case-hamilton-2015:c-cc-03",
+   "factId": "case-hamilton-2015:f-cc-03",
+   "occurrenceId": "case-hamilton-2015",
+   "element": "CC",
+   "order": 3
+  },
+  {
+   "id": "case-hamilton-2015:c-cc-04",
+   "factId": "case-hamilton-2015:f-cc-04",
+   "occurrenceId": "case-hamilton-2015",
+   "element": "CC",
+   "order": 4
+  },
+  {
+   "id": "case-hamilton-2015:c-cc-05",
+   "factId": "case-hamilton-2015:f-cc-05",
+   "occurrenceId": "case-hamilton-2015",
+   "element": "CC",
+   "order": 5
+  },
+  {
+   "id": "case-hamilton-2015:c-cc-06",
+   "factId": "case-hamilton-2015:f-cc-06",
+   "occurrenceId": "case-hamilton-2015",
+   "element": "CC",
+   "order": 6
+  },
+  {
+   "id": "case-hamilton-2015:c-cc-07",
+   "factId": "case-hamilton-2015:f-cc-07",
+   "occurrenceId": "case-hamilton-2015",
+   "element": "CC",
+   "order": 7
+  },
+  {
+   "id": "case-hamilton-2015:c-cc-08",
+   "factId": "case-hamilton-2015:f-cc-08",
+   "occurrenceId": "case-hamilton-2015",
+   "element": "CC",
+   "order": 8
+  },
+  {
+   "id": "case-hamilton-2015:c-cc-09",
+   "factId": "case-hamilton-2015:f-cc-09",
+   "occurrenceId": "case-hamilton-2015",
+   "element": "CC",
+   "order": 9
+  },
+  {
+   "id": "case-hamilton-2015:c-cc-10",
+   "factId": "case-hamilton-2015:f-cc-10",
+   "occurrenceId": "case-hamilton-2015",
+   "element": "CC",
+   "order": 10
+  },
+  {
+   "id": "case-hamilton-2015:c-cc-11",
+   "factId": "case-hamilton-2015:f-cc-11",
+   "occurrenceId": "case-hamilton-2015",
+   "element": "CC",
+   "order": 11
+  },
+  {
+   "id": "case-hamilton-2015:c-cc-12",
+   "factId": "case-hamilton-2015:f-cc-12",
+   "occurrenceId": "case-hamilton-2015",
+   "element": "CC",
+   "order": 12
+  },
+  {
+   "id": "case-hamilton-2015:c-hi-01",
+   "factId": "case-hamilton-2015:f-hi-01",
+   "occurrenceId": "case-hamilton-2015",
+   "element": "HI",
+   "order": 1
+  },
+  {
+   "id": "case-hamilton-2015:c-hi-02",
+   "factId": "case-hamilton-2015:f-hi-02",
+   "occurrenceId": "case-hamilton-2015",
+   "element": "HI",
+   "order": 2
+  },
+  {
+   "id": "case-hamilton-2015:c-hi-03",
+   "factId": "case-hamilton-2015:f-hi-03",
+   "occurrenceId": "case-hamilton-2015",
+   "element": "HI",
+   "order": 3
+  },
+  {
+   "id": "case-hamilton-2015:c-bar-01",
+   "factId": "case-hamilton-2015:f-bar-01",
+   "occurrenceId": "case-hamilton-2015",
+   "element": "BAR",
+   "order": 1,
+   "barrierState": null,
+   "otherSystem": false
+  },
+  {
+   "id": "case-hamilton-2015:c-bar-02",
+   "factId": "case-hamilton-2015:f-bar-02",
+   "occurrenceId": "case-hamilton-2015",
+   "element": "BAR",
+   "order": 2,
+   "barrierState": null,
+   "otherSystem": false
+  },
+  {
+   "id": "case-hamilton-2015:c-bar-03",
+   "factId": "case-hamilton-2015:f-bar-03",
+   "occurrenceId": "case-hamilton-2015",
+   "element": "BAR",
+   "order": 3,
+   "barrierState": null,
+   "otherSystem": false
+  },
+  {
+   "id": "case-hamilton-2015:c-bar-04",
+   "factId": "case-hamilton-2015:f-bar-04",
+   "occurrenceId": "case-hamilton-2015",
+   "element": "BAR",
+   "order": 4,
+   "barrierState": null,
+   "otherSystem": false
+  },
+  {
+   "id": "case-hamilton-2015:c-bar-05",
+   "factId": "case-hamilton-2015:f-bar-05",
+   "occurrenceId": "case-hamilton-2015",
+   "element": "BAR",
+   "order": 5,
+   "barrierState": null,
+   "otherSystem": false
+  }
+ ],
+ "links": [
+  {
+   "id": "case-hamilton-2015:l-001",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-01",
+   "toId": "case-hamilton-2015:c-hi-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-002",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-01",
+   "toId": "case-hamilton-2015:c-hi-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-003",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-01",
+   "toId": "case-hamilton-2015:c-hi-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-004",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-02",
+   "toId": "case-hamilton-2015:c-hi-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-005",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-02",
+   "toId": "case-hamilton-2015:c-hi-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-006",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-02",
+   "toId": "case-hamilton-2015:c-hi-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-007",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-09",
+   "toId": "case-hamilton-2015:c-hi-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-008",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-09",
+   "toId": "case-hamilton-2015:c-hi-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-009",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-09",
+   "toId": "case-hamilton-2015:c-hi-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-010",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-04",
+   "toId": "case-hamilton-2015:c-hi-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-011",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-04",
+   "toId": "case-hamilton-2015:c-hi-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-012",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-04",
+   "toId": "case-hamilton-2015:c-hi-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-013",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-08",
+   "toId": "case-hamilton-2015:c-hi-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-014",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-08",
+   "toId": "case-hamilton-2015:c-hi-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-015",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-08",
+   "toId": "case-hamilton-2015:c-hi-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-016",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-06",
+   "toId": "case-hamilton-2015:c-hi-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-017",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-06",
+   "toId": "case-hamilton-2015:c-hi-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-018",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-06",
+   "toId": "case-hamilton-2015:c-hi-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-019",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-11",
+   "toId": "case-hamilton-2015:c-hi-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-020",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-11",
+   "toId": "case-hamilton-2015:c-hi-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-021",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-11",
+   "toId": "case-hamilton-2015:c-hi-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-022",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-05",
+   "toId": "case-hamilton-2015:c-hi-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-023",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-05",
+   "toId": "case-hamilton-2015:c-hi-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-024",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-05",
+   "toId": "case-hamilton-2015:c-hi-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-025",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-03",
+   "toId": "case-hamilton-2015:c-hi-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-026",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-03",
+   "toId": "case-hamilton-2015:c-hi-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-027",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-03",
+   "toId": "case-hamilton-2015:c-hi-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-028",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-07",
+   "toId": "case-hamilton-2015:c-hi-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-029",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-07",
+   "toId": "case-hamilton-2015:c-hi-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-030",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-07",
+   "toId": "case-hamilton-2015:c-hi-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-031",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-10",
+   "toId": "case-hamilton-2015:c-hi-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-032",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-10",
+   "toId": "case-hamilton-2015:c-hi-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-033",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-10",
+   "toId": "case-hamilton-2015:c-hi-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-034",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-12",
+   "toId": "case-hamilton-2015:c-hi-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-035",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-12",
+   "toId": "case-hamilton-2015:c-hi-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-036",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-cc-12",
+   "toId": "case-hamilton-2015:c-hi-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-037",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-hi-03",
+   "toId": "case-hamilton-2015:c-bar-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-038",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-hi-03",
+   "toId": "case-hamilton-2015:c-bar-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-039",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-hi-03",
+   "toId": "case-hamilton-2015:c-bar-05",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-040",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-hi-03",
+   "toId": "case-hamilton-2015:c-bar-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-041",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-hi-01",
+   "toId": "case-hamilton-2015:c-bar-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-042",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-hi-01",
+   "toId": "case-hamilton-2015:c-bar-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-043",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-hi-01",
+   "toId": "case-hamilton-2015:c-bar-05",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-044",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-hi-01",
+   "toId": "case-hamilton-2015:c-bar-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-045",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-hi-02",
+   "toId": "case-hamilton-2015:c-bar-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-046",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-hi-02",
+   "toId": "case-hamilton-2015:c-bar-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-047",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-hi-02",
+   "toId": "case-hamilton-2015:c-bar-05",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-048",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-hi-02",
+   "toId": "case-hamilton-2015:c-bar-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-049",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-bar-03",
+   "toId": "case-hamilton-2015",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-050",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-bar-01",
+   "toId": "case-hamilton-2015",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-051",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-bar-05",
+   "toId": "case-hamilton-2015",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-052",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-bar-04",
+   "toId": "case-hamilton-2015",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-053",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-bar-02",
+   "toId": "case-hamilton-2015",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-054",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-06",
+   "toId": "case-hamilton-2015:c-cc-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-055",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-06",
+   "toId": "case-hamilton-2015:c-cc-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-056",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-06",
+   "toId": "case-hamilton-2015:c-cc-09",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-057",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-06",
+   "toId": "case-hamilton-2015:c-cc-04",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-058",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-06",
+   "toId": "case-hamilton-2015:c-cc-08",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-059",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-06",
+   "toId": "case-hamilton-2015:c-cc-06",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-060",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-06",
+   "toId": "case-hamilton-2015:c-cc-11",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-061",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-06",
+   "toId": "case-hamilton-2015:c-cc-12",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-062",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-06",
+   "toId": "case-hamilton-2015:c-cc-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-063",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-06",
+   "toId": "case-hamilton-2015:c-cc-07",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-064",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-06",
+   "toId": "case-hamilton-2015:c-cc-10",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-065",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-04",
+   "toId": "case-hamilton-2015:c-cc-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-066",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-04",
+   "toId": "case-hamilton-2015:c-cc-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-067",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-04",
+   "toId": "case-hamilton-2015:c-cc-09",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-068",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-04",
+   "toId": "case-hamilton-2015:c-cc-04",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-069",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-04",
+   "toId": "case-hamilton-2015:c-cc-08",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-070",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-04",
+   "toId": "case-hamilton-2015:c-cc-06",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-071",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-04",
+   "toId": "case-hamilton-2015:c-cc-11",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-072",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-04",
+   "toId": "case-hamilton-2015:c-cc-12",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-073",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-04",
+   "toId": "case-hamilton-2015:c-cc-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-074",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-04",
+   "toId": "case-hamilton-2015:c-cc-07",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-075",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-04",
+   "toId": "case-hamilton-2015:c-cc-10",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-076",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-02",
+   "toId": "case-hamilton-2015:c-cc-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-077",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-02",
+   "toId": "case-hamilton-2015:c-cc-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-078",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-02",
+   "toId": "case-hamilton-2015:c-cc-09",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-079",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-02",
+   "toId": "case-hamilton-2015:c-cc-04",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-080",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-02",
+   "toId": "case-hamilton-2015:c-cc-08",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-081",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-02",
+   "toId": "case-hamilton-2015:c-cc-06",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-082",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-02",
+   "toId": "case-hamilton-2015:c-cc-11",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-083",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-02",
+   "toId": "case-hamilton-2015:c-cc-12",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-084",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-02",
+   "toId": "case-hamilton-2015:c-cc-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-085",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-02",
+   "toId": "case-hamilton-2015:c-cc-07",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-086",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-02",
+   "toId": "case-hamilton-2015:c-cc-10",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-087",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-03",
+   "toId": "case-hamilton-2015:c-cc-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-088",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-03",
+   "toId": "case-hamilton-2015:c-cc-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-089",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-03",
+   "toId": "case-hamilton-2015:c-cc-09",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-090",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-03",
+   "toId": "case-hamilton-2015:c-cc-04",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-091",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-03",
+   "toId": "case-hamilton-2015:c-cc-08",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-092",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-03",
+   "toId": "case-hamilton-2015:c-cc-06",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-093",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-03",
+   "toId": "case-hamilton-2015:c-cc-11",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-094",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-03",
+   "toId": "case-hamilton-2015:c-cc-12",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-095",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-03",
+   "toId": "case-hamilton-2015:c-cc-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-096",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-03",
+   "toId": "case-hamilton-2015:c-cc-07",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-097",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-03",
+   "toId": "case-hamilton-2015:c-cc-10",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-098",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-07",
+   "toId": "case-hamilton-2015:c-cc-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-099",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-07",
+   "toId": "case-hamilton-2015:c-cc-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-100",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-07",
+   "toId": "case-hamilton-2015:c-cc-09",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-101",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-07",
+   "toId": "case-hamilton-2015:c-cc-04",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-102",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-07",
+   "toId": "case-hamilton-2015:c-cc-08",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-103",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-07",
+   "toId": "case-hamilton-2015:c-cc-06",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-104",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-07",
+   "toId": "case-hamilton-2015:c-cc-11",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-105",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-07",
+   "toId": "case-hamilton-2015:c-cc-12",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-106",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-07",
+   "toId": "case-hamilton-2015:c-cc-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-107",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-07",
+   "toId": "case-hamilton-2015:c-cc-07",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-108",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-07",
+   "toId": "case-hamilton-2015:c-cc-10",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-109",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-01",
+   "toId": "case-hamilton-2015:c-cc-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-110",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-01",
+   "toId": "case-hamilton-2015:c-cc-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-111",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-01",
+   "toId": "case-hamilton-2015:c-cc-09",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-112",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-01",
+   "toId": "case-hamilton-2015:c-cc-04",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-113",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-01",
+   "toId": "case-hamilton-2015:c-cc-08",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-114",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-01",
+   "toId": "case-hamilton-2015:c-cc-06",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-115",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-01",
+   "toId": "case-hamilton-2015:c-cc-11",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-116",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-01",
+   "toId": "case-hamilton-2015:c-cc-12",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-117",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-01",
+   "toId": "case-hamilton-2015:c-cc-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-118",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-01",
+   "toId": "case-hamilton-2015:c-cc-07",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-119",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-01",
+   "toId": "case-hamilton-2015:c-cc-10",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-120",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-05",
+   "toId": "case-hamilton-2015:c-cc-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-121",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-05",
+   "toId": "case-hamilton-2015:c-cc-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-122",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-05",
+   "toId": "case-hamilton-2015:c-cc-09",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-123",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-05",
+   "toId": "case-hamilton-2015:c-cc-04",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-124",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-05",
+   "toId": "case-hamilton-2015:c-cc-08",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-125",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-05",
+   "toId": "case-hamilton-2015:c-cc-06",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-126",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-05",
+   "toId": "case-hamilton-2015:c-cc-11",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-127",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-05",
+   "toId": "case-hamilton-2015:c-cc-12",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-128",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-05",
+   "toId": "case-hamilton-2015:c-cc-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-129",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-05",
+   "toId": "case-hamilton-2015:c-cc-07",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-130",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-osf-05",
+   "toId": "case-hamilton-2015:c-cc-10",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-131",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-other-01",
+   "toId": "case-hamilton-2015:c-osf-06",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-132",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-other-01",
+   "toId": "case-hamilton-2015:c-osf-04",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-133",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-other-01",
+   "toId": "case-hamilton-2015:c-osf-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-134",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-other-01",
+   "toId": "case-hamilton-2015:c-osf-07",
+   "style": "solid"
+  },
+  {
+   "id": "case-hamilton-2015:l-135",
+   "occurrenceId": "case-hamilton-2015",
+   "fromId": "case-hamilton-2015:c-other-01",
+   "toId": "case-hamilton-2015:c-osf-01",
+   "style": "solid"
+  }
+ ],
+ "actions": [],
+ "qa": null
+}

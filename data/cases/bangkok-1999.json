@@ -1,0 +1,1087 @@
+{
+ "schema": 1,
+ "source": {
+  "title": "EUROCONTROL SOAM Quick Reference Guide V3 (April 2023)",
+  "qrg_page": 48,
+  "note": "Test case reproduced from the published SOAM chart; text verbatim (EN). Place/date beyond the chart title: TODO: сверить с первоисточником."
+ },
+ "occurrence": {
+  "id": "case-bangkok-1999",
+  "title": {
+   "en": "Boeing 747-438 Runway Excursion, Bangkok, Thailand, September 1999",
+   "ru": "Boeing 747-438 — выкатывание за пределы ВПП, Бангкок, Таиланд, сентябрь 1999"
+  },
+  "date": "1999-09",
+  "place": "Bangkok, Thailand",
+  "type": "accident",
+  "severity": null,
+  "investigate": true,
+  "status": "analysis",
+  "outcome": [
+   "Aircraft overran runway after landing long",
+   "No serious injuries (391 pax, 19 crew)",
+   "Potential for more serious outcome",
+   "Aircraft repair cost: $100,000,000 (?)",
+   "Potential damage to company reputation"
+  ],
+  "isTestCase": true
+ },
+ "facts": [
+  {
+   "id": "case-bangkok-1999:f-other-01",
+   "occurrenceId": "case-bangkok-1999",
+   "text": "Regulations covering contaminated runway operations were unclear",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.48",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bangkok-1999:f-other-02",
+   "occurrenceId": "case-bangkok-1999",
+   "text": "Surveillance of airline flight operations was not thorough",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.48",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bangkok-1999:f-other-03",
+   "occurrenceId": "case-bangkok-1999",
+   "text": "Regulations covering EPs and EP training were not comprehensive",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.48",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bangkok-1999:f-osf-01",
+   "occurrenceId": "case-bangkok-1999",
+   "text": "QF had no appropriately documented information or procedures about operations on water-affected runways",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.48",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bangkok-1999:f-osf-02",
+   "occurrenceId": "case-bangkok-1999",
+   "text": "QF had not distributed \"Landing on Slippery Runways\" (Boeing doc) to crew since 1977",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.48",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bangkok-1999:f-osf-03",
+   "occurrenceId": "case-bangkok-1999",
+   "text": "Contaminated runway issues not covered during crew endorsement, promotional or recurrent training in recent years",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.48",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bangkok-1999:f-osf-04",
+   "occurrenceId": "case-bangkok-1999",
+   "text": "FLTOPS documents were unclear (e.g., key terms not well defined)",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.48",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bangkok-1999:f-osf-05",
+   "occurrenceId": "case-bangkok-1999",
+   "text": "FLTOPS management decisions were informal, 'intuitive' and 'personality-driven'",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.48",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bangkok-1999:f-osf-06",
+   "occurrenceId": "case-bangkok-1999",
+   "text": "No formal risk assessment conducted when changed landing procedure researched",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.48",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bangkok-1999:f-osf-07",
+   "occurrenceId": "case-bangkok-1999",
+   "text": "Implementation of new landing procedure by QF was not systematic",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.48",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bangkok-1999:f-osf-08",
+   "occurrenceId": "case-bangkok-1999",
+   "text": "No formal review of new procedures after 'trial' period",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.48",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bangkok-1999:f-osf-09",
+   "occurrenceId": "case-bangkok-1999",
+   "text": "Cost-benefit analysis of new landing procedure was biased",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.48",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bangkok-1999:f-osf-10",
+   "occurrenceId": "case-bangkok-1999",
+   "text": "QF had no policies or procedures on maintaining flying recency for management pilots",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.48",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bangkok-1999:f-osf-11",
+   "occurrenceId": "case-bangkok-1999",
+   "text": "QF had no policies or procedures on duty or work limits for pilots with flying and non-flying duties",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.48",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bangkok-1999:f-cc-01",
+   "occurrenceId": "case-bangkok-1999",
+   "text": "Very heavy rainfall, runway surface affected by water",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.48",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bangkok-1999:f-cc-02",
+   "occurrenceId": "case-bangkok-1999",
+   "text": "Crew were not aware of the critical importance of reverse thrust as a stopping force on water-affected runways",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.48",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bangkok-1999:f-cc-03",
+   "occurrenceId": "case-bangkok-1999",
+   "text": "Most QF pilots were not fully aware about 'aquaplaning'",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.48",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bangkok-1999:f-cc-04",
+   "occurrenceId": "case-bangkok-1999",
+   "text": "QF B747 fleet generally operated in good weather and to aerodromes with long, good quality runways",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.48",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bangkok-1999:f-cc-05",
+   "occurrenceId": "case-bangkok-1999",
+   "text": "New 1996 landing procedure was inappropriate for use in the existing conditions",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.48",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bangkok-1999:f-cc-06",
+   "occurrenceId": "case-bangkok-1999",
+   "text": "Normal practice to use flaps 25 / idle reverse",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.48",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bangkok-1999:f-cc-07",
+   "occurrenceId": "case-bangkok-1999",
+   "text": "Crew did not have recent experience using full reverse thrust",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.48",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bangkok-1999:f-cc-08",
+   "occurrenceId": "case-bangkok-1999",
+   "text": "Reduced visibility and distraction: Heavy rain and windscreen wipers",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.48",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bangkok-1999:f-cc-09",
+   "occurrenceId": "case-bangkok-1999",
+   "text": "Captain and FO quite low levels of flying in the previous 30 days",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.48",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bangkok-1999:f-cc-10",
+   "occurrenceId": "case-bangkok-1999",
+   "text": "FO had been awake for 19 hours at the time of the accident",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.48",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bangkok-1999:f-cc-11",
+   "occurrenceId": "case-bangkok-1999",
+   "text": "Captain had been awake for 21 hours at the time of the accident",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.48",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bangkok-1999:f-hi-01",
+   "occurrenceId": "case-bangkok-1999",
+   "text": "Flight crew did not use an adequate risk management strategy for the approach and landing",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.48",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bangkok-1999:f-hi-02",
+   "occurrenceId": "case-bangkok-1999",
+   "text": "Crew employed flaps 25 / idle reverse landing configuration",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.48",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bangkok-1999:f-hi-03",
+   "occurrenceId": "case-bangkok-1999",
+   "text": "First Officer did not fly the aircraft accurately during the final approach",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.48",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bangkok-1999:f-hi-04",
+   "occurrenceId": "case-bangkok-1999",
+   "text": "Captain cancelled the go-around by retarding the thrust levers",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.48",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bangkok-1999:f-bar-01",
+   "occurrenceId": "case-bangkok-1999",
+   "text": "Landing procedure was inappropriate for contaminated runways",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.48",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bangkok-1999:f-bar-02",
+   "occurrenceId": "case-bangkok-1999",
+   "text": "Go-around procedure was not followed",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.48",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bangkok-1999:f-bar-03",
+   "occurrenceId": "case-bangkok-1999",
+   "text": "Reverse thrust was not used during landing",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.48",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bangkok-1999:f-bar-04",
+   "occurrenceId": "case-bangkok-1999",
+   "text": "Auto-brake system was disarmed",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.48",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bangkok-1999:f-bar-05",
+   "occurrenceId": "case-bangkok-1999",
+   "text": "Crew Resource Management issues (risk management; crew communication & coordination)",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.48",
+   "attachments": [],
+   "contributes": true
+  }
+ ],
+ "events": [],
+ "classifications": [
+  {
+   "id": "case-bangkok-1999:c-other-01",
+   "factId": "case-bangkok-1999:f-other-01",
+   "occurrenceId": "case-bangkok-1999",
+   "element": "OSF",
+   "order": 1,
+   "osfCodes": [
+    "EE",
+    "PP"
+   ],
+   "otherSystem": true
+  },
+  {
+   "id": "case-bangkok-1999:c-other-02",
+   "factId": "case-bangkok-1999:f-other-02",
+   "occurrenceId": "case-bangkok-1999",
+   "element": "OSF",
+   "order": 2,
+   "osfCodes": [
+    "EE",
+    "AC"
+   ],
+   "otherSystem": true
+  },
+  {
+   "id": "case-bangkok-1999:c-other-03",
+   "factId": "case-bangkok-1999:f-other-03",
+   "occurrenceId": "case-bangkok-1999",
+   "element": "OSF",
+   "order": 3,
+   "osfCodes": [
+    "EE",
+    "PP"
+   ],
+   "otherSystem": true
+  },
+  {
+   "id": "case-bangkok-1999:c-osf-01",
+   "factId": "case-bangkok-1999:f-osf-01",
+   "occurrenceId": "case-bangkok-1999",
+   "element": "OSF",
+   "order": 1,
+   "osfCodes": [
+    "PP",
+    "CO"
+   ],
+   "otherSystem": false
+  },
+  {
+   "id": "case-bangkok-1999:c-osf-02",
+   "factId": "case-bangkok-1999:f-osf-02",
+   "occurrenceId": "case-bangkok-1999",
+   "element": "OSF",
+   "order": 2,
+   "osfCodes": [
+    "CO",
+    "OC"
+   ],
+   "otherSystem": false
+  },
+  {
+   "id": "case-bangkok-1999:c-osf-03",
+   "factId": "case-bangkok-1999:f-osf-03",
+   "occurrenceId": "case-bangkok-1999",
+   "element": "OSF",
+   "order": 3,
+   "osfCodes": [
+    "TR",
+    "WM"
+   ],
+   "otherSystem": false
+  },
+  {
+   "id": "case-bangkok-1999:c-osf-04",
+   "factId": "case-bangkok-1999:f-osf-04",
+   "occurrenceId": "case-bangkok-1999",
+   "element": "OSF",
+   "order": 4,
+   "osfCodes": [
+    "CO"
+   ],
+   "otherSystem": false
+  },
+  {
+   "id": "case-bangkok-1999:c-osf-05",
+   "factId": "case-bangkok-1999:f-osf-05",
+   "occurrenceId": "case-bangkok-1999",
+   "element": "OSF",
+   "order": 5,
+   "osfCodes": [
+    "OC",
+    "AC"
+   ],
+   "otherSystem": false
+  },
+  {
+   "id": "case-bangkok-1999:c-osf-06",
+   "factId": "case-bangkok-1999:f-osf-06",
+   "occurrenceId": "case-bangkok-1999",
+   "element": "OSF",
+   "order": 6,
+   "osfCodes": [
+    "RM",
+    "CM"
+   ],
+   "otherSystem": false
+  },
+  {
+   "id": "case-bangkok-1999:c-osf-07",
+   "factId": "case-bangkok-1999:f-osf-07",
+   "occurrenceId": "case-bangkok-1999",
+   "element": "OSF",
+   "order": 7,
+   "osfCodes": [
+    "CM",
+    "OC"
+   ],
+   "otherSystem": false
+  },
+  {
+   "id": "case-bangkok-1999:c-osf-08",
+   "factId": "case-bangkok-1999:f-osf-08",
+   "occurrenceId": "case-bangkok-1999",
+   "element": "OSF",
+   "order": 8,
+   "osfCodes": [
+    "CM",
+    "OC"
+   ],
+   "otherSystem": false
+  },
+  {
+   "id": "case-bangkok-1999:c-osf-09",
+   "factId": "case-bangkok-1999:f-osf-09",
+   "occurrenceId": "case-bangkok-1999",
+   "element": "OSF",
+   "order": 9,
+   "osfCodes": [
+    "CG"
+   ],
+   "otherSystem": false
+  },
+  {
+   "id": "case-bangkok-1999:c-osf-10",
+   "factId": "case-bangkok-1999:f-osf-10",
+   "occurrenceId": "case-bangkok-1999",
+   "element": "OSF",
+   "order": 10,
+   "osfCodes": [
+    "PP",
+    "WM"
+   ],
+   "otherSystem": false
+  },
+  {
+   "id": "case-bangkok-1999:c-osf-11",
+   "factId": "case-bangkok-1999:f-osf-11",
+   "occurrenceId": "case-bangkok-1999",
+   "element": "OSF",
+   "order": 11,
+   "osfCodes": [
+    "PP",
+    "WM"
+   ],
+   "otherSystem": false
+  },
+  {
+   "id": "case-bangkok-1999:c-cc-01",
+   "factId": "case-bangkok-1999:f-cc-01",
+   "occurrenceId": "case-bangkok-1999",
+   "element": "CC",
+   "order": 1
+  },
+  {
+   "id": "case-bangkok-1999:c-cc-02",
+   "factId": "case-bangkok-1999:f-cc-02",
+   "occurrenceId": "case-bangkok-1999",
+   "element": "CC",
+   "order": 2
+  },
+  {
+   "id": "case-bangkok-1999:c-cc-03",
+   "factId": "case-bangkok-1999:f-cc-03",
+   "occurrenceId": "case-bangkok-1999",
+   "element": "CC",
+   "order": 3
+  },
+  {
+   "id": "case-bangkok-1999:c-cc-04",
+   "factId": "case-bangkok-1999:f-cc-04",
+   "occurrenceId": "case-bangkok-1999",
+   "element": "CC",
+   "order": 4
+  },
+  {
+   "id": "case-bangkok-1999:c-cc-05",
+   "factId": "case-bangkok-1999:f-cc-05",
+   "occurrenceId": "case-bangkok-1999",
+   "element": "CC",
+   "order": 5
+  },
+  {
+   "id": "case-bangkok-1999:c-cc-06",
+   "factId": "case-bangkok-1999:f-cc-06",
+   "occurrenceId": "case-bangkok-1999",
+   "element": "CC",
+   "order": 6
+  },
+  {
+   "id": "case-bangkok-1999:c-cc-07",
+   "factId": "case-bangkok-1999:f-cc-07",
+   "occurrenceId": "case-bangkok-1999",
+   "element": "CC",
+   "order": 7
+  },
+  {
+   "id": "case-bangkok-1999:c-cc-08",
+   "factId": "case-bangkok-1999:f-cc-08",
+   "occurrenceId": "case-bangkok-1999",
+   "element": "CC",
+   "order": 8
+  },
+  {
+   "id": "case-bangkok-1999:c-cc-09",
+   "factId": "case-bangkok-1999:f-cc-09",
+   "occurrenceId": "case-bangkok-1999",
+   "element": "CC",
+   "order": 9
+  },
+  {
+   "id": "case-bangkok-1999:c-cc-10",
+   "factId": "case-bangkok-1999:f-cc-10",
+   "occurrenceId": "case-bangkok-1999",
+   "element": "CC",
+   "order": 10
+  },
+  {
+   "id": "case-bangkok-1999:c-cc-11",
+   "factId": "case-bangkok-1999:f-cc-11",
+   "occurrenceId": "case-bangkok-1999",
+   "element": "CC",
+   "order": 11
+  },
+  {
+   "id": "case-bangkok-1999:c-hi-01",
+   "factId": "case-bangkok-1999:f-hi-01",
+   "occurrenceId": "case-bangkok-1999",
+   "element": "HI",
+   "order": 1
+  },
+  {
+   "id": "case-bangkok-1999:c-hi-02",
+   "factId": "case-bangkok-1999:f-hi-02",
+   "occurrenceId": "case-bangkok-1999",
+   "element": "HI",
+   "order": 2
+  },
+  {
+   "id": "case-bangkok-1999:c-hi-03",
+   "factId": "case-bangkok-1999:f-hi-03",
+   "occurrenceId": "case-bangkok-1999",
+   "element": "HI",
+   "order": 3
+  },
+  {
+   "id": "case-bangkok-1999:c-hi-04",
+   "factId": "case-bangkok-1999:f-hi-04",
+   "occurrenceId": "case-bangkok-1999",
+   "element": "HI",
+   "order": 4
+  },
+  {
+   "id": "case-bangkok-1999:c-bar-01",
+   "factId": "case-bangkok-1999:f-bar-01",
+   "occurrenceId": "case-bangkok-1999",
+   "element": "BAR",
+   "order": 1,
+   "barrierState": null,
+   "otherSystem": false
+  },
+  {
+   "id": "case-bangkok-1999:c-bar-02",
+   "factId": "case-bangkok-1999:f-bar-02",
+   "occurrenceId": "case-bangkok-1999",
+   "element": "BAR",
+   "order": 2,
+   "barrierState": null,
+   "otherSystem": false
+  },
+  {
+   "id": "case-bangkok-1999:c-bar-03",
+   "factId": "case-bangkok-1999:f-bar-03",
+   "occurrenceId": "case-bangkok-1999",
+   "element": "BAR",
+   "order": 3,
+   "barrierState": null,
+   "otherSystem": false
+  },
+  {
+   "id": "case-bangkok-1999:c-bar-04",
+   "factId": "case-bangkok-1999:f-bar-04",
+   "occurrenceId": "case-bangkok-1999",
+   "element": "BAR",
+   "order": 4,
+   "barrierState": null,
+   "otherSystem": false
+  },
+  {
+   "id": "case-bangkok-1999:c-bar-05",
+   "factId": "case-bangkok-1999:f-bar-05",
+   "occurrenceId": "case-bangkok-1999",
+   "element": "BAR",
+   "order": 5,
+   "barrierState": null,
+   "otherSystem": false
+  }
+ ],
+ "links": [
+  {
+   "id": "case-bangkok-1999:l-001",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-other-02",
+   "toId": "case-bangkok-1999:c-osf-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-002",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-other-02",
+   "toId": "case-bangkok-1999:c-osf-06",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-003",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-other-02",
+   "toId": "case-bangkok-1999:c-osf-04",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-004",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-other-02",
+   "toId": "case-bangkok-1999:c-osf-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-005",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-other-02",
+   "toId": "case-bangkok-1999:c-osf-07",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-006",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-other-01",
+   "toId": "case-bangkok-1999:c-osf-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-007",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-other-01",
+   "toId": "case-bangkok-1999:c-osf-06",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-008",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-other-01",
+   "toId": "case-bangkok-1999:c-osf-04",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-009",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-other-01",
+   "toId": "case-bangkok-1999:c-osf-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-010",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-other-01",
+   "toId": "case-bangkok-1999:c-osf-07",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-011",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-osf-01",
+   "toId": "case-bangkok-1999:c-cc-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-012",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-osf-01",
+   "toId": "case-bangkok-1999:c-cc-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-013",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-osf-04",
+   "toId": "case-bangkok-1999:c-cc-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-014",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-osf-04",
+   "toId": "case-bangkok-1999:c-cc-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-015",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-osf-02",
+   "toId": "case-bangkok-1999:c-cc-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-016",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-osf-02",
+   "toId": "case-bangkok-1999:c-cc-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-017",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-osf-03",
+   "toId": "case-bangkok-1999:c-cc-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-018",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-osf-03",
+   "toId": "case-bangkok-1999:c-cc-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-019",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-osf-08",
+   "toId": "case-bangkok-1999:c-cc-05",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-020",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-osf-06",
+   "toId": "case-bangkok-1999:c-cc-05",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-021",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-osf-07",
+   "toId": "case-bangkok-1999:c-cc-05",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-022",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-osf-09",
+   "toId": "case-bangkok-1999:c-cc-05",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-023",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-osf-11",
+   "toId": "case-bangkok-1999:c-cc-10",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-024",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-osf-11",
+   "toId": "case-bangkok-1999:c-cc-11",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-025",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-osf-10",
+   "toId": "case-bangkok-1999:c-cc-09",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-026",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-cc-01",
+   "toId": "case-bangkok-1999:c-hi-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-027",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-cc-02",
+   "toId": "case-bangkok-1999:c-hi-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-028",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-cc-03",
+   "toId": "case-bangkok-1999:c-hi-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-029",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-cc-04",
+   "toId": "case-bangkok-1999:c-hi-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-030",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-cc-07",
+   "toId": "case-bangkok-1999:c-hi-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-031",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-cc-05",
+   "toId": "case-bangkok-1999:c-hi-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-032",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-cc-06",
+   "toId": "case-bangkok-1999:c-hi-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-033",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-cc-10",
+   "toId": "case-bangkok-1999:c-hi-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-034",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-cc-08",
+   "toId": "case-bangkok-1999:c-hi-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-035",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-cc-09",
+   "toId": "case-bangkok-1999:c-hi-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-036",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-cc-11",
+   "toId": "case-bangkok-1999:c-hi-04",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-037",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-hi-03",
+   "toId": "case-bangkok-1999:c-bar-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-038",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-hi-03",
+   "toId": "case-bangkok-1999:c-bar-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-039",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-hi-03",
+   "toId": "case-bangkok-1999:c-bar-05",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-040",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-hi-03",
+   "toId": "case-bangkok-1999:c-bar-04",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-041",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-hi-03",
+   "toId": "case-bangkok-1999:c-bar-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-042",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-hi-04",
+   "toId": "case-bangkok-1999:c-bar-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-043",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-hi-04",
+   "toId": "case-bangkok-1999:c-bar-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-044",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-hi-04",
+   "toId": "case-bangkok-1999:c-bar-05",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-045",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-hi-04",
+   "toId": "case-bangkok-1999:c-bar-04",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-046",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-hi-04",
+   "toId": "case-bangkok-1999:c-bar-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-047",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-hi-01",
+   "toId": "case-bangkok-1999:c-bar-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-048",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-hi-01",
+   "toId": "case-bangkok-1999:c-bar-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-049",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-hi-01",
+   "toId": "case-bangkok-1999:c-bar-05",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-050",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-hi-01",
+   "toId": "case-bangkok-1999:c-bar-04",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-051",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-hi-01",
+   "toId": "case-bangkok-1999:c-bar-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-052",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-hi-02",
+   "toId": "case-bangkok-1999:c-bar-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-053",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-hi-02",
+   "toId": "case-bangkok-1999:c-bar-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-054",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-hi-02",
+   "toId": "case-bangkok-1999:c-bar-05",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-055",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-hi-02",
+   "toId": "case-bangkok-1999:c-bar-04",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-056",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-hi-02",
+   "toId": "case-bangkok-1999:c-bar-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-057",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-bar-03",
+   "toId": "case-bangkok-1999",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-058",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-bar-01",
+   "toId": "case-bangkok-1999",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-059",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-bar-05",
+   "toId": "case-bangkok-1999",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-060",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-bar-04",
+   "toId": "case-bangkok-1999",
+   "style": "solid"
+  },
+  {
+   "id": "case-bangkok-1999:l-061",
+   "occurrenceId": "case-bangkok-1999",
+   "fromId": "case-bangkok-1999:c-bar-02",
+   "toId": "case-bangkok-1999",
+   "style": "solid"
+  }
+ ],
+ "actions": [],
+ "qa": null
+}

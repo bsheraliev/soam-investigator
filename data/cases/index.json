@@ -1,0 +1,40 @@
+{
+ "cases": [
+  {
+   "file": "bac111-1990.json",
+   "id": "case-bac111-1990",
+   "title": {
+    "en": "BAC 1-11 Explosive Decompression, June 1990",
+    "ru": "BAC 1-11 — взрывная разгерметизация, июнь 1990"
+   },
+   "qrg_page": 47,
+   "type": "accident",
+   "facts": 24,
+   "links": 44
+  },
+  {
+   "file": "bangkok-1999.json",
+   "id": "case-bangkok-1999",
+   "title": {
+    "en": "Boeing 747-438 Runway Excursion, Bangkok, Thailand, September 1999",
+    "ru": "Boeing 747-438 — выкатывание за пределы ВПП, Бангкок, Таиланд, сентябрь 1999"
+   },
+   "qrg_page": 48,
+   "type": "accident",
+   "facts": 34,
+   "links": 61
+  },
+  {
+   "file": "hamilton-2015.json",
+   "id": "case-hamilton-2015",
+   "title": {
+    "en": "Loss of Separation at Hamilton, NZ, December 2015",
+    "ru": "Нарушение интервалов эшелонирования, Гамильтон, Новая Зеландия, декабрь 2015"
+   },
+   "qrg_page": 49,
+   "type": "incident",
+   "facts": 28,
+   "links": 135
+  }
+ ]
+}

@@ -1,0 +1,767 @@
+{
+ "schema": 1,
+ "source": {
+  "title": "EUROCONTROL SOAM Quick Reference Guide V3 (April 2023)",
+  "qrg_page": 47,
+  "note": "Test case reproduced from the published SOAM chart; text verbatim (EN). Place/date beyond the chart title: TODO: сверить с первоисточником."
+ },
+ "occurrence": {
+  "id": "case-bac111-1990",
+  "title": {
+   "en": "BAC 1-11 Explosive Decompression, June 1990",
+   "ru": "BAC 1-11 — взрывная разгерметизация, июнь 1990"
+  },
+  "date": "1990-06",
+  "place": "United Kingdom",
+  "type": "accident",
+  "severity": null,
+  "investigate": true,
+  "status": "analysis",
+  "outcome": [
+   "Cockpit window blew out ~ explosive decompression",
+   "Captain part-ejected from aircraft",
+   "F/O conducted emergency descent & landed safely",
+   "Captain injured but saved by F/A actions"
+  ],
+  "isTestCase": true
+ },
+ "facts": [
+  {
+   "id": "case-bac111-1990:f-osf-01",
+   "occurrenceId": "case-bac111-1990",
+   "text": "Cost cutting practices led to staff shortages on night shift",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.47",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bac111-1990:f-osf-02",
+   "occurrenceId": "case-bac111-1990",
+   "text": "Maintenance staff roster practices / workload",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.47",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bac111-1990:f-osf-03",
+   "occurrenceId": "case-bac111-1990",
+   "text": "\"Practical drift\" - short-cuts commonly taken",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.47",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bac111-1990:f-osf-04",
+   "occurrenceId": "case-bac111-1990",
+   "text": "Supply and availability of necessary tools and equipment for scheduled maintenance tasks",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.47",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bac111-1990:f-osf-05",
+   "occurrenceId": "case-bac111-1990",
+   "text": "Adequacy of work environment ~ lighting and visibility",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.47",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bac111-1990:f-osf-06",
+   "occurrenceId": "case-bac111-1990",
+   "text": "No documented requirement for pressure check or duplicate inspection",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.47",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bac111-1990:f-osf-07",
+   "occurrenceId": "case-bac111-1990",
+   "text": "Regulator's surveillance and oversight of maintenance documentation & work processes",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.47",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bac111-1990:f-cc-01",
+   "occurrenceId": "case-bac111-1990",
+   "text": "High workload due to reduction of staff numbers",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.47",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bac111-1990:f-cc-02",
+   "occurrenceId": "case-bac111-1990",
+   "text": "Night Shift with heavy workload, so Supervisor decides to help out",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.47",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bac111-1990:f-cc-03",
+   "occurrenceId": "case-bac111-1990",
+   "text": "Completed job was not inspected by another worker",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.47",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bac111-1990:f-cc-04",
+   "occurrenceId": "case-bac111-1990",
+   "text": "Procedures / advice not always followed",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.47",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bac111-1990:f-cc-05",
+   "occurrenceId": "case-bac111-1990",
+   "text": "Work was conducted from an unsuitable mobile work stand, allowing poor site access & visibility",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.47",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bac111-1990:f-cc-06",
+   "occurrenceId": "case-bac111-1990",
+   "text": "Torque wrench was unavailable, so used torque limiting screwdriver",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.47",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bac111-1990:f-cc-07",
+   "occurrenceId": "case-bac111-1990",
+   "text": "Spare parts carousel was poorly lit and unsupervised; Spare parts were poorly organised and labelled",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.47",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bac111-1990:f-cc-08",
+   "occurrenceId": "case-bac111-1990",
+   "text": "Aircraft was not pressurised after window change was completed",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.47",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bac111-1990:f-hi-01",
+   "occurrenceId": "case-bac111-1990",
+   "text": "Supervisor decided to do job unaided",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.47",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bac111-1990:f-hi-02",
+   "occurrenceId": "case-bac111-1990",
+   "text": "Supervisor did not consult manual or illustrated parts catalogue (IPC)",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.47",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bac111-1990:f-hi-03",
+   "occurrenceId": "case-bac111-1990",
+   "text": "Supervisor ignored advice & selected the wrong bolts",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.47",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bac111-1990:f-hi-04",
+   "occurrenceId": "case-bac111-1990",
+   "text": "Did not notice discrepancy between bolt heads & countersink",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.47",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bac111-1990:f-bar-01",
+   "occurrenceId": "case-bac111-1990",
+   "text": "Requirement to consult manual & Illustrated Parts Catalogue (IPC)",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.47",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bac111-1990:f-bar-02",
+   "occurrenceId": "case-bac111-1990",
+   "text": "Requirement for independent check and sign-off of completed job",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.47",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bac111-1990:f-bar-03",
+   "occurrenceId": "case-bac111-1990",
+   "text": "Improved equipment & lighting",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.47",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bac111-1990:f-bar-04",
+   "occurrenceId": "case-bac111-1990",
+   "text": "Requirement to pressurise A/C after window change",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.47",
+   "attachments": [],
+   "contributes": true
+  },
+  {
+   "id": "case-bac111-1990:f-bar-05",
+   "occurrenceId": "case-bac111-1990",
+   "text": "Regulatory oversight of airline processes for checking work",
+   "shelo": null,
+   "source": "SOAM QRG V3, p.47",
+   "attachments": [],
+   "contributes": true
+  }
+ ],
+ "events": [],
+ "classifications": [
+  {
+   "id": "case-bac111-1990:c-osf-01",
+   "factId": "case-bac111-1990:f-osf-01",
+   "occurrenceId": "case-bac111-1990",
+   "element": "OSF",
+   "order": 1,
+   "osfCodes": [
+    "WM"
+   ],
+   "otherSystem": false
+  },
+  {
+   "id": "case-bac111-1990:c-osf-02",
+   "factId": "case-bac111-1990:f-osf-02",
+   "occurrenceId": "case-bac111-1990",
+   "element": "OSF",
+   "order": 2,
+   "osfCodes": [
+    "WM"
+   ],
+   "otherSystem": false
+  },
+  {
+   "id": "case-bac111-1990:c-osf-03",
+   "factId": "case-bac111-1990:f-osf-03",
+   "occurrenceId": "case-bac111-1990",
+   "element": "OSF",
+   "order": 3,
+   "osfCodes": [
+    "OC"
+   ],
+   "otherSystem": false
+  },
+  {
+   "id": "case-bac111-1990:c-osf-04",
+   "factId": "case-bac111-1990:f-osf-04",
+   "occurrenceId": "case-bac111-1990",
+   "element": "OSF",
+   "order": 4,
+   "osfCodes": [
+    "EI"
+   ],
+   "otherSystem": false
+  },
+  {
+   "id": "case-bac111-1990:c-osf-05",
+   "factId": "case-bac111-1990:f-osf-05",
+   "occurrenceId": "case-bac111-1990",
+   "element": "OSF",
+   "order": 5,
+   "osfCodes": [
+    "EI"
+   ],
+   "otherSystem": false
+  },
+  {
+   "id": "case-bac111-1990:c-osf-06",
+   "factId": "case-bac111-1990:f-osf-06",
+   "occurrenceId": "case-bac111-1990",
+   "element": "OSF",
+   "order": 6,
+   "osfCodes": [
+    "PP"
+   ],
+   "otherSystem": false
+  },
+  {
+   "id": "case-bac111-1990:c-osf-07",
+   "factId": "case-bac111-1990:f-osf-07",
+   "occurrenceId": "case-bac111-1990",
+   "element": "OSF",
+   "order": 7,
+   "osfCodes": [
+    "EE"
+   ],
+   "otherSystem": true
+  },
+  {
+   "id": "case-bac111-1990:c-cc-01",
+   "factId": "case-bac111-1990:f-cc-01",
+   "occurrenceId": "case-bac111-1990",
+   "element": "CC",
+   "order": 1
+  },
+  {
+   "id": "case-bac111-1990:c-cc-02",
+   "factId": "case-bac111-1990:f-cc-02",
+   "occurrenceId": "case-bac111-1990",
+   "element": "CC",
+   "order": 2
+  },
+  {
+   "id": "case-bac111-1990:c-cc-03",
+   "factId": "case-bac111-1990:f-cc-03",
+   "occurrenceId": "case-bac111-1990",
+   "element": "CC",
+   "order": 3
+  },
+  {
+   "id": "case-bac111-1990:c-cc-04",
+   "factId": "case-bac111-1990:f-cc-04",
+   "occurrenceId": "case-bac111-1990",
+   "element": "CC",
+   "order": 4
+  },
+  {
+   "id": "case-bac111-1990:c-cc-05",
+   "factId": "case-bac111-1990:f-cc-05",
+   "occurrenceId": "case-bac111-1990",
+   "element": "CC",
+   "order": 5
+  },
+  {
+   "id": "case-bac111-1990:c-cc-06",
+   "factId": "case-bac111-1990:f-cc-06",
+   "occurrenceId": "case-bac111-1990",
+   "element": "CC",
+   "order": 6
+  },
+  {
+   "id": "case-bac111-1990:c-cc-07",
+   "factId": "case-bac111-1990:f-cc-07",
+   "occurrenceId": "case-bac111-1990",
+   "element": "CC",
+   "order": 7
+  },
+  {
+   "id": "case-bac111-1990:c-cc-08",
+   "factId": "case-bac111-1990:f-cc-08",
+   "occurrenceId": "case-bac111-1990",
+   "element": "CC",
+   "order": 8
+  },
+  {
+   "id": "case-bac111-1990:c-hi-01",
+   "factId": "case-bac111-1990:f-hi-01",
+   "occurrenceId": "case-bac111-1990",
+   "element": "HI",
+   "order": 1
+  },
+  {
+   "id": "case-bac111-1990:c-hi-02",
+   "factId": "case-bac111-1990:f-hi-02",
+   "occurrenceId": "case-bac111-1990",
+   "element": "HI",
+   "order": 2
+  },
+  {
+   "id": "case-bac111-1990:c-hi-03",
+   "factId": "case-bac111-1990:f-hi-03",
+   "occurrenceId": "case-bac111-1990",
+   "element": "HI",
+   "order": 3
+  },
+  {
+   "id": "case-bac111-1990:c-hi-04",
+   "factId": "case-bac111-1990:f-hi-04",
+   "occurrenceId": "case-bac111-1990",
+   "element": "HI",
+   "order": 4
+  },
+  {
+   "id": "case-bac111-1990:c-bar-01",
+   "factId": "case-bac111-1990:f-bar-01",
+   "occurrenceId": "case-bac111-1990",
+   "element": "BAR",
+   "order": 1,
+   "barrierState": null,
+   "otherSystem": false
+  },
+  {
+   "id": "case-bac111-1990:c-bar-02",
+   "factId": "case-bac111-1990:f-bar-02",
+   "occurrenceId": "case-bac111-1990",
+   "element": "BAR",
+   "order": 2,
+   "barrierState": null,
+   "otherSystem": false
+  },
+  {
+   "id": "case-bac111-1990:c-bar-03",
+   "factId": "case-bac111-1990:f-bar-03",
+   "occurrenceId": "case-bac111-1990",
+   "element": "BAR",
+   "order": 3,
+   "barrierState": null,
+   "otherSystem": false
+  },
+  {
+   "id": "case-bac111-1990:c-bar-04",
+   "factId": "case-bac111-1990:f-bar-04",
+   "occurrenceId": "case-bac111-1990",
+   "element": "BAR",
+   "order": 4,
+   "barrierState": null,
+   "otherSystem": false
+  },
+  {
+   "id": "case-bac111-1990:c-bar-05",
+   "factId": "case-bac111-1990:f-bar-05",
+   "occurrenceId": "case-bac111-1990",
+   "element": "BAR",
+   "order": 5,
+   "barrierState": null,
+   "otherSystem": true
+  }
+ ],
+ "links": [
+  {
+   "id": "case-bac111-1990:l-001",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-cc-02",
+   "toId": "case-bac111-1990:c-hi-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-002",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-cc-03",
+   "toId": "case-bac111-1990:c-hi-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-003",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-cc-01",
+   "toId": "case-bac111-1990:c-hi-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-004",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-cc-04",
+   "toId": "case-bac111-1990:c-hi-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-005",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-cc-04",
+   "toId": "case-bac111-1990:c-hi-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-006",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-cc-08",
+   "toId": "case-bac111-1990:c-bar-04",
+   "style": "dotted"
+  },
+  {
+   "id": "case-bac111-1990:l-007",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-hi-01",
+   "toId": "case-bac111-1990:c-bar-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-008",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-hi-01",
+   "toId": "case-bac111-1990:c-bar-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-009",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-hi-01",
+   "toId": "case-bac111-1990:c-bar-04",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-010",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-hi-01",
+   "toId": "case-bac111-1990:c-bar-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-011",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-hi-02",
+   "toId": "case-bac111-1990:c-bar-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-012",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-hi-02",
+   "toId": "case-bac111-1990:c-bar-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-013",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-hi-02",
+   "toId": "case-bac111-1990:c-bar-04",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-014",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-hi-02",
+   "toId": "case-bac111-1990:c-bar-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-015",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-hi-04",
+   "toId": "case-bac111-1990:c-bar-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-016",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-hi-04",
+   "toId": "case-bac111-1990:c-bar-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-017",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-hi-04",
+   "toId": "case-bac111-1990:c-bar-04",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-018",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-hi-04",
+   "toId": "case-bac111-1990:c-bar-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-019",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-hi-03",
+   "toId": "case-bac111-1990:c-bar-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-020",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-hi-03",
+   "toId": "case-bac111-1990:c-bar-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-021",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-hi-03",
+   "toId": "case-bac111-1990:c-bar-04",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-022",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-hi-03",
+   "toId": "case-bac111-1990:c-bar-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-023",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-bar-03",
+   "toId": "case-bac111-1990",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-024",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-bar-02",
+   "toId": "case-bac111-1990",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-025",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-bar-04",
+   "toId": "case-bac111-1990",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-026",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-bar-01",
+   "toId": "case-bac111-1990",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-027",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-osf-04",
+   "toId": "case-bac111-1990:c-cc-05",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-028",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-osf-04",
+   "toId": "case-bac111-1990:c-cc-07",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-029",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-osf-04",
+   "toId": "case-bac111-1990:c-cc-06",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-030",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-osf-05",
+   "toId": "case-bac111-1990:c-cc-05",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-031",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-osf-05",
+   "toId": "case-bac111-1990:c-cc-07",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-032",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-osf-05",
+   "toId": "case-bac111-1990:c-cc-06",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-033",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-osf-01",
+   "toId": "case-bac111-1990:c-cc-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-034",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-osf-01",
+   "toId": "case-bac111-1990:c-cc-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-035",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-osf-01",
+   "toId": "case-bac111-1990:c-cc-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-036",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-osf-02",
+   "toId": "case-bac111-1990:c-cc-02",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-037",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-osf-02",
+   "toId": "case-bac111-1990:c-cc-03",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-038",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-osf-02",
+   "toId": "case-bac111-1990:c-cc-01",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-039",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-osf-06",
+   "toId": "case-bac111-1990:c-cc-08",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-040",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-cc-05",
+   "toId": "case-bac111-1990:c-hi-04",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-041",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-cc-07",
+   "toId": "case-bac111-1990:c-hi-04",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-042",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-cc-06",
+   "toId": "case-bac111-1990:c-hi-04",
+   "style": "solid"
+  },
+  {
+   "id": "case-bac111-1990:l-043",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-osf-07",
+   "toId": "case-bac111-1990:c-bar-05",
+   "style": "dotted"
+  },
+  {
+   "id": "case-bac111-1990:l-044",
+   "occurrenceId": "case-bac111-1990",
+   "fromId": "case-bac111-1990:c-osf-03",
+   "toId": "case-bac111-1990:c-cc-04",
+   "style": "solid"
+  }
+ ],
+ "actions": [],
+ "qa": null
+}
