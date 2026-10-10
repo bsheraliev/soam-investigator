@@ -1,0 +1,124 @@
+// Инициализация, хеш-роутер, service worker, язык.
+import { initI18n, setLang, getLang, t, applyDom, onLangChange } from './i18n.js';
+import { loadTaxonomy } from './taxonomy.js';
+import * as home from './modules/home.js';
+import * as about from './modules/about.js';
+import * as cases from './modules/cases.js';
+import * as occurrence from './modules/occurrence.js';
+
+export const APP_VERSION = '0.0.1';
+
+const ROUTES = [
+  { path: /^\/?$/, module: home },
+  { path: /^\/cases$/, module: cases },
+  { path: /^\/occurrence\/([^/]+)$/, module: occurrence },
+  { path: /^\/about$/, module: about },
+];
+
+const NAV = [
+  { href: '#/', key: 'nav.home' },
+  { href: '#/cases', key: 'nav.cases' },
+  { href: '#/about', key: 'nav.about' },
+];
+
+const view = document.getElementById('view');
+
+function currentPath() {
+  const h = location.hash.replace(/^#/, '') || '/';
+  return h.split('?')[0];
+}
+
+async function render() {
+  const path = currentPath();
+  for (const r of ROUTES) {
+    const m = path.match(r.path);
+    if (m) {
+      view.innerHTML = '';
+      try {
+        await r.module.render(view, ...m.slice(1).map(decodeURIComponent));
+      } catch (e) {
+        console.error(e);
+        view.innerHTML = `<div class="card"><h2>${t('error.title')}</h2><p class="muted">${escapeHtml(e.message)}</p></div>`;
+      }
+      applyDom(view);
+      markNav(path);
+      return;
+    }
+  }
+  view.innerHTML = `<div class="card"><h2>${t('error.notFound')}</h2><p><a href="#/">${t('nav.home')}</a></p></div>`;
+  markNav(path);
+}
+
+function buildNav() {
+  const nav = document.getElementById('nav');
+  nav.innerHTML = NAV.map((n) => `<a href="${n.href}" data-i18n="${n.key}">${t(n.key)}</a>`).join('');
+}
+
+function markNav(path) {
+  document.querySelectorAll('#nav a').forEach((a) => {
+    const p = a.getAttribute('href').replace(/^#/, '');
+    a.classList.toggle('active', p === '/' ? path === '/' : path.startsWith(p));
+  });
+}
+
+export function toast(msg, ms = 2500) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.hidden = false;
+  clearTimeout(el._t);
+  el._t = setTimeout(() => { el.hidden = true; }, ms);
+}
+
+export function escapeHtml(s) {
+  return String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+function updateOffline() {
+  document.getElementById('offlineBadge').hidden = navigator.onLine;
+}
+
+async function registerSW() {
+  if (!('serviceWorker' in navigator)) return;
+  try {
+    const reg = await navigator.serviceWorker.register('sw.js');
+    navigator.serviceWorker.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'VERSION') {
+        document.getElementById('versionLabel').textContent = `v${APP_VERSION} · sw ${e.data.version}`;
+      }
+    });
+    const ask = () => navigator.serviceWorker.controller && navigator.serviceWorker.controller.postMessage('GET_VERSION');
+    if (navigator.serviceWorker.controller) ask();
+    navigator.serviceWorker.addEventListener('controllerchange', ask);
+    reg.addEventListener('updatefound', () => {
+      const w = reg.installing;
+      w && w.addEventListener('statechange', () => {
+        if (w.state === 'installed' && navigator.serviceWorker.controller) toast(t('app.updated'));
+      });
+    });
+  } catch (e) {
+    console.warn('sw:', e.message);
+  }
+}
+
+async function main() {
+  document.getElementById('versionLabel').textContent = `v${APP_VERSION}`;
+  await initI18n();
+  await loadTaxonomy();
+  const sel = document.getElementById('langSelect');
+  sel.value = getLang();
+  sel.addEventListener('change', () => setLang(sel.value));
+  onLangChange(() => { buildNav(); applyDom(document); render(); });
+  buildNav();
+  applyDom(document);
+  window.addEventListener('hashchange', render);
+  window.addEventListener('online', updateOffline);
+  window.addEventListener('offline', updateOffline);
+  updateOffline();
+  await render();
+  registerSW();
+}
+
+main().catch((e) => {
+  console.error(e);
+  view.innerHTML = `<div class="card"><h2>Ошибка запуска</h2><p>${escapeHtml(e.message)}</p></div>`;
+});

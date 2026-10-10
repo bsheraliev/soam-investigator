@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#004080">
+  <meta name="description" content="Расследование авиационных событий по методологии SOAM (EUROCONTROL)">
+  <title>SOAM Investigator</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <header class="topbar">
+    <a href="#/" class="brand" data-i18n="app.title">SOAM Investigator</a>
+    <nav class="nav" id="nav"></nav>
+    <div class="topbar-right">
+      <span class="offline-badge" id="offlineBadge" hidden data-i18n="app.offline">офлайн</span>
+      <select id="langSelect" class="lang" aria-label="Язык">
+        <option value="ru">RU</option>
+        <option value="tj">TJ</option>
+        <option value="en">EN</option>
+      </select>
+    </div>
+  </header>
+  <main id="view" class="view" aria-live="polite"></main>
+  <footer class="footer">
+    <span id="versionLabel"></span>
+    <span class="sep">·</span>
+    <a href="#/about" data-i18n="nav.about">О методологии</a>
+  </footer>
+  <div id="toast" class="toast" hidden></div>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
