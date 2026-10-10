@@ -86,7 +86,7 @@ def build(case):
         facts.append({"id": fid, "occurrenceId": occ_id, "text": text, "shelo": None,
                       "source": f"SOAM QRG V3, p.{case['qrg_page']}", "attachments": [], "contributes": True})
         c = {"id": cid, "factId": fid, "occurrenceId": occ_id, "element": "OSF" if lvl == "other" else lvl,
-             "order": k}
+             "order": k, "confirmed": True}  # классификация выполнена авторами QRG
         if lvl in ("OSF", "other"):
             c["osfCodes"] = codes
             c["otherSystem"] = (lvl == "other") or n["dashed"] or codes == ["EE"]

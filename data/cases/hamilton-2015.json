@@ -286,6 +286,7 @@
    "occurrenceId": "case-hamilton-2015",
    "element": "OSF",
    "order": 1,
+   "confirmed": true,
    "osfCodes": [
     "EE",
     "RM"
@@ -298,6 +299,7 @@
    "occurrenceId": "case-hamilton-2015",
    "element": "OSF",
    "order": 1,
+   "confirmed": true,
    "osfCodes": [
     "TR",
     "RM",
@@ -311,6 +313,7 @@
    "occurrenceId": "case-hamilton-2015",
    "element": "OSF",
    "order": 2,
+   "confirmed": true,
    "osfCodes": [
     "CO",
     "OC"
@@ -323,6 +326,7 @@
    "occurrenceId": "case-hamilton-2015",
    "element": "OSF",
    "order": 3,
+   "confirmed": true,
    "osfCodes": [
     "TR",
     "WM"
@@ -335,6 +339,7 @@
    "occurrenceId": "case-hamilton-2015",
    "element": "OSF",
    "order": 4,
+   "confirmed": true,
    "osfCodes": [
     "WM",
     "PP"
@@ -347,6 +352,7 @@
    "occurrenceId": "case-hamilton-2015",
    "element": "OSF",
    "order": 5,
+   "confirmed": true,
    "osfCodes": [
     "WM",
     "RM",
@@ -360,6 +366,7 @@
    "occurrenceId": "case-hamilton-2015",
    "element": "OSF",
    "order": 6,
+   "confirmed": true,
    "osfCodes": [
     "WM",
     "PP",
@@ -373,6 +380,7 @@
    "occurrenceId": "case-hamilton-2015",
    "element": "OSF",
    "order": 7,
+   "confirmed": true,
    "osfCodes": [
     "RM",
     "CM"
@@ -384,105 +392,120 @@
    "factId": "case-hamilton-2015:f-cc-01",
    "occurrenceId": "case-hamilton-2015",
    "element": "CC",
-   "order": 1
+   "order": 1,
+   "confirmed": true
   },
   {
    "id": "case-hamilton-2015:c-cc-02",
    "factId": "case-hamilton-2015:f-cc-02",
    "occurrenceId": "case-hamilton-2015",
    "element": "CC",
-   "order": 2
+   "order": 2,
+   "confirmed": true
   },
   {
    "id": "case-hamilton-2015:c-cc-03",
    "factId": "case-hamilton-2015:f-cc-03",
    "occurrenceId": "case-hamilton-2015",
    "element": "CC",
-   "order": 3
+   "order": 3,
+   "confirmed": true
   },
   {
    "id": "case-hamilton-2015:c-cc-04",
    "factId": "case-hamilton-2015:f-cc-04",
    "occurrenceId": "case-hamilton-2015",
    "element": "CC",
-   "order": 4
+   "order": 4,
+   "confirmed": true
   },
   {
    "id": "case-hamilton-2015:c-cc-05",
    "factId": "case-hamilton-2015:f-cc-05",
    "occurrenceId": "case-hamilton-2015",
    "element": "CC",
-   "order": 5
+   "order": 5,
+   "confirmed": true
   },
   {
    "id": "case-hamilton-2015:c-cc-06",
    "factId": "case-hamilton-2015:f-cc-06",
    "occurrenceId": "case-hamilton-2015",
    "element": "CC",
-   "order": 6
+   "order": 6,
+   "confirmed": true
   },
   {
    "id": "case-hamilton-2015:c-cc-07",
    "factId": "case-hamilton-2015:f-cc-07",
    "occurrenceId": "case-hamilton-2015",
    "element": "CC",
-   "order": 7
+   "order": 7,
+   "confirmed": true
   },
   {
    "id": "case-hamilton-2015:c-cc-08",
    "factId": "case-hamilton-2015:f-cc-08",
    "occurrenceId": "case-hamilton-2015",
    "element": "CC",
-   "order": 8
+   "order": 8,
+   "confirmed": true
   },
   {
    "id": "case-hamilton-2015:c-cc-09",
    "factId": "case-hamilton-2015:f-cc-09",
    "occurrenceId": "case-hamilton-2015",
    "element": "CC",
-   "order": 9
+   "order": 9,
+   "confirmed": true
   },
   {
    "id": "case-hamilton-2015:c-cc-10",
    "factId": "case-hamilton-2015:f-cc-10",
    "occurrenceId": "case-hamilton-2015",
    "element": "CC",
-   "order": 10
+   "order": 10,
+   "confirmed": true
   },
   {
    "id": "case-hamilton-2015:c-cc-11",
    "factId": "case-hamilton-2015:f-cc-11",
    "occurrenceId": "case-hamilton-2015",
    "element": "CC",
-   "order": 11
+   "order": 11,
+   "confirmed": true
   },
   {
    "id": "case-hamilton-2015:c-cc-12",
    "factId": "case-hamilton-2015:f-cc-12",
    "occurrenceId": "case-hamilton-2015",
    "element": "CC",
-   "order": 12
+   "order": 12,
+   "confirmed": true
   },
   {
    "id": "case-hamilton-2015:c-hi-01",
    "factId": "case-hamilton-2015:f-hi-01",
    "occurrenceId": "case-hamilton-2015",
    "element": "HI",
-   "order": 1
+   "order": 1,
+   "confirmed": true
   },
   {
    "id": "case-hamilton-2015:c-hi-02",
    "factId": "case-hamilton-2015:f-hi-02",
    "occurrenceId": "case-hamilton-2015",
    "element": "HI",
-   "order": 2
+   "order": 2,
+   "confirmed": true
   },
   {
    "id": "case-hamilton-2015:c-hi-03",
    "factId": "case-hamilton-2015:f-hi-03",
    "occurrenceId": "case-hamilton-2015",
    "element": "HI",
-   "order": 3
+   "order": 3,
+   "confirmed": true
   },
   {
    "id": "case-hamilton-2015:c-bar-01",
@@ -490,6 +513,7 @@
    "occurrenceId": "case-hamilton-2015",
    "element": "BAR",
    "order": 1,
+   "confirmed": true,
    "barrierState": null,
    "otherSystem": false
   },
@@ -499,6 +523,7 @@
    "occurrenceId": "case-hamilton-2015",
    "element": "BAR",
    "order": 2,
+   "confirmed": true,
    "barrierState": null,
    "otherSystem": false
   },
@@ -508,6 +533,7 @@
    "occurrenceId": "case-hamilton-2015",
    "element": "BAR",
    "order": 3,
+   "confirmed": true,
    "barrierState": null,
    "otherSystem": false
   },
@@ -517,6 +543,7 @@
    "occurrenceId": "case-hamilton-2015",
    "element": "BAR",
    "order": 4,
+   "confirmed": true,
    "barrierState": null,
    "otherSystem": false
   },
@@ -526,6 +553,7 @@
    "occurrenceId": "case-hamilton-2015",
    "element": "BAR",
    "order": 5,
+   "confirmed": true,
    "barrierState": null,
    "otherSystem": false
   }

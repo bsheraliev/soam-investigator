@@ -342,6 +342,7 @@
    "occurrenceId": "case-bangkok-1999",
    "element": "OSF",
    "order": 1,
+   "confirmed": true,
    "osfCodes": [
     "EE",
     "PP"
@@ -354,6 +355,7 @@
    "occurrenceId": "case-bangkok-1999",
    "element": "OSF",
    "order": 2,
+   "confirmed": true,
    "osfCodes": [
     "EE",
     "AC"
@@ -366,6 +368,7 @@
    "occurrenceId": "case-bangkok-1999",
    "element": "OSF",
    "order": 3,
+   "confirmed": true,
    "osfCodes": [
     "EE",
     "PP"
@@ -378,6 +381,7 @@
    "occurrenceId": "case-bangkok-1999",
    "element": "OSF",
    "order": 1,
+   "confirmed": true,
    "osfCodes": [
     "PP",
     "CO"
@@ -390,6 +394,7 @@
    "occurrenceId": "case-bangkok-1999",
    "element": "OSF",
    "order": 2,
+   "confirmed": true,
    "osfCodes": [
     "CO",
     "OC"
@@ -402,6 +407,7 @@
    "occurrenceId": "case-bangkok-1999",
    "element": "OSF",
    "order": 3,
+   "confirmed": true,
    "osfCodes": [
     "TR",
     "WM"
@@ -414,6 +420,7 @@
    "occurrenceId": "case-bangkok-1999",
    "element": "OSF",
    "order": 4,
+   "confirmed": true,
    "osfCodes": [
     "CO"
    ],
@@ -425,6 +432,7 @@
    "occurrenceId": "case-bangkok-1999",
    "element": "OSF",
    "order": 5,
+   "confirmed": true,
    "osfCodes": [
     "OC",
     "AC"
@@ -437,6 +445,7 @@
    "occurrenceId": "case-bangkok-1999",
    "element": "OSF",
    "order": 6,
+   "confirmed": true,
    "osfCodes": [
     "RM",
     "CM"
@@ -449,6 +458,7 @@
    "occurrenceId": "case-bangkok-1999",
    "element": "OSF",
    "order": 7,
+   "confirmed": true,
    "osfCodes": [
     "CM",
     "OC"
@@ -461,6 +471,7 @@
    "occurrenceId": "case-bangkok-1999",
    "element": "OSF",
    "order": 8,
+   "confirmed": true,
    "osfCodes": [
     "CM",
     "OC"
@@ -473,6 +484,7 @@
    "occurrenceId": "case-bangkok-1999",
    "element": "OSF",
    "order": 9,
+   "confirmed": true,
    "osfCodes": [
     "CG"
    ],
@@ -484,6 +496,7 @@
    "occurrenceId": "case-bangkok-1999",
    "element": "OSF",
    "order": 10,
+   "confirmed": true,
    "osfCodes": [
     "PP",
     "WM"
@@ -496,6 +509,7 @@
    "occurrenceId": "case-bangkok-1999",
    "element": "OSF",
    "order": 11,
+   "confirmed": true,
    "osfCodes": [
     "PP",
     "WM"
@@ -507,105 +521,120 @@
    "factId": "case-bangkok-1999:f-cc-01",
    "occurrenceId": "case-bangkok-1999",
    "element": "CC",
-   "order": 1
+   "order": 1,
+   "confirmed": true
   },
   {
    "id": "case-bangkok-1999:c-cc-02",
    "factId": "case-bangkok-1999:f-cc-02",
    "occurrenceId": "case-bangkok-1999",
    "element": "CC",
-   "order": 2
+   "order": 2,
+   "confirmed": true
   },
   {
    "id": "case-bangkok-1999:c-cc-03",
    "factId": "case-bangkok-1999:f-cc-03",
    "occurrenceId": "case-bangkok-1999",
    "element": "CC",
-   "order": 3
+   "order": 3,
+   "confirmed": true
   },
   {
    "id": "case-bangkok-1999:c-cc-04",
    "factId": "case-bangkok-1999:f-cc-04",
    "occurrenceId": "case-bangkok-1999",
    "element": "CC",
-   "order": 4
+   "order": 4,
+   "confirmed": true
   },
   {
    "id": "case-bangkok-1999:c-cc-05",
    "factId": "case-bangkok-1999:f-cc-05",
    "occurrenceId": "case-bangkok-1999",
    "element": "CC",
-   "order": 5
+   "order": 5,
+   "confirmed": true
   },
   {
    "id": "case-bangkok-1999:c-cc-06",
    "factId": "case-bangkok-1999:f-cc-06",
    "occurrenceId": "case-bangkok-1999",
    "element": "CC",
-   "order": 6
+   "order": 6,
+   "confirmed": true
   },
   {
    "id": "case-bangkok-1999:c-cc-07",
    "factId": "case-bangkok-1999:f-cc-07",
    "occurrenceId": "case-bangkok-1999",
    "element": "CC",
-   "order": 7
+   "order": 7,
+   "confirmed": true
   },
   {
    "id": "case-bangkok-1999:c-cc-08",
    "factId": "case-bangkok-1999:f-cc-08",
    "occurrenceId": "case-bangkok-1999",
    "element": "CC",
-   "order": 8
+   "order": 8,
+   "confirmed": true
   },
   {
    "id": "case-bangkok-1999:c-cc-09",
    "factId": "case-bangkok-1999:f-cc-09",
    "occurrenceId": "case-bangkok-1999",
    "element": "CC",
-   "order": 9
+   "order": 9,
+   "confirmed": true
   },
   {
    "id": "case-bangkok-1999:c-cc-10",
    "factId": "case-bangkok-1999:f-cc-10",
    "occurrenceId": "case-bangkok-1999",
    "element": "CC",
-   "order": 10
+   "order": 10,
+   "confirmed": true
   },
   {
    "id": "case-bangkok-1999:c-cc-11",
    "factId": "case-bangkok-1999:f-cc-11",
    "occurrenceId": "case-bangkok-1999",
    "element": "CC",
-   "order": 11
+   "order": 11,
+   "confirmed": true
   },
   {
    "id": "case-bangkok-1999:c-hi-01",
    "factId": "case-bangkok-1999:f-hi-01",
    "occurrenceId": "case-bangkok-1999",
    "element": "HI",
-   "order": 1
+   "order": 1,
+   "confirmed": true
   },
   {
    "id": "case-bangkok-1999:c-hi-02",
    "factId": "case-bangkok-1999:f-hi-02",
    "occurrenceId": "case-bangkok-1999",
    "element": "HI",
-   "order": 2
+   "order": 2,
+   "confirmed": true
   },
   {
    "id": "case-bangkok-1999:c-hi-03",
    "factId": "case-bangkok-1999:f-hi-03",
    "occurrenceId": "case-bangkok-1999",
    "element": "HI",
-   "order": 3
+   "order": 3,
+   "confirmed": true
   },
   {
    "id": "case-bangkok-1999:c-hi-04",
    "factId": "case-bangkok-1999:f-hi-04",
    "occurrenceId": "case-bangkok-1999",
    "element": "HI",
-   "order": 4
+   "order": 4,
+   "confirmed": true
   },
   {
    "id": "case-bangkok-1999:c-bar-01",
@@ -613,6 +642,7 @@
    "occurrenceId": "case-bangkok-1999",
    "element": "BAR",
    "order": 1,
+   "confirmed": true,
    "barrierState": null,
    "otherSystem": false
   },
@@ -622,6 +652,7 @@
    "occurrenceId": "case-bangkok-1999",
    "element": "BAR",
    "order": 2,
+   "confirmed": true,
    "barrierState": null,
    "otherSystem": false
   },
@@ -631,6 +662,7 @@
    "occurrenceId": "case-bangkok-1999",
    "element": "BAR",
    "order": 3,
+   "confirmed": true,
    "barrierState": null,
    "otherSystem": false
   },
@@ -640,6 +672,7 @@
    "occurrenceId": "case-bangkok-1999",
    "element": "BAR",
    "order": 4,
+   "confirmed": true,
    "barrierState": null,
    "otherSystem": false
   },
@@ -649,6 +682,7 @@
    "occurrenceId": "case-bangkok-1999",
    "element": "BAR",
    "order": 5,
+   "confirmed": true,
    "barrierState": null,
    "otherSystem": false
   }
