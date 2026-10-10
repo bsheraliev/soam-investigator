@@ -1,7 +1,7 @@
 // «О методологии»: источник, права, состав таксономии.
 import { t, tx } from '../i18n.js';
 import { taxonomy } from '../taxonomy.js';
-import { escapeHtml } from '../app.js';
+import { escapeHtml } from '../ui.js';
 
 export async function render(view) {
   const tax = taxonomy();

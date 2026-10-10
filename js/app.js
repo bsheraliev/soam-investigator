@@ -1,17 +1,21 @@
 // Инициализация, хеш-роутер, service worker, язык.
 import { initI18n, setLang, getLang, t, applyDom, onLangChange } from './i18n.js';
 import { loadTaxonomy } from './taxonomy.js';
+import { escapeHtml, toast } from './ui.js';
 import * as home from './modules/home.js';
 import * as about from './modules/about.js';
 import * as cases from './modules/cases.js';
 import * as occurrence from './modules/occurrence.js';
+import * as occurrenceForm from './modules/occurrence-form.js';
 
-export const APP_VERSION = '0.0.1';
+export const APP_VERSION = '0.1.0';
+export { escapeHtml, toast };
 
 const ROUTES = [
   { path: /^\/?$/, module: home },
   { path: /^\/cases$/, module: cases },
-  { path: /^\/occurrence\/([^/]+)$/, module: occurrence },
+  { path: /^\/occurrence\/new$/, module: occurrenceForm },
+  { path: /^\/occurrence\/([^/]+)(?:\/([a-z]+))?$/, module: occurrence },
   { path: /^\/about$/, module: about },
 ];
 
@@ -28,20 +32,21 @@ function currentPath() {
   return h.split('?')[0];
 }
 
-async function render() {
+export async function render() {
   const path = currentPath();
   for (const r of ROUTES) {
     const m = path.match(r.path);
     if (m) {
       view.innerHTML = '';
       try {
-        await r.module.render(view, ...m.slice(1).map(decodeURIComponent));
+        await r.module.render(view, ...m.slice(1).map((x) => (x === undefined ? x : decodeURIComponent(x))));
       } catch (e) {
         console.error(e);
         view.innerHTML = `<div class="card"><h2>${t('error.title')}</h2><p class="muted">${escapeHtml(e.message)}</p></div>`;
       }
       applyDom(view);
       markNav(path);
+      window.scrollTo(0, 0);
       return;
     }
   }
@@ -57,20 +62,8 @@ function buildNav() {
 function markNav(path) {
   document.querySelectorAll('#nav a').forEach((a) => {
     const p = a.getAttribute('href').replace(/^#/, '');
-    a.classList.toggle('active', p === '/' ? path === '/' : path.startsWith(p));
+    a.classList.toggle('active', p === '/' ? path === '/' || path.startsWith('/occurrence') : path.startsWith(p));
   });
-}
-
-export function toast(msg, ms = 2500) {
-  const el = document.getElementById('toast');
-  el.textContent = msg;
-  el.hidden = false;
-  clearTimeout(el._t);
-  el._t = setTimeout(() => { el.hidden = true; }, ms);
-}
-
-export function escapeHtml(s) {
-  return String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
 function updateOffline() {

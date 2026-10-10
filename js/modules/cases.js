@@ -1,7 +1,7 @@
 // Тестовые кейсы из QRG: загрузка в локальную базу.
 import { db } from '../db.js';
 import { t, tx } from '../i18n.js';
-import { escapeHtml, toast } from '../app.js';
+import { escapeHtml, toast } from '../ui.js';
 
 async function loadIndex() {
   const r = await fetch('data/cases/index.json');
