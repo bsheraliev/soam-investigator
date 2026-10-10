@@ -40,6 +40,16 @@ export async function render(view) {
     </div>
     <div class="card">
       <details>
+        <summary><strong>${t('about.pirate')}</strong> <span class="muted small">(QRG, стр. 54–56)</span></summary>
+        <p>${escapeHtml(tx(tax.pirate.intro))}</p>
+        <p>${escapeHtml(tx(tax.pirate.principle))}</p>
+        <h4>${t('about.pirateSteps')}</h4><ol>${li(tax.pirate.steps, (e) => escapeHtml(tx(e)))}</ol>
+        <h4>${t('about.pirateUses')}</h4><ul>${li(tax.pirate.uses, (e) => escapeHtml(tx(e)))}</ul>
+        <p class="small muted">${escapeHtml(tax.pirate.source_note)}</p>
+      </details>
+    </div>
+    <div class="card">
+      <details>
         <summary><strong>${t('about.glossary')}</strong> <span class="muted small">(${tax.glossary.length} · QRG, стр. 58–60)</span></summary>
         <dl class="glossary">${tax.glossary.map((g) => `<dt>${escapeHtml(g.code)}</dt><dd>${escapeHtml(tx(g))}<br><span class="small muted">${escapeHtml(g.en)}</span></dd>`).join('')}</dl>
       </details>

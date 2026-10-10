@@ -2,7 +2,7 @@
 import { t, tx } from '../i18n.js';
 import { taxonomy, osf, barrier, element, severity, shelo } from '../taxonomy.js';
 import { escapeHtml, fmtDateTime } from '../ui.js';
-import { sortEvents, otherSafetyIssues, contributingFacts, qaComplete, SMARTER_CODES, openFollowUps, investigationAdvice } from '../rules.js';
+import { sortEvents, otherSafetyIssues, contributingFacts, qaComplete, SMARTER_CODES, openFollowUps, investigationAdvice, isPirate } from '../rules.js';
 import { layout, renderSvg } from './chart.js';
 
 function section(title, body) {
@@ -19,26 +19,30 @@ export function buildReportHtml(ctx, { classes, links, events, actions, qa }) {
   const final = qaComplete(qa, qaIds);
   const sev = o.severity ? severity(o.severity) : null;
   const advice = investigationAdvice(o);
+  const pirate = isPirate(o);
   const svg = renderSvg(o, layout(o, classes, factById), links, { interactive: false });
 
   const head = `
     <header class="rep-head">
       ${final ? '' : `<div class="rep-draft">${t('report.draft')}</div>`}
-      <p class="rep-kicker">${t('report.kicker')}</p>
+      <p class="rep-kicker">${pirate ? t('report.kickerPirate') : t('report.kicker')}</p>
       <h1>${escapeHtml(tx(o.title))}</h1>
       <table class="rep-meta">
         <tr><th>${t('field.type')}</th><td>${t('type.' + (o.type || 'unknown'))}</td></tr>
         <tr><th>${t('field.date')}</th><td>${escapeHtml(fmtDateTime(o.date))}</td></tr>
         <tr><th>${t('field.place')}</th><td>${escapeHtml(o.place || '—')}</td></tr>
+        ${pirate ? `
+        <tr><th>${t('occ.pirateReason')}</th><td>${o.pirateReason ? t('pirate.reason.' + o.pirateReason) : '—'}</td></tr>
+        <tr><th>${t('occ.participants')}</th><td>${escapeHtml(o.participants || '—')}</td></tr>` : `
         <tr><th>${t('field.severity')}</th><td>${sev ? `${sev.code} — ${escapeHtml(tx(sev))}` : '—'}</td></tr>
         <tr><th>${t('occ.investigate')}</th><td>${o.investigate === true ? t('occ.investigateYes') : o.investigate === false ? t('occ.investigateNo') : t('occ.investigateUndecided')}${o.investigateReason ? ` — ${escapeHtml(o.investigateReason)}` : ''}${advice.conflict ? ` <em>(${t('occ.advice.conflict')})</em>` : ''}</td></tr>
-        <tr><th>${t('occ.advice.label')}</th><td>${t({ required: 'occ.advice.required', recommended: 'occ.advice.recommended', cost_benefit: 'occ.advice.costBenefit', unknown: 'occ.advice.unknown' }[advice.level], { severity: o.severity || '' })}</td></tr>
+        <tr><th>${t('occ.advice.label')}</th><td>${t({ required: 'occ.advice.required', recommended: 'occ.advice.recommended', cost_benefit: 'occ.advice.costBenefit', unknown: 'occ.advice.unknown' }[advice.level], { severity: o.severity || '' })}</td></tr>`}
         <tr><th>${t('field.status')}</th><td>${t('status.' + (o.status || 'draft'))}${o.completedAt ? ` · ${escapeHtml(o.completedAt.slice(0, 10))}` : ''}</td></tr>
         <tr><th>${t('report.generated')}</th><td>${new Date().toISOString().slice(0, 16).replace('T', ' ')}</td></tr>
       </table>
     </header>`;
 
-  const outcome = section(t('occ.outcome'), (o.outcome || []).length ? `<ul>${o.outcome.map((x) => `<li>${escapeHtml(x)}</li>`).join('')}</ul>` : '<p>—</p>');
+  const outcome = section(pirate ? t('occ.scenarioOutcome') : t('occ.outcome'), (o.outcome || []).length ? `<ul>${o.outcome.map((x) => `<li>${escapeHtml(x)}</li>`).join('')}</ul>` : '<p>—</p>');
 
   const factsHtml = section(t('report.facts'), facts.length ? `<table class="rep-table"><thead><tr><th>#</th><th>SHEL/O</th><th>${t('facts.text')}</th><th>${t('facts.source')}</th><th>${t('report.contribution')}</th></tr></thead><tbody>
     ${facts.map((f, i) => `<tr><td>${i + 1}</td><td>${f.shelo ? `${f.shelo} — ${escapeHtml(tx(shelo(f.shelo)))}` : ''}</td><td>${escapeHtml(f.text)}${(f.attachments || []).length ? `<br><small>📎 ${f.attachments.map((a) => escapeHtml(a.name)).join(', ')}</small>` : ''}</td><td>${escapeHtml(f.source || '')}</td><td>${f.contributes === true ? '✓' : f.contributes === false ? '—' : '?'}</td></tr>`).join('')}

@@ -53,6 +53,7 @@ export async function render(view, id, tab = 'event') {
         ${o.place ? `<span class="tag">${escapeHtml(o.place)}</span>` : ''}
         ${sev ? `<span class="tag sev" title="${escapeHtml(tx(sev))}">${sev.code}</span>` : ''}
         <span class="tag ${o.status === 'completed' ? 'ok' : ''}">${t('status.' + (o.status || 'draft'))}</span>
+        ${o.mode === 'pirate' ? `<span class="tag q" title="${t('mode.pirate')}">PIRATe</span>` : ''}
         ${o.isTestCase ? `<span class="tag">${t('home.testCase')}</span>` : ''}
       </p>
     </div>

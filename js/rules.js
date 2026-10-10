@@ -139,9 +139,14 @@ export function suggestLinks({ classifications, events, links, occurrenceId }) {
   return out;
 }
 
-/** Тяжесть по схеме EUROCONTROL (QRG, стр. 7) применяется к инцидентам; для АП не требуется. */
+/** Режим PIRATe (QRG, стр. 54–56): гипотетический сценарий «наше следующее происшествие», тот же процесс SOAM. */
+export function isPirate(occurrence) {
+  return !!occurrence && occurrence.mode === 'pirate';
+}
+
+/** Тяжесть по схеме EUROCONTROL (QRG, стр. 7) применяется к инцидентам; для АП и сценариев PIRATe не требуется. */
 export function severityRequired(occurrence) {
-  return occurrence.type !== 'accident';
+  return !isPirate(occurrence) && occurrence.type !== 'accident';
 }
 
 /**
@@ -152,6 +157,7 @@ export function severityRequired(occurrence) {
  * conflict: выбрано «не расследовать», хотя методология требует или рекомендует расследование.
  */
 export function investigationAdvice(occurrence = {}) {
+  if (isPirate(occurrence)) return { level: 'pirate', conflict: false };
   let level = 'unknown';
   if (occurrence.type === 'accident') level = 'required';
   else if (['A', 'B', 'C'].includes(occurrence.severity)) level = 'recommended';

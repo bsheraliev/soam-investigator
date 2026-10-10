@@ -39,7 +39,7 @@ export async function render(view) {
   const rows = list.map((o) => {
     const sev = o.severity ? severity(o.severity) : null;
     return `<tr class="link-row" data-id="${escapeHtml(o.id)}">
-      <td>${escapeHtml(tx(o.title)) || t('occ.untitled')}${o.isTestCase ? ` <span class="tag">${t('home.testCase')}</span>` : ''}</td>
+      <td>${escapeHtml(tx(o.title)) || t('occ.untitled')}${o.mode === 'pirate' ? ` <span class="tag q">PIRATe</span>` : ''}${o.isTestCase ? ` <span class="tag">${t('home.testCase')}</span>` : ''}</td>
       <td>${escapeHtml(String(o.date || '').slice(0, 10))}</td>
       <td>${escapeHtml(t('type.' + (o.type || 'unknown')))}</td>
       <td>${sev ? `<span class="tag sev" title="${escapeHtml(tx(sev))}">${sev.code}</span>` : '<span class="muted">—</span>'}</td>
@@ -54,6 +54,7 @@ export async function render(view) {
     <div class="card">
       <div class="btn-row top">
         <a class="btn" href="#/occurrence/new">＋ ${t('home.new')}</a>
+        <a class="btn secondary" href="#/occurrence/new?mode=pirate" title="${t('occ.modeHint')}">＋ ${t('home.newPirate')}</a>
         <a class="btn secondary" href="#/cases">${t('home.loadCases')}</a>
         <label class="btn secondary" for="importFile">${t('import.button')}</label>
         <input id="importFile" type="file" accept="application/json,.json" hidden>
