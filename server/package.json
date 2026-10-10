@@ -1,6 +1,6 @@
 {
   "name": "soam-investigator-server",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "private": true,
   "description": "SOAM Investigator — сервер синхронизации дел: организации, пользователи, роли, журнал действий",
   "type": "module",

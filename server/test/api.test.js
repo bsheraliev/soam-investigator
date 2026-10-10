@@ -165,11 +165,14 @@ test('сводки организации: реестр мер с просроч
 });
 
 test('резервная копия организации (admin): все дела пакетами, чужая организация не попадает', async () => {
-  assert.equal((await api('GET', '/api/export', { token: invTok })).status, 401, 'сессия inv закрыта выше'); // вышел в прошлом тесте
+  assert.equal((await api('GET', '/api/export', { token: 'bogus-token' })).status, 401);
   const rdr = await api('GET', '/api/export', { token: readerTok });
   assert.equal(rdr.status, 403);
   const exp = await api('GET', '/api/export', { token: otherTok });
   assert.equal(exp.status, 200); assert.equal(exp.json.format, 'soam-investigator/organisation');
+  assert.ok(exp.json.exportedAt && exp.json.cases[1].bundle.classifications.length === 2, 'склеенный JSON разбирается целиком');
+  const combined = await api('GET', '/api/stats', { token: otherTok });
+  assert.equal(combined.json.actions.overdue, 1); assert.equal(combined.json.osf.stats[0].code, 'TR');
   assert.equal(exp.json.organisation.name, 'АНСП'); assert.equal(exp.json.cases.length, 2);
   assert.equal(exp.json.cases[0].bundle.occurrence.id, 's-1'); assert.equal(exp.json.cases[0].version, 1);
   const mine = await api('GET', '/api/export', { token: adminTok });
@@ -188,6 +191,23 @@ test('перебор паролей: после 10 неудач — 429 даже
   assert.equal((await api('POST', '/api/auth/register', { body: { ...A, email: 'x@y.z', password: 'p'.repeat(201) } })).json.error, 'password', 'слишком длинный пароль');
   const h = await fetch(base + '/api/health');
   assert.equal(h.headers.get('x-content-type-options'), 'nosniff'); assert.equal(h.headers.get('cache-control'), 'no-store'); assert.equal(h.headers.get('x-powered-by'), null);
+});
+
+test('ограничитель: блок на полное окно от последней неудачи, снятие по времени и сброс при успехе; нулевой лимит из env не ломает', async () => {
+  const { limiter, envInt } = await import('../src/limiter.js');
+  let now = 1_000_000; const clock = () => now;
+  const L = limiter(3, 1000, clock);
+  const isBlocked = (k) => { let b = null; L.check(k, (s) => { b = s; }); return b; };
+  L.hit('k'); now += 900; L.hit('k'); now += 50; L.hit('k'); // третья неудача на 950 мс — окно продлевается от неё
+  assert.equal(isBlocked('k'), 1, 'заблокирован, retryAfter ≈ 1 с');
+  now += 600; assert.ok(isBlocked('k'), 'через 600 мс после 3-й неудачи всё ещё блок (исходное окно уже истекло бы)');
+  now += 500; assert.equal(isBlocked('k'), null, 'окно от последней неудачи истекло — снято');
+  L.hit('k'); L.hit('k'); L.hit('k'); assert.ok(isBlocked('k')); L.reset('k'); assert.equal(isBlocked('k'), null, 'сброс при успешном входе');
+  assert.equal(isBlocked('other'), null);
+  process.env.X_TEST_LIMIT = '0'; assert.equal(envInt('X_TEST_LIMIT', 10), 10);
+  process.env.X_TEST_LIMIT = 'abc'; assert.equal(envInt('X_TEST_LIMIT', 10), 10);
+  process.env.X_TEST_LIMIT = '7'; assert.equal(envInt('X_TEST_LIMIT', 10), 7);
+  delete process.env.X_TEST_LIMIT;
 });
 
 test('регистрация закрыта флагом', async () => {

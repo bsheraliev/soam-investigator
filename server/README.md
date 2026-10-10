@@ -25,13 +25,14 @@
 | PUT | `/api/cases/:id` | admin, investigator | `{ bundle, baseVersion }` → `201` создано / `200` обновлено / `409` конфликт |
 | DELETE | `/api/cases/:id` | admin | удалить |
 | GET | `/api/audit?caseId=&limit=` | admin, investigator | журнал |
+| GET | `/api/stats` | вход | обе сводки одним запросом: `{ actions, osf }` (приложение использует его) |
 | GET | `/api/stats/actions` | вход | реестр мер по всем делам организации (просрочка, порядок) |
 | GET | `/api/stats/osf` | вход | статистика по 12 кодам OSF по всем делам |
 | GET | `/api/export` | admin | резервная копия: все дела организации пакетами (JSON) |
 
 Ошибки: `{ "error": "<код>" }` — `unauthorized`, `forbidden`, `disabled`, `not-found`, `email-taken`, `bad-credentials`, `too-many-attempts` (+ `retryAfterSec`), `version-conflict` (+ `version`), `bundle` (+ `errors`), `registration-closed`, `too-large`.
 
-Защита: 10 неудачных входов на пару IP + почта → блок 15 минут (`LOGIN_MAX_ATTEMPTS`); регистрация — 20 в час на IP (`REGISTER_MAX_PER_HOUR`); пароль 8–200 символов; заголовки `X-Content-Type-Options: nosniff`, `Cache-Control: no-store`; `trust proxy` для реального IP за Render.
+Защита: 10 неудачных входов на пару IP + почта → блок 15 минут от последней неудачи, успешный вход сбрасывает (`LOGIN_MAX_ATTEMPTS`; из-за ключа IP + почта коллега за тем же NAT может на 15 минут запереть чужую почту — осознанный компромисс против перебора); регистрация — 20 в час на IP (`REGISTER_MAX_PER_HOUR`); пароль 8–200 символов; заголовки `X-Content-Type-Options: nosniff`, `Cache-Control: no-store`; `trust proxy` для реального IP за Render.
 
 ## Локально
 ```powershell
