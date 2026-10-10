@@ -1,7 +1,12 @@
 // HTTP API: организации → пользователи (роли admin / investigator / reader) → дела (пакеты JSON того же формата,
 // что экспорт в приложении) + журнал действий. Фабрика createApp(db) — чтобы тесты поднимали сервер на SQLite в памяти.
 import express from 'express';
+import { readFileSync } from 'node:fs';
 import { validatePortable } from '../../js/bundle.js';
+import { actionsRegistry, actionOverdue, osfStats } from '../../js/rules.js';
+
+// Коды OSF — из той же таксономии, что в приложении.
+const OSF_CODES = JSON.parse(readFileSync(new URL('../../data/taxonomy.json', import.meta.url), 'utf8')).osf.map((o) => o.code);
 import { ROLES, MIN_PASSWORD, hashPassword, verifyPassword, newToken, tokenHash, uuid, nowIso, sessionExpiry } from './auth.js';
 
 const BODY_LIMIT = process.env.BODY_LIMIT || '30mb'; // дело с вложениями (до 5 МБ каждое, base64)
@@ -201,6 +206,33 @@ export function createApp(db, { allowedOrigins = process.env.ALLOWED_ORIGINS, al
     if (!r.changes) bad(404, 'not-found');
     await audit(req.user.org_id, req.user.id, 'case.delete', req.params.id);
     res.json({ ok: true });
+  }));
+
+  // --- сводки по всем делам организации (из пакетов; та же логика rules.js, что в приложении)
+  const orgBundles = async (orgId) => (await db.q('SELECT id, title, bundle FROM occurrence_case WHERE org_id = ?', [orgId]))
+    .map((r) => ({ id: r.id, title: r.title, bundle: JSON.parse(r.bundle) }));
+
+  app.get('/api/stats/actions', auth(), wrap(async (req, res) => {
+    const today = new Date().toISOString().slice(0, 10);
+    const all = [];
+    for (const c of await orgBundles(req.user.org_id)) {
+      const classById = Object.fromEntries((c.bundle.classifications || []).map((x) => [x.id, x]));
+      for (const a of c.bundle.actions || []) {
+        all.push({
+          id: a.id, caseId: c.id, caseTitle: c.title, text: a.text, responsible: a.responsible || '', due: a.due || null, status: a.status || 'planned',
+          addresses: (a.addresses || []).map((id) => classById[id]).filter(Boolean).map((x) => `${x.element}${x.element === 'OSF' ? ' ' + (x.osfCodes || []).join('/') : ''}`),
+        });
+      }
+    }
+    const actions = actionsRegistry(all, today).map((a) => ({ ...a, overdue: actionOverdue(a, today) }));
+    res.json({ today, actions, overdue: actions.filter((a) => a.overdue).length, open: actions.filter((a) => a.status !== 'done').length });
+  }));
+
+  app.get('/api/stats/osf', auth(), wrap(async (req, res) => {
+    const cases = await orgBundles(req.user.org_id);
+    const classes = cases.flatMap((c) => (c.bundle.classifications || []).map((x) => ({ ...x, occurrenceId: c.id })));
+    const withOsf = new Set(classes.filter((x) => x.element === 'OSF').map((x) => x.occurrenceId)).size;
+    res.json({ stats: osfStats(classes, OSF_CODES), casesWithOsf: withOsf, cases: cases.length });
   }));
 
   app.get('/api/audit', auth('admin', 'investigator'), wrap(async (req, res) => {
