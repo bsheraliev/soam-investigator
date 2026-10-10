@@ -8,3 +8,6 @@ desktop.ini
 *.log
 node_modules/
 .claude/settings.local.json
+
+# методология EUROCONTROL — только локально, в публичный репозиторий не попадает
+docs/SOAM_QRG_V3.pdf
