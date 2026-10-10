@@ -1,6 +1,6 @@
 // Service worker: кэш оболочки приложения для работы офлайн.
 // При любом изменении кэшируемых файлов — поднять CACHE_VERSION.
-const CACHE_VERSION = '0.1.1';
+const CACHE_VERSION = '0.2.3';
 const CACHE_NAME = `soam-investigator-${CACHE_VERSION}`;
 
 const SHELL = [
@@ -22,7 +22,9 @@ const SHELL = [
   './js/modules/facts.js',
   './js/modules/timeline.js',
   './js/modules/sort.js',
-  './js/modules/soam-view.js',
+  './js/modules/chart.js',
+  './js/modules/actions.js',
+  './js/modules/qa.js',
   './data/taxonomy.json',
   './data/i18n/ru.json',
   './data/i18n/tj.json',
@@ -37,7 +39,10 @@ const SHELL = [
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(SHELL)).then(() => self.skipWaiting())
+    // cache: 'reload' — мимо HTTP-кэша браузера, иначе в новую версию попадают старые файлы
+    caches.open(CACHE_NAME)
+      .then((cache) => cache.addAll(SHELL.map((u) => new Request(u, { cache: 'reload' }))))
+      .then(() => self.skipWaiting())
   );
 });
 
@@ -56,8 +61,9 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
 
+  // Ищем только в текущем кэше: caches.match() смотрит во все, включая ещё не удалённый старый.
   event.respondWith(
-    caches.match(req, { ignoreSearch: true }).then((cached) => {
+    caches.open(CACHE_NAME).then((cache) => cache.match(req, { ignoreSearch: true })).then((cached) => {
       const fromNet = fetch(req).then((res) => {
         if (res && res.ok) {
           const copy = res.clone();
