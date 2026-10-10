@@ -8,7 +8,7 @@ import * as cases from './modules/cases.js';
 import * as occurrence from './modules/occurrence.js';
 import * as occurrenceForm from './modules/occurrence-form.js';
 
-export const APP_VERSION = '0.1.0';
+export const APP_VERSION = '0.2.0';
 export { escapeHtml, toast };
 
 const ROUTES = [

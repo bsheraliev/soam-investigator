@@ -192,3 +192,17 @@ span.ok { color: #1a7f37; } span.warn { color: var(--accent); font-size: .85rem;
 .timeline li { display: grid; grid-template-columns: 150px 1fr; gap: 10px; padding: 8px 0; border-bottom: 1px dashed var(--line); cursor: pointer; }
 .timeline time { color: var(--muted); font-variant-numeric: tabular-nums; font-size: .9rem; }
 .soam-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+
+/* ---------- этап 2: схема, меры, QA ---------- */
+.chart-wrap { overflow: auto; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 8px; margin-bottom: 14px; }
+.chart-wrap svg { display: block; max-width: none; }
+.legend { display: flex; flex-wrap: wrap; gap: 12px; color: var(--muted); }
+.legend i { display: inline-block; width: 14px; height: 14px; border: 1px solid #333; border-radius: 3px; vertical-align: -2px; margin-right: 4px; }
+.coverage.ok, .readiness.ok { border-left: 4px solid #1a7f37; }
+.coverage.bad, .readiness.bad { border-left: 4px solid var(--accent); }
+.actions { padding-left: 18px; } .actions li { padding: 6px 0; border-bottom: 1px dashed var(--line); cursor: pointer; }
+.qa { padding-left: 18px; } .qa li { padding: 6px 0; border-bottom: 1px dashed var(--line); }
+.qa-note { width: 100%; margin-top: 4px; padding: 4px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--text); font-size: .85rem; }
+.tabs .count.ok { background: #1a7f37; color: #fff; }
+.tag.ok { border-color: #1a7f37; color: #1a7f37; }
+p.warn { color: var(--accent); }
