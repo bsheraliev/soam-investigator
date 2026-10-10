@@ -38,5 +38,11 @@ export async function render(view) {
       <div class="card"><h3>SMARTER</h3><ul class="plain">${li(tax.safety_actions.smarter, (e) => `<strong>${e.code.replace(/\d/, '')}</strong> — ${escapeHtml(tx(e))}`)}</ul></div>
       <div class="card"><h3>${t('about.qa')} (${tax.qa_checklist.length})</h3><ol>${li(tax.qa_checklist, (e) => escapeHtml(tx(e)))}</ol></div>
     </div>
+    <div class="card">
+      <details>
+        <summary><strong>${t('about.glossary')}</strong> <span class="muted small">(${tax.glossary.length} · QRG, стр. 58–60)</span></summary>
+        <dl class="glossary">${tax.glossary.map((g) => `<dt>${escapeHtml(g.code)}</dt><dd>${escapeHtml(tx(g))}<br><span class="small muted">${escapeHtml(g.en)}</span></dd>`).join('')}</dl>
+      </details>
+    </div>
     <p class="small muted">${t('about.translation')} · taxonomy v${escapeHtml(tax.meta.version)}</p>`;
 }

@@ -76,6 +76,26 @@ export function readiness({ facts, classifications, actions, qa, qaIds, occurren
   return { unsorted, unconfirmed, uncovered: cov.uncovered, required: cov.required.length, qaDone, qaTotal: qaIds.length, noClassifications, followUps, noLessons, ok };
 }
 
+// ---------------------------------------------------------------- реестр мер и статистика по всем делам
+
+/** Мера просрочена: срок прошёл, а статус не «выполнена». today — 'YYYY-MM-DD'. */
+export function actionOverdue(a, today) {
+  return !!a.due && a.status !== 'done' && a.due < today;
+}
+
+/** Реестр мер по всем делам: сортировка — просроченные, затем по сроку (без срока — в конец), выполненные — последними. */
+export function actionsRegistry(actions, today) {
+  const rank = (a) => (a.status === 'done' ? 2 : actionOverdue(a, today) ? 0 : 1);
+  return [...actions].sort((a, b) => rank(a) - rank(b) || (a.due && b.due ? a.due.localeCompare(b.due) : a.due ? -1 : b.due ? 1 : 0));
+}
+
+/** Статистика по кодам OSF: сколько классификаций OSF несут каждый код, по убыванию; коды без упоминаний — с нулём. */
+export function osfStats(classifications, codes) {
+  const count = Object.fromEntries(codes.map((c) => [c, 0]));
+  for (const c of classifications) if (c.element === 'OSF') for (const k of c.osfCodes || []) if (k in count) count[k]++;
+  return codes.map((code) => ({ code, n: count[code] })).sort((a, b) => b.n - a.n || codes.indexOf(a.code) - codes.indexOf(b.code));
+}
+
 // ---------------------------------------------------------------- связи на схеме
 
 const LEVEL_ORDER = ['OSF', 'CC', 'HI', 'BAR'];

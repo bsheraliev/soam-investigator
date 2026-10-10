@@ -2,7 +2,7 @@
  "meta": {
   "source": "EUROCONTROL. Systemic Occurrence Analysis Methodology (SOAM) Quick Reference Guide, Version 3.0, April 2023. © EUROCONTROL 2023.",
   "source_note": "English text ('en') is reproduced verbatim from the QRG for non-commercial use. 'qrg_page' is the printed page number.",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "languages": [
    "ru",
    "tj",
@@ -3937,5 +3937,214 @@
     }
    ]
   }
- }
+ },
+ "glossary": [
+  {
+   "id": "glossary.attitudes_and_personality_factors",
+   "code": "Attitudes and personality factors",
+   "en": "A category of Contextual Conditions relating to individual attitudes and personality that may influence worker performance at the time of a safety occurrence.",
+   "ru": "Категория контекстных условий, связанная с индивидуальными установками и личностными особенностями, которые могли влиять на работу человека в момент события.",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 58
+  },
+  {
+   "id": "glossary.barriers",
+   "code": "Barriers",
+   "en": "The final lines of defence that protect the system against failures. They may be work procedures, aspects of human awareness, physical obstacles, warning or control systems, or protection measures designed to prevent an occurrence, or lessen its consequences. One objective of the investigation process is to identify absent or failed barriers and develop safety actions to strengthen them.",
+   "ru": "Последние рубежи защиты системы от отказов: рабочие процедуры, осведомлённость людей, физические препятствия, системы предупреждения и контроля, меры защиты, призванные предотвратить событие или смягчить его последствия. Одна из задач расследования — выявить отсутствующие и отказавшие барьеры и разработать меры по их усилению.",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 58
+  },
+  {
+   "id": "glossary.confirmation_bias",
+   "code": "Confirmation bias",
+   "en": "The tendency to focus on data or evidence that confirms our existing impression or beliefs and overlook conflicting evidence. Ambiguous evidence is usually interpreted as supporting an existing belief or position. Confirmation bias makes it difficult to change existing impressions or beliefs.",
+   "ru": "Склонность замечать данные, подтверждающие уже сложившееся впечатление, и упускать противоречащие. Неоднозначные данные обычно толкуются в пользу существующего мнения. Из-за этого сложившиеся впечатления трудно изменить.",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 58
+  },
+  {
+   "id": "glossary.contextual_conditions",
+   "code": "Contextual Conditions",
+   "en": "The conditions existing immediately prior to a safety occurrence that directly influenced the behaviours that triggered an event. Known originally as ‘Psychological precursors of unsafe acts’, Contextual Conditions can include: workplace conditions; organisational climate; attitudes and personality factors; human performance limitations; and physiological and emotional factors.",
+   "ru": "Условия, существовавшие непосредственно перед событием и напрямую повлиявшие на действия, которые его запустили. Исходное название — «психологические предпосылки небезопасных действий». Включают условия на рабочем месте, организационный климат, установки и личностные факторы, ограничения человеческих возможностей, физиологические и эмоциональные факторы.",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 58
+  },
+  {
+   "id": "glossary.error",
+   "code": "Error (Human Error)",
+   "en": "Definition from James Reason in \"Human Error\" (1990): \"Error is intimately bound up with the notion of intention. The term 'error' can only be meaningfully applied to planned actions that fail to achieve their desired consequences without the intervention of some chance or unforeseeable agency. An error is NOT intentional. You make an error when: what you do differs from what you intended; or your plan was inappropriate.\"",
+   "ru": "Определение Джеймса Ризона («Human Error», 1990): ошибка неразрывно связана с понятием намерения. Термин применим только к запланированным действиям, не достигшим желаемого результата без вмешательства случайности или непредвиденных обстоятельств. Ошибка НЕ является намеренной. Ошибка возникает, когда сделанное отличается от задуманного или сам план был неподходящим.",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 58
+  },
+  {
+   "id": "glossary.human_involvement",
+   "code": "Human Involvement",
+   "en": "Refers to people’s actions or non-actions that immediately contributed to / triggered a safety occurrence. Known in the original Reason Model as ‘active failures’ and ‘unsafe acts’ (commonly referred to as errors and / or violations).",
+   "ru": "Действия или бездействие людей, которые непосредственно способствовали событию или запустили его. В исходной модели Ризона — «активные отказы» и «небезопасные действия» (обычно ошибки и/или нарушения).",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 58
+  },
+  {
+   "id": "glossary.human_performance_limitations",
+   "code": "Human Performance Limitations (HPL)",
+   "en": "Factors relating to limitations of human information processing and performance characteristics that may increase the likelihood of an error or non-compliant act being committed. A category of Contextual Conditions.",
+   "ru": "Факторы, связанные с ограничениями обработки информации человеком и характеристиками его работоспособности, повышающие вероятность ошибки или несоблюдения правил. Категория контекстных условий.",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 58
+  },
+  {
+   "id": "glossary.just_culture",
+   "code": "Just Culture",
+   "en": "An organisational perspective that discourages blaming individuals for ‘honest mistakes’, irrespective of actual or potential consequences. Sanctions are only applied when there is evidence of intentional non-compliance or deliberately reckless or negligent behaviour.",
+   "ru": "Подход организации, при котором людей не обвиняют за «добросовестные ошибки» независимо от фактических или возможных последствий. Санкции применяются только при доказанном умышленном несоблюдении правил, сознательно безрассудном или халатном поведении.",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 59
+  },
+  {
+   "id": "glossary.latent_conditions",
+   "code": "Latent Conditions",
+   "en": "Latent conditions are flaws that pre-exist and contribute to an occurrence. They can be categorised as Contextual Conditions or Organisational Factors and may be known about or could be invisible to front-line workers and management. Latent Conditions are usually created by people remote in time and place from the occurrence (designers, manufacturers, managers, etc.).",
+   "ru": "Латентные условия — изъяны, существовавшие заранее и способствовавшие событию. Относятся к контекстным условиям или организационным факторам; могут быть известны или незаметны для работников и руководства. Обычно создаются людьми, удалёнными от события во времени и пространстве (проектировщики, производители, руководители).",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 59
+  },
+  {
+   "id": "glossary.negative_transfer",
+   "code": "Negative transfer",
+   "en": "A situation in which accumulated previous experience causes interference with the correct execution of a task, usually due to conflicting stimuli or response issues.",
+   "ru": "Ситуация, когда накопленный прошлый опыт мешает правильному выполнению задачи, обычно из-за конфликтующих стимулов или реакций.",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 59
+  },
+  {
+   "id": "glossary.non_compliance",
+   "code": "Non-compliance",
+   "en": "An intentional or unintentional deviation from rules, regulations or procedures. If a non-compliant person fully intends their actions / inactions and is aware that they are deviating from known rules and procedures this may be considered a violation (see below).",
+   "ru": "Намеренное или ненамеренное отступление от правил, регламентов или процедур. Если человек полностью осознаёт свои действия или бездействие и знает, что отступает от известных правил, это может считаться нарушением (см. ниже).",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 59
+  },
+  {
+   "id": "glossary.organisational_climate",
+   "code": "Organisational climate",
+   "en": "Factors relating to organisational issues (such as management or supervisory attitudes, behaviour, norms, culture and morale) that exist at the time of an occurrence and influence the performance of workers.",
+   "ru": "Факторы организационного характера (установки и поведение руководства, нормы, культура, моральный дух), существующие на момент события и влияющие на работу людей.",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 59
+  },
+  {
+   "id": "glossary.organisational_factors",
+   "code": "Organisational Factors",
+   "en": "Organisational level latent conditions that existed before the occurrence and produced, or allowed the existence of, Contextual Conditions that influenced the behaviour/s that triggered the event. Organisational Factors may go unnoticed for a long period of time until they combine with other local conditions and individual actions to breach the barriers of the system and contribute to an occurrence.",
+   "ru": "Латентные условия организационного уровня, существовавшие до события и породившие или допустившие контекстные условия, которые повлияли на запустившие событие действия. Могут долго оставаться незамеченными, пока не сложатся с местными условиями и действиями людей, преодолев барьеры системы.",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 59
+  },
+  {
+   "id": "glossary.perceptual_set",
+   "code": "Perceptual set",
+   "en": "The tendency to perceive a situation in a particular way due to our past experiences with similar situations.",
+   "ru": "Склонность воспринимать ситуацию определённым образом из-за прошлого опыта похожих ситуаций.",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 59
+  },
+  {
+   "id": "glossary.physiological_and_emotional_factors",
+   "code": "Physiological and emotional factors",
+   "en": "One of the categories of Contextual Conditions that exist at the time of an occurrence and can influence the performance of workers. To do with the physiological and emotional state of the people involved.",
+   "ru": "Одна из категорий контекстных условий, существующих на момент события и влияющих на работу людей; касается физиологического и эмоционального состояния участников.",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 59
+  },
+  {
+   "id": "glossary.safety_culture",
+   "code": "Safety Culture",
+   "en": "The set of beliefs, norms, attitudes, and practices within an organisation concerned with minimising exposure of the workforce and the public to dangerous or hazardous conditions. It promotes a shared concern for and responsibility for safety (adapted from ICAO).",
+   "ru": "Совокупность убеждений, норм, установок и практик организации, направленных на минимизацию воздействия опасных условий на работников и общество. Формирует общую заботу о безопасности и ответственность за неё (по материалам ИКАО).",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 60
+  },
+  {
+   "id": "glossary.safety_occurrence",
+   "code": "Safety occurrence",
+   "en": "An incident, serious incident or accident, as well as other defects or malfunctioning of an aircraft, its equipment or any element of the aviation system.",
+   "ru": "Инцидент, серьёзный инцидент или авиационное происшествие, а также иные дефекты или неисправности воздушного судна, его оборудования или любого элемента авиационной системы.",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 60
+  },
+  {
+   "id": "glossary.shel_o_model",
+   "code": "SHEL/O Model",
+   "en": "The SHEL/O model provides a descriptive framework of human factors issues to guide the collection of data in an investigation. The five components of the SHEL/O model are: Software (procedures, manuals, etc.); Hardware (equipment, workplace layout, etc.); Environment; Liveware (people); and Organisation (the system).",
+   "ru": "Описательная рамка вопросов человеческого фактора для сбора данных в расследовании. Пять составляющих: Software (процедуры, руководства), Hardware (оборудование, планировка рабочего места), Environment (среда), Liveware (люди), Organisation (система).",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 60
+  },
+  {
+   "id": "glossary.situation_assessment",
+   "code": "Situation assessment",
+   "en": "Using our experience to assess the whole situation, often recognising it as an instance of a familiar type, a ‘typical situation’. The familiarity of the situation allows us to call up from memory a mental template of how to proceed. In unfamiliar situations, further assessment is required.",
+   "ru": "Оценка ситуации в целом на основе опыта, часто с узнаванием её как «типичной». Знакомость ситуации позволяет извлечь из памяти шаблон действий; в незнакомой ситуации требуется дополнительная оценка.",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 60
+  },
+  {
+   "id": "glossary.situational_awareness",
+   "code": "Situational awareness",
+   "en": "Situational awareness (SA) is a constantly evolving picture of our operational environment. It involves being aware of what is happening around you to understand how information, events, and your own actions will impact on your goals and objectives, both now and in the future. Being aware of what is happening around you and understanding what that means now and in the immediate future is the basis for effective situational awareness.",
+   "ru": "Ситуационная осведомлённость — постоянно обновляемая картина рабочей обстановки: понимание происходящего вокруг и того, как информация, события и собственные действия повлияют на цели сейчас и в будущем. Осознание происходящего и его значения на ближайшее время — основа эффективной ситуационной осведомлённости.",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 60
+  },
+  {
+   "id": "glossary.system_factors",
+   "code": "System Factors",
+   "en": "These are the same as Organisational Factors, except they can be traced to external organisations (airlines, airports, other ANSPs, regulators, etc.) or other parts of the broader aviation system that are outside the direct control or influence of the organisation under investigation.",
+   "ru": "То же, что организационные факторы, но прослеживаются к внешним организациям (авиакомпании, аэропорты, другие АНСП, регуляторы) или иным частям авиационной системы вне прямого контроля расследуемой организации.",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 60
+  },
+  {
+   "id": "glossary.violation",
+   "code": "Violation",
+   "en": "A deliberate act of non-compliance / deviation from rules, regulations or procedures. A person committing a violation fully intends their actions and is aware that they are deviating from known rules and procedures.",
+   "ru": "Умышленное несоблюдение или отступление от правил, регламентов или процедур. Нарушитель полностью осознаёт свои действия и знает, что отступает от известных правил.",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 60
+  },
+  {
+   "id": "glossary.workplace_conditions",
+   "code": "Workplace conditions",
+   "en": "Factors relating to the work environment, Human-Machine Interface (HMI) issues or working conditions that exist at the time of an occurrence and may increase the likelihood of a triggering error or non-compliant act being committed. A category of Contextual Conditions.",
+   "ru": "Факторы рабочей среды, интерфейса «человек — машина» и условий труда, существовавшие на момент события и повышавшие вероятность ошибки или несоблюдения правил. Категория контекстных условий.",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 60
+  }
+ ]
 }
