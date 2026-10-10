@@ -11,9 +11,11 @@ import * as sortTab from './sort.js';
 import * as chartTab from './chart.js';
 import * as actionsTab from './actions.js';
 import * as qaTab from './qa.js';
+import * as reportTab from './report.js';
+import { APP_VERSION } from '../app.js';
 
-const TABS = { event: eventTab, facts: factsTab, timeline: timelineTab, sort: sortTab, chart: chartTab, actions: actionsTab, qa: qaTab };
-const ORDER = ['event', 'facts', 'timeline', 'sort', 'chart', 'actions', 'qa'];
+const TABS = { event: eventTab, facts: factsTab, timeline: timelineTab, sort: sortTab, chart: chartTab, actions: actionsTab, qa: qaTab, report: reportTab };
+const ORDER = ['event', 'facts', 'timeline', 'sort', 'chart', 'actions', 'qa', 'report'];
 
 export async function render(view, id, tab = 'event') {
   if (tab === 'soam') tab = 'chart';
@@ -60,7 +62,7 @@ export async function render(view, id, tab = 'event') {
     <section id="tabBody"></section>`;
 
   const ctx = {
-    store, occurrence: o, id, facts, classifications, actions, qa, readiness: ready, base,
+    store, occurrence: o, id, facts, classifications, actions, qa, readiness: ready, base, appVersion: APP_VERSION,
     refresh: () => render(view, id, tab),
   };
   await TABS[tab].renderTab(view.querySelector('#tabBody'), ctx);
