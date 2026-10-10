@@ -5,11 +5,12 @@ import { escapeHtml, toast } from './ui.js';
 import * as home from './modules/home.js';
 import * as about from './modules/about.js';
 import * as registry from './modules/registry.js';
+import * as sync from './modules/sync.js';
 import * as cases from './modules/cases.js';
 import * as occurrence from './modules/occurrence.js';
 import * as occurrenceForm from './modules/occurrence-form.js';
 
-export const APP_VERSION = '0.3.4';
+export const APP_VERSION = '0.4.0';
 export { escapeHtml, toast };
 
 const ROUTES = [
@@ -18,6 +19,7 @@ const ROUTES = [
   { path: /^\/occurrence\/new$/, module: occurrenceForm },
   { path: /^\/occurrence\/([^/]+)(?:\/([a-z]+))?$/, module: occurrence },
   { path: /^\/registry$/, module: registry },
+  { path: /^\/sync$/, module: sync },
   { path: /^\/about$/, module: about },
 ];
 
@@ -25,6 +27,7 @@ const NAV = [
   { href: '#/', key: 'nav.home' },
   { href: '#/registry', key: 'nav.registry' },
   { href: '#/cases', key: 'nav.cases' },
+  { href: '#/sync', key: 'nav.sync' },
   { href: '#/about', key: 'nav.about' },
 ];
 

@@ -1,0 +1,24 @@
+name: Тесты сервера
+
+on:
+  push:
+    branches: [main, 'claude/**']
+    paths: ['server/**', 'js/bundle.js', 'js/db.js', '.github/workflows/test.yml']
+  pull_request:
+    paths: ['server/**', 'js/bundle.js', 'js/db.js', '.github/workflows/test.yml']
+
+jobs:
+  server:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: server
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: server/package-lock.json
+      - run: npm ci
+      - run: npm test
