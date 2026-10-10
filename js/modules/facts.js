@@ -117,6 +117,7 @@ export async function renderTab(container, ctx) {
       updatedAt: now,
     };
     await ctx.store.put('fact', rec);
+    await ctx.advance('collection');
     editing = null; pendingFiles = [];
     toast(t('toast.saved'));
     ctx.refresh();

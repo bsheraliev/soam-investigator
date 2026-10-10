@@ -89,6 +89,7 @@ export async function renderTab(container, ctx) {
     const errors = validateAction(rec);
     if (errors.length) { toast(t('actions.err.' + errors[0])); return; }
     await ctx.store.put('action', rec);
+    await ctx.advance('actions');
     editing = null; toast(t('toast.saved')); ctx.refresh();
   });
   form.querySelector('#actCancel').addEventListener('click', () => { editing = null; ctx.refresh(); });

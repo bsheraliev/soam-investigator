@@ -18,6 +18,17 @@ export function canTransition(from, to, ready = false) {
   return (TRANSITIONS[from] || []).includes(to);
 }
 
+/**
+ * Автопродвижение статуса: работа на вкладке означает, что дело дошло до этого этапа
+ * (факт → collection, классификация → analysis, мера → actions). Только вперёд; «Завершено» не трогаем.
+ */
+export function advanceStatus(current, reached) {
+  const ci = STATUSES.indexOf(current || 'draft');
+  const ri = STATUSES.indexOf(reached);
+  if (current === 'completed' || ri < 0 || reached === 'completed') return current || 'draft';
+  return ri > ci ? reached : (current || 'draft');
+}
+
 // ---------------------------------------------------------------- этап 2: меры, покрытие, QA
 
 export const ACTION_STATUSES = ['planned', 'in_progress', 'done'];
