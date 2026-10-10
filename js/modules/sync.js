@@ -152,6 +152,65 @@ export async function render(view) {
         }).join('')}</tbody></table>` : `<p class="muted">${t('home.empty')}</p>`}
     </div>`;
 
+  // --- пользователи (admin), журнал (admin / investigator), свой пароль (все)
+  const isAdmin = session.user.role === 'admin';
+  let users = [], audit = [];
+  try {
+    if (isAdmin) users = (await api('GET', '/api/users')).users;
+    if (canWrite) audit = (await api('GET', '/api/audit?limit=50')).audit;
+  } catch (e) { toast(errText(e)); }
+  const titleById = Object.fromEntries(remote.map((c) => [c.id, c.title]));
+  const roleOptions = (cur) => ['admin', 'investigator', 'reader'].map((r) => `<option value="${r}" ${r === cur ? 'selected' : ''}>${t('sync.role.' + r)}</option>`).join('');
+
+  body.insertAdjacentHTML('beforeend', `
+    ${isAdmin ? `<div class="card">
+      <h3>${t('sync.users')} <span class="muted">(${users.length})</span></h3>
+      <table><thead><tr><th>${t('sync.name')}</th><th>${t('sync.email')}</th><th>${t('sync.roleLabel')}</th><th></th></tr></thead><tbody>
+        ${users.map((u) => `<tr class="${u.disabled ? 'muted' : ''}"><td>${escapeHtml(u.name)}${u.id === session.user.id ? ` <span class="tag">${t('sync.you')}</span>` : ''}${u.disabled ? ` <span class="tag warn">${t('sync.disabled')}</span>` : ''}</td><td>${escapeHtml(u.email)}</td>
+          <td><select data-role="${escapeHtml(u.id)}" ${u.id === session.user.id ? 'disabled' : ''}>${roleOptions(u.role)}</select></td>
+          <td class="nowrap">${u.id === session.user.id ? '' : `<button class="btn secondary small" data-toggle="${escapeHtml(u.id)}" data-disabled="${u.disabled ? 1 : 0}">${u.disabled ? t('sync.enable') : t('sync.disable')}</button>
+            <button class="btn secondary small" data-reset="${escapeHtml(u.id)}">${t('sync.resetPassword')}</button>`}</td></tr>`).join('')}
+      </tbody></table>
+      <form id="userForm" class="form">
+        <h4>${t('sync.addUser')}</h4>
+        <p class="small muted">${t('sync.addUserHint')}</p>
+        <div class="row">
+          <label class="field"><span>${t('sync.name')}</span><input name="name" required maxlength="200"></label>
+          <label class="field"><span>${t('sync.email')}</span><input name="email" type="email" required></label>
+          <label class="field"><span>${t('sync.tempPassword')}</span><input name="password" required minlength="8" autocomplete="new-password"></label>
+          <label class="field"><span>${t('sync.roleLabel')}</span><select name="role">${roleOptions('investigator')}</select></label>
+        </div>
+        <div class="btn-row"><button class="btn secondary" type="submit">${t('sync.addUser')}</button></div>
+      </form>
+    </div>` : ''}
+    ${canWrite ? `<div class="card">
+      <details><summary><strong>${t('sync.audit')}</strong> <span class="muted small">(${audit.length})</span></summary>
+      ${audit.length ? `<table class="small"><thead><tr><th>${t('sync.when')}</th><th>${t('sync.who')}</th><th>${t('sync.action')}</th><th>${t('registry.occurrence')}</th></tr></thead><tbody>
+        ${audit.map((a) => `<tr><td class="nowrap">${escapeHtml(fmtDateTime(a.at))}</td><td>${escapeHtml(a.userName || '—')}</td><td>${t('sync.act.' + a.action) === 'sync.act.' + a.action ? escapeHtml(a.action) : t('sync.act.' + a.action)}${a.details && a.details.version ? ` · v${a.details.version}` : ''}</td>
+          <td>${a.caseId ? escapeHtml(titleById[a.caseId] || a.caseId) : ''}</td></tr>`).join('')}</tbody></table>` : `<p class="muted small">${t('sync.auditEmpty')}</p>`}
+      </details>
+    </div>` : ''}
+    <form id="pwdForm" class="card form">
+      <h3>${t('sync.changePassword')}</h3>
+      <div class="row">
+        <label class="field"><span>${t('sync.currentPassword')}</span><input name="current" type="password" required autocomplete="current-password"></label>
+        <label class="field"><span>${t('sync.newPassword')}</span><input name="next" type="password" required minlength="8" autocomplete="new-password"></label>
+      </div>
+      <div class="btn-row"><button class="btn secondary" type="submit">${t('sync.changePassword')}</button></div>
+    </form>`);
+
+  const call = async (fn, okMsg) => { try { await fn(); if (okMsg) toast(okMsg); render(view); } catch (e) { toast(errText(e)); } };
+  body.querySelectorAll('[data-role]').forEach((s) => s.addEventListener('change', () => call(() => api('PATCH', '/api/users/' + encodeURIComponent(s.dataset.role), { role: s.value }), t('toast.saved'))));
+  body.querySelectorAll('[data-toggle]').forEach((b) => b.addEventListener('click', () => call(() => api('PATCH', '/api/users/' + encodeURIComponent(b.dataset.toggle), { disabled: b.dataset.disabled !== '1' }), t('toast.saved'))));
+  body.querySelectorAll('[data-reset]').forEach((b) => b.addEventListener('click', () => {
+    const p = prompt(t('sync.resetPrompt'));
+    if (p === null) return;
+    call(() => api('PATCH', '/api/users/' + encodeURIComponent(b.dataset.reset), { password: p }), t('sync.passwordChanged'));
+  }));
+  const uf = body.querySelector('#userForm');
+  if (uf) uf.addEventListener('submit', (e) => { e.preventDefault(); call(() => api('POST', '/api/users', formValues(uf)), t('sync.userAdded')); });
+  body.querySelector('#pwdForm').addEventListener('submit', (e) => { e.preventDefault(); call(() => api('POST', '/api/auth/password', formValues(e.target)), t('sync.passwordChanged')); });
+
   body.querySelector('#logout').addEventListener('click', async () => {
     try { await api('POST', '/api/auth/logout'); } catch { /* сессия всё равно забывается */ }
     setSession({ url: session.url }); render(view);

@@ -94,6 +94,13 @@ export async function renderTab(container, ctx) {
     const fresh = await ctx.store.get('occurrence', ctx.id);
     if (!canTransition(fresh.status, 'completed', ctx.readiness.ok)) { toast(t('occ.err.status')); return; }
     await ctx.store.put('occurrence', { ...fresh, status: 'completed', completedAt: nowIso(), updatedAt: nowIso() });
-    toast(t('qa.finished')); ctx.refresh();
+    // Если подключён сервер организации — завершённое дело уходит туда сразу (решение 2026-10-10).
+    const sync = await import('./sync.js');
+    const s = sync.getSession();
+    if (s && s.token && ['admin', 'investigator'].includes(s.user.role)) {
+      const r = await sync.pushOccurrence(ctx.store, ctx.id);
+      toast(r ? t('sync.autoPushed') : t('qa.finished'));
+    } else toast(t('qa.finished'));
+    ctx.refresh();
   });
 }

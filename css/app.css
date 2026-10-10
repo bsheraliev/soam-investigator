@@ -222,6 +222,7 @@ p.warn { color: var(--accent); }
 .rep-svg { overflow: auto; } .rep-svg svg { max-width: 100%; height: auto; }
 .rep-evidence { color: #5b6673; }
 tr.overdue td { background: rgba(197, 48, 48, .08); }
+table.small { font-size: .85rem; } tr.muted td { opacity: .6; } .form h4 { margin: 14px 0 4px; }
 .stats td { border: 0; padding: 3px 6px; vertical-align: middle; } .bar-cell { width: 40%; } .bar { height: 10px; background: var(--accent); border-radius: 5px; min-width: 2px; }
 .glossary dt { font-weight: 600; margin-top: 10px; } .glossary dd { margin: 2px 0 0; }
 .rep-qa { padding-left: 20px; } .rep-foot { margin-top: 24px; font-size: .8rem; color: #5b6673; border-top: 1px solid #d9dee5; padding-top: 8px; }
