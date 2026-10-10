@@ -235,6 +235,7 @@ export async function renderTab(container, ctx) {
     const errors = validateClassification(rec);
     if (errors.length) { toast(t('sort.err.' + errors[0])); return; }
     await ctx.store.put('classification', rec);
+    await ctx.advance('analysis');
     // барьер → исход: связь ставится сразу (правило схемы QRG)
     if (el === 'BAR') {
       const links = await ctx.store.byIndex('link', 'fromId', rec.id);

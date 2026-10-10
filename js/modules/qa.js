@@ -10,7 +10,8 @@ export async function renderTab(container, ctx) {
   const qa = ctx.qa || { occurrenceId: ctx.id, items: {} };
   const r = ctx.readiness;
   const o = ctx.occurrence;
-  const canFinish = canTransition(o.status, 'completed', r.ok);
+  // Готовое дело можно завершить с любого статуса: перед завершением статус продвигается до «Меры» (правила 4 и 7 проверены в readiness).
+  const canFinish = o.status !== 'completed' && (canTransition(o.status, 'completed', r.ok) || (r.ok && canTransition('actions', 'completed', r.ok)));
   const open = openFollowUps(ctx.facts);
   const closed = ctx.facts.filter((f) => f.followUp && f.followUp.status === 'closed' && f.followUp.question);
 
@@ -52,7 +53,7 @@ export async function renderTab(container, ctx) {
           <div class="btn-row">
             <button class="btn" id="finish" ${canFinish ? '' : 'disabled'}>${t('qa.finish')}</button>
           </div>
-          ${!canFinish && r.ok ? `<p class="small muted">${t('qa.needStatusActions', { status: t('status.actions') })}</p>` : ''}`}
+`}
         </div>
         <form class="card form" id="lessonsForm">
           <h3>${t('qa.lessons')}</h3>
@@ -89,7 +90,9 @@ export async function renderTab(container, ctx) {
   const fin = container.querySelector('#finish');
   if (fin) fin.addEventListener('click', async () => {
     if (!confirm(t('qa.confirmFinish'))) return;
+    await ctx.advance('actions');
     const fresh = await ctx.store.get('occurrence', ctx.id);
+    if (!canTransition(fresh.status, 'completed', ctx.readiness.ok)) { toast(t('occ.err.status')); return; }
     await ctx.store.put('occurrence', { ...fresh, status: 'completed', completedAt: nowIso(), updatedAt: nowIso() });
     toast(t('qa.finished')); ctx.refresh();
   });

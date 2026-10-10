@@ -3,7 +3,7 @@ import { db } from '../db.js';
 import { t, tx } from '../i18n.js';
 import { severity, taxonomy } from '../taxonomy.js';
 import { escapeHtml } from '../ui.js';
-import { unsortedFacts, readiness } from '../rules.js';
+import { unsortedFacts, readiness, advanceStatus } from '../rules.js';
 import * as eventTab from './occurrence-form.js';
 import * as factsTab from './facts.js';
 import * as timelineTab from './timeline.js';
@@ -64,6 +64,12 @@ export async function render(view, id, tab = 'event') {
   const ctx = {
     store, occurrence: o, id, facts, classifications, actions, qa, readiness: ready, base, appVersion: APP_VERSION,
     refresh: () => render(view, id, tab),
+    /** Автопродвижение статуса вперёд (факт → сбор, классификация → анализ, мера → меры). */
+    advance: async (reached) => {
+      const fresh = await store.get('occurrence', id);
+      const next = advanceStatus(fresh.status, reached);
+      if (next !== fresh.status) await store.put('occurrence', { ...fresh, status: next, updatedAt: new Date().toISOString() });
+    },
   };
   await TABS[tab].renderTab(view.querySelector('#tabBody'), ctx);
 }

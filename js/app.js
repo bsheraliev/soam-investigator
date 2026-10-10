@@ -9,7 +9,7 @@ import * as cases from './modules/cases.js';
 import * as occurrence from './modules/occurrence.js';
 import * as occurrenceForm from './modules/occurrence-form.js';
 
-export const APP_VERSION = '0.3.3';
+export const APP_VERSION = '0.3.4';
 export { escapeHtml, toast };
 
 const ROUTES = [

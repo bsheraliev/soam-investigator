@@ -296,6 +296,17 @@ await test('rules: уровень расследования по тяжести
   eq(R.investigationAdvice({ type: 'incident', severity: 'A', investigate: true }).conflict, false);
 });
 
+await test('rules: автопродвижение статуса — только вперёд, «Завершено» не трогаем', () => {
+  eq(R.advanceStatus('draft', 'collection'), 'collection');
+  eq(R.advanceStatus('draft', 'actions'), 'actions', 'можно перепрыгнуть');
+  eq(R.advanceStatus('actions', 'collection'), 'actions', 'назад не идём');
+  eq(R.advanceStatus('analysis', 'analysis'), 'analysis');
+  eq(R.advanceStatus('completed', 'actions'), 'completed');
+  eq(R.advanceStatus('draft', 'completed'), 'draft', 'завершение — только через QA');
+  eq(R.advanceStatus(undefined, 'collection'), 'collection');
+  eq(R.advanceStatus('draft', 'bogus'), 'draft');
+});
+
 await test('rules: реестр мер — просрочка и порядок; статистика по кодам OSF', () => {
   const today = '2026-10-10';
   eq(R.actionOverdue({ due: '2026-10-09', status: 'planned' }, today), true);
