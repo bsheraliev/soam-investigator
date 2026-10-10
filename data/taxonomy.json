@@ -1,0 +1,3806 @@
+{
+ "meta": {
+  "source": "EUROCONTROL. Systemic Occurrence Analysis Methodology (SOAM) Quick Reference Guide, Version 3.0, April 2023. © EUROCONTROL 2023.",
+  "source_note": "English text ('en') is reproduced verbatim from the QRG for non-commercial use. 'qrg_page' is the printed page number.",
+  "version": "0.1.0",
+  "languages": [
+   "ru",
+   "tj",
+   "en"
+  ],
+  "ru_status": "machine-translated, needs review",
+  "tj_status": "todo"
+ },
+ "soam_elements": [
+  {
+   "id": "element.HI",
+   "code": "HI",
+   "en": "Human Involvement",
+   "ru": "Участие человека",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 21
+  },
+  {
+   "id": "element.CC",
+   "code": "CC",
+   "en": "Contextual Conditions",
+   "ru": "Контекстные условия",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 23
+  },
+  {
+   "id": "element.OSF",
+   "code": "OSF",
+   "en": "Organisational & System Factors",
+   "ru": "Организационные и системные факторы",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 28
+  },
+  {
+   "id": "element.BAR",
+   "code": "BAR",
+   "en": "Absent or Failed Barriers",
+   "ru": "Отсутствующие или отказавшие барьеры",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 42
+  }
+ ],
+ "severity": [
+  {
+   "id": "severity.A",
+   "code": "A",
+   "en": "Serious Incident – \"An incident involving circumstances indicating that an accident nearly occurred\" (ICAO Annex 13)",
+   "ru": "Серьёзный инцидент – «Инцидент, при котором обстоятельства указывают на то, что едва не произошло авиационное происшествие» (Приложение 13 ИКАО)",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 7
+  },
+  {
+   "id": "severity.B",
+   "code": "B",
+   "en": "Major Incident – An incident associated with the operation of an aircraft, in which safety of aircraft may have been compromised, having led to a near collision between aircraft, with ground or obstacles",
+   "ru": "Крупный инцидент (Major Incident) – инцидент, связанный с эксплуатацией воздушного судна, при котором безопасность воздушного судна могла быть нарушена и который привёл к сближению между воздушными судами, с землёй или с препятствиями",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 7
+  },
+  {
+   "id": "severity.C",
+   "code": "C",
+   "en": "Significant Incident – An incident involving circumstances indicating that an accident, a serious or major incident could have occurred, if the risk had not been managed within safety margins, or if another aircraft had been in the vicinity",
+   "ru": "Значительный инцидент (Significant Incident) – инцидент, при котором обстоятельства указывают на то, что авиационное происшествие, серьёзный или крупный инцидент могли произойти, если бы риск не был удержан в пределах запасов безопасности или если бы в районе находилось другое воздушное судно",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 7
+  },
+  {
+   "id": "severity.E",
+   "code": "E",
+   "en": "No (immediate) safety effect – An incident which has no (immediate) safety significance",
+   "ru": "Отсутствие (немедленного) влияния на безопасность – инцидент, не имеющий (немедленного) значения для безопасности",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 7
+  },
+  {
+   "id": "severity.D",
+   "code": "D",
+   "en": "Not determined – insufficient information available to determine the risk involved",
+   "ru": "Не определено – недостаточно информации для определения связанного с ним риска",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 7
+  }
+ ],
+ "shelo": [
+  {
+   "id": "shelo.S",
+   "code": "S",
+   "en": "Software",
+   "ru": "Программное обеспечение (Software)",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 12,
+   "description": {
+    "id": "shelo.S.def",
+    "en": "Documentation, including SOPs, checklists, manuals, charts, NOTAMs, etc.",
+    "ru": "Документация, включая СЭП (SOP), контрольные листы, руководства, карты, NOTAM и т. д.",
+    "tj": "",
+    "tj_status": "todo"
+   },
+   "interface": {
+    "id": "shelo.S.if",
+    "en": "Person-system interface (Software)",
+    "ru": "Интерфейс человек — система (Software)",
+    "tj": "",
+    "tj_status": "todo"
+   },
+   "groups": [
+    {
+     "id": "shelo.S.g01",
+     "en": "What were the characteristics of the procedures (eg., SOPs, NOTAMS, Emergency Procedures) used by people involved in the occurrence, for example:",
+     "ru": "Каковы были характеристики процедур (напр., СЭП (SOP), NOTAM, аварийных процедур), которыми пользовались люди, участвовавшие в событии, например:",
+     "tj": "",
+     "tj_status": "todo",
+     "qrg_page": 13,
+     "items": [
+      {
+       "id": "shelo.S.g01.i01",
+       "en": "Availability",
+       "ru": "Наличие",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.S.g01.i02",
+       "en": "Suitability",
+       "ru": "Пригодность",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.S.g01.i03",
+       "en": "Supervisory requirements of work instructions / SOPs",
+       "ru": "Требования к надзору за выполнением рабочих инструкций / СЭП (SOP)",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.S.g01.i04",
+       "en": "Quality / readability / clarity of documentation",
+       "ru": "Качество / читаемость / ясность документации",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.S.g01.i05",
+       "en": "Use / usability",
+       "ru": "Использование / удобство применения",
+       "tj": "",
+       "tj_status": "todo"
+      }
+     ]
+    },
+    {
+     "id": "shelo.S.g02",
+     "en": "What other documents or processes were relevant to people involved in the occurrence (eg., diagrams, maps, charts, checklists, rules, regulations)?",
+     "ru": "Какие другие документы или процессы имели значение для людей, участвовавших в событии (напр., схемы, карты, диаграммы, контрольные листы, правила, нормативные требования)?",
+     "tj": "",
+     "tj_status": "todo",
+     "qrg_page": 13,
+     "items": []
+    }
+   ]
+  },
+  {
+   "id": "shelo.H",
+   "code": "H",
+   "en": "Hardware",
+   "ru": "Аппаратное обеспечение (Hardware)",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 12,
+   "description": {
+    "id": "shelo.H.def",
+    "en": "ATM equipment, displays, menus, controls, switches, workspace layout etc.",
+    "ru": "Оборудование ОрВД, дисплеи, меню, органы управления, переключатели, планировка рабочего места и т. д.",
+    "tj": "",
+    "tj_status": "todo"
+   },
+   "interface": {
+    "id": "shelo.H.if",
+    "en": "Human-machine interface (Hardware)",
+    "ru": "Человеко-машинный интерфейс (Hardware)",
+    "tj": "",
+    "tj_status": "todo"
+   },
+   "groups": [
+    {
+     "id": "shelo.H.g01",
+     "en": "What were the characteristics of the equipment provided to people in the workplace, for example:",
+     "ru": "Каковы были характеристики оборудования, предоставленного людям на рабочем месте, например:",
+     "tj": "",
+     "tj_status": "todo",
+     "qrg_page": 13,
+     "items": [
+      {
+       "id": "shelo.H.g01.i01",
+       "en": "Serviceability",
+       "ru": "Исправность",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.H.g01.i02",
+       "en": "Functionality",
+       "ru": "Функциональность",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.H.g01.i03",
+       "en": "Usability",
+       "ru": "Удобство использования",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.H.g01.i04",
+       "en": "Familiarity",
+       "ru": "Знакомость",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.H.g01.i05",
+       "en": "Availability",
+       "ru": "Наличие",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.H.g01.i06",
+       "en": "Design, eg., display quality: colours, illumination, clarity and complexity of data, signal strength, mode identification, potential for confusion, etc.",
+       "ru": "Конструкция, напр., качество дисплеев: цвета, освещённость, ясность и сложность представления данных, уровень сигнала, идентификация режимов, возможность путаницы и т. д.",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.H.g01.i07",
+       "en": "Reliability, eg., of transmission / alerting systems",
+       "ru": "Надёжность, напр., систем передачи данных и оповещения",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.H.g01.i08",
+       "en": "Interaction with equipment and its effect on workload and skill maintenance, eg., navigational aids, flight information display, communications equipment etc.",
+       "ru": "Взаимодействие с оборудованием и его влияние на рабочую нагрузку и поддержание навыков, напр., навигационные средства, системы отображения полётной информации, средства связи и т. д.",
+       "tj": "",
+       "tj_status": "todo"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "shelo.E",
+   "code": "E",
+   "en": "Environment",
+   "ru": "Среда (Environment)",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 12,
+   "description": {
+    "id": "shelo.E.def",
+    "en": "Workplace conditions, noise, lighting, temperature, or other factors that affect workers.",
+    "ru": "Условия на рабочем месте, шум, освещение, температура или другие факторы, влияющие на работников.",
+    "tj": "",
+    "tj_status": "todo"
+   },
+   "interface": {
+    "id": "shelo.E.if",
+    "en": "Person-environment interface",
+    "ru": "Интерфейс человек — среда",
+    "tj": "",
+    "tj_status": "todo"
+   },
+   "groups": [
+    {
+     "id": "shelo.E.g01",
+     "en": "Which features of the work environment may have impacted on the performance of people involved in the occurrence? For example:",
+     "ru": "Какие особенности рабочей среды могли повлиять на работу людей, участвовавших в событии? Например:",
+     "tj": "",
+     "tj_status": "todo",
+     "qrg_page": 14,
+     "items": [
+      {
+       "id": "shelo.E.g01.i01",
+       "en": "Temperature / humidity",
+       "ru": "Температура / влажность",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.E.g01.i02",
+       "en": "Quality of illumination",
+       "ru": "Качество освещения",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.E.g01.i03",
+       "en": "Spaciousness",
+       "ru": "Просторность",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.E.g01.i04",
+       "en": "Workspace design / layout / usability",
+       "ru": "Конструкция / планировка / удобство рабочего места",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.E.g01.i05",
+       "en": "Noise or distraction from equipment / other people",
+       "ru": "Шум или отвлечение от оборудования и других людей",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.E.g01.i06",
+       "en": "Task design and workload",
+       "ru": "Конструкция задания и рабочая нагрузка",
+       "tj": "",
+       "tj_status": "todo"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "shelo.L",
+   "code": "L",
+   "en": "Liveware",
+   "ru": "Человек (Liveware)",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 12,
+   "description": {
+    "id": "shelo.L.def",
+    "en": "The human elements (people).",
+    "ru": "Человеческие элементы (люди).",
+    "tj": "",
+    "tj_status": "todo"
+   },
+   "interface": {
+    "id": "shelo.L.if",
+    "en": "Person-person interface",
+    "ru": "Интерфейс человек — человек",
+    "tj": "",
+    "tj_status": "todo"
+   },
+   "groups": [
+    {
+     "id": "shelo.L.g01",
+     "en": "Physical factors",
+     "ru": "Физические факторы",
+     "tj": "",
+     "tj_status": "todo",
+     "qrg_page": 15,
+     "items": [
+      {
+       "id": "shelo.L.g01.i01",
+       "en": "Physical characteristics (eg., height, weight, age)",
+       "ru": "Физические характеристики (напр., рост, вес, возраст)",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.L.g01.i02",
+       "en": "Sensory limitations (eg., vision, hearing)",
+       "ru": "Ограничения органов чувств (напр., зрение, слух)",
+       "tj": "",
+       "tj_status": "todo"
+      }
+     ]
+    },
+    {
+     "id": "shelo.L.g02",
+     "en": "Physiological factors",
+     "ru": "Физиологические факторы",
+     "tj": "",
+     "tj_status": "todo",
+     "qrg_page": 15,
+     "items": [
+      {
+       "id": "shelo.L.g02.i01",
+       "en": "Fatigue (eg., acute, chronic, task induced)",
+       "ru": "Утомление (напр., острое, хроническое, вызванное заданием)",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.L.g02.i02",
+       "en": "Lifestyle factors, health, nutrition, stressful events",
+       "ru": "Факторы образа жизни, здоровье, питание, стрессовые события",
+       "tj": "",
+       "tj_status": "todo"
+      }
+     ]
+    },
+    {
+     "id": "shelo.L.g03",
+     "en": "Psychological factors",
+     "ru": "Психологические факторы",
+     "tj": "",
+     "tj_status": "todo",
+     "qrg_page": 15,
+     "items": [
+      {
+       "id": "shelo.L.g03.i01",
+       "en": "Information processing (eg., perception, memory, situational awareness, decision making)",
+       "ru": "Переработка информации (напр., восприятие, память, ситуационная осведомлённость, принятие решений)",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.L.g03.i02",
+       "en": "Focus of attention (eg., distraction, monotony, task fixation, boredom, inattention)",
+       "ru": "Концентрация внимания (напр., отвлечение, монотонность, фиксация на задаче, скука, невнимательность)",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.L.g03.i03",
+       "en": "Recent experience (eg., at this location, in this position, on this task / with similar traffic loads, etc.)",
+       "ru": "Недавний опыт (напр., на данном участке, на данной должности, по данному заданию / при аналогичных нагрузках движения и т. п.)",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.L.g03.i04",
+       "en": "Motivation / attitude / psychological wellbeing, etc.",
+       "ru": "Мотивация / установка / психологическое благополучие и т. д.",
+       "tj": "",
+       "tj_status": "todo"
+      }
+     ]
+    },
+    {
+     "id": "shelo.L.g04",
+     "en": "Psychosocial factors",
+     "ru": "Психосоциальные факторы",
+     "tj": "",
+     "tj_status": "todo",
+     "qrg_page": 15,
+     "items": [
+      {
+       "id": "shelo.L.g04.i01",
+       "en": "Lifestyle issues (eg., change in personal or family circumstances, financial pressures, domestic stress)",
+       "ru": "Жизненные обстоятельства (напр., изменение личных или семейных обстоятельств, финансовые трудности, бытовой стресс)",
+       "tj": "",
+       "tj_status": "todo"
+      }
+     ]
+    },
+    {
+     "id": "shelo.L.g05",
+     "en": "Person-person interface: Oral communications",
+     "ru": "Интерфейс человек — человек: устная коммуникация",
+     "tj": "",
+     "tj_status": "todo",
+     "qrg_page": 15,
+     "items": [
+      {
+       "id": "shelo.L.g05.i01",
+       "en": "Phraseology",
+       "ru": "Фразеология",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.L.g05.i02",
+       "en": "Misinterpretation",
+       "ru": "Неправильное толкование",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.L.g05.i03",
+       "en": "Language / dialect",
+       "ru": "Язык / диалект",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.L.g05.i04",
+       "en": "Read-back / hear-back",
+       "ru": "Подтверждение (read-back / hear-back)",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.L.g05.i05",
+       "en": "Message content / clarity / rate of speech",
+       "ru": "Содержание сообщения / ясность / темп речи",
+       "tj": "",
+       "tj_status": "todo"
+      }
+     ]
+    },
+    {
+     "id": "shelo.L.g06",
+     "en": "Person-person interface: Team interactions",
+     "ru": "Интерфейс человек — человек: взаимодействие в команде",
+     "tj": "",
+     "tj_status": "todo",
+     "qrg_page": 15,
+     "items": [
+      {
+       "id": "shelo.L.g06.i01",
+       "en": "Supervision",
+       "ru": "Надзор руководителя",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.L.g06.i02",
+       "en": "Relationships",
+       "ru": "Взаимоотношения",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.L.g06.i03",
+       "en": "Morale, team composition (eg., in/experience)",
+       "ru": "Моральный дух, состав команды (напр., опыт и стаж работников)",
+       "tj": "",
+       "tj_status": "todo"
+      }
+     ]
+    },
+    {
+     "id": "shelo.L.g07",
+     "en": "Person-person interface: Management",
+     "ru": "Интерфейс человек — человек: управление",
+     "tj": "",
+     "tj_status": "todo",
+     "qrg_page": 15,
+     "items": [
+      {
+       "id": "shelo.L.g07.i01",
+       "en": "Relations with staff",
+       "ru": "Отношения с персоналом",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.L.g07.i02",
+       "en": "Resource allocation",
+       "ru": "Распределение ресурсов",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.L.g07.i03",
+       "en": "Organisational change processes",
+       "ru": "Процессы организационных изменений",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.L.g07.i04",
+       "en": "Career path or progression",
+       "ru": "Карьерный путь или продвижение",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.L.g07.i05",
+       "en": "Industrial conflicts / labour relations",
+       "ru": "Производственные конфликты / трудовые отношения",
+       "tj": "",
+       "tj_status": "todo"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "shelo.O",
+   "code": "O",
+   "en": "Organisation",
+   "ru": "Организация (Organisation)",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 12,
+   "description": {
+    "id": "shelo.O.def",
+    "en": "Organisational decisions / actions that impact on the conditions under which people perform their work.",
+    "ru": "Организационные решения и действия, влияющие на условия, в которых люди выполняют свою работу.",
+    "tj": "",
+    "tj_status": "todo"
+   },
+   "interface": null,
+   "groups": [
+    {
+     "id": "shelo.O.g01",
+     "en": "Training",
+     "ru": "Обучение",
+     "tj": "",
+     "tj_status": "todo",
+     "qrg_page": 14,
+     "items": [
+      {
+       "id": "shelo.O.g01.i01",
+       "en": "Design",
+       "ru": "Проектирование",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.O.g01.i02",
+       "en": "Delivery mode",
+       "ru": "Форма проведения",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.O.g01.i03",
+       "en": "Standardisation",
+       "ru": "Стандартизация",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.O.g01.i04",
+       "en": "Effectiveness",
+       "ru": "Результативность",
+       "tj": "",
+       "tj_status": "todo"
+      }
+     ]
+    },
+    {
+     "id": "shelo.O.g02",
+     "en": "Workforce Management",
+     "ru": "Управление персоналом",
+     "tj": "",
+     "tj_status": "todo",
+     "qrg_page": 14,
+     "items": [
+      {
+       "id": "shelo.O.g02.i01",
+       "en": "Staff selection",
+       "ru": "Отбор персонала",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.O.g02.i02",
+       "en": "Staffing levels",
+       "ru": "Укомплектованность",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.O.g02.i03",
+       "en": "Work rosters",
+       "ru": "Графики работы",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.O.g02.i04",
+       "en": "Tasking and workload",
+       "ru": "Распределение заданий и рабочая нагрузка",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.O.g02.i05",
+       "en": "Fatigue Management",
+       "ru": "Управление утомлением",
+       "tj": "",
+       "tj_status": "todo"
+      }
+     ]
+    },
+    {
+     "id": "shelo.O.g03",
+     "en": "Risk Management",
+     "ru": "Управление рисками",
+     "tj": "",
+     "tj_status": "todo",
+     "qrg_page": 14,
+     "items": [
+      {
+       "id": "shelo.O.g03.i01",
+       "en": "Hazard identification",
+       "ru": "Выявление опасностей",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.O.g03.i02",
+       "en": "Risk assessments",
+       "ru": "Оценка рисков",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.O.g03.i03",
+       "en": "Control measures",
+       "ru": "Меры контроля",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.O.g03.i04",
+       "en": "Effectiveness",
+       "ru": "Результативность",
+       "tj": "",
+       "tj_status": "todo"
+      }
+     ]
+    },
+    {
+     "id": "shelo.O.g04",
+     "en": "Accountability",
+     "ru": "Подотчётность",
+     "tj": "",
+     "tj_status": "todo",
+     "qrg_page": 14,
+     "items": [
+      {
+       "id": "shelo.O.g04.i01",
+       "en": "Management commitment to safety",
+       "ru": "Приверженность руководства безопасности",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.O.g04.i02",
+       "en": "Responsibility for safety",
+       "ru": "Ответственность за безопасность",
+       "tj": "",
+       "tj_status": "todo"
+      }
+     ]
+    },
+    {
+     "id": "shelo.O.g05",
+     "en": "Communication",
+     "ru": "Коммуникация",
+     "tj": "",
+     "tj_status": "todo",
+     "qrg_page": 14,
+     "items": [
+      {
+       "id": "shelo.O.g05.i01",
+       "en": "Information dissemination",
+       "ru": "Распространение информации",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.O.g05.i02",
+       "en": "Standardised processes",
+       "ru": "Стандартизированные процессы",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.O.g05.i03",
+       "en": "Feedback systems",
+       "ru": "Системы обратной связи",
+       "tj": "",
+       "tj_status": "todo"
+      }
+     ]
+    },
+    {
+     "id": "shelo.O.g06",
+     "en": "Organisational Culture and Safety Culture",
+     "ru": "Организационная культура и культура безопасности",
+     "tj": "",
+     "tj_status": "todo",
+     "qrg_page": 14,
+     "items": [
+      {
+       "id": "shelo.O.g06.i01",
+       "en": "Status of the SMS (Safety Management System)",
+       "ru": "Состояние СУБП (SMS)",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.O.g06.i02",
+       "en": "Reporting processes",
+       "ru": "Процессы донесений (отчётности)",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.O.g06.i03",
+       "en": "Organisational response to hazard reports / safety occurrence reports etc.",
+       "ru": "Реакция организации на донесения об опасностях, донесения о событиях, связанных с безопасностью, и т. д.",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.O.g06.i04",
+       "en": "Change management",
+       "ru": "Управление изменениями",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.O.g06.i05",
+       "en": "Safety climate",
+       "ru": "Климат безопасности",
+       "tj": "",
+       "tj_status": "todo"
+      },
+      {
+       "id": "shelo.O.g06.i06",
+       "en": "Just Culture issues",
+       "ru": "Вопросы культуры справедливости (Just Culture)",
+       "tj": "",
+       "tj_status": "todo"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "contribution_test": {
+  "id": "test.contribution",
+  "code": "contribution",
+  "en": "Does this fact represent a condition or event that contributed to the occurrence?",
+  "ru": "Является ли данный факт условием или событием, которое способствовало возникновению события?",
+  "tj": "",
+  "tj_status": "todo",
+  "qrg_page": 20
+ },
+ "check_questions": [
+  {
+   "id": "check.1",
+   "code": "1",
+   "en": "Does the item describe an action or non-action taking place immediately prior to, and triggering the occurrence?",
+   "ru": "Описывает ли пункт действие или бездействие, имевшие место непосредственно перед событием и явившиеся его триггером?",
+   "tj": "",
+   "tj_status": "todo",
+   "element": "HI",
+   "qrg_page": 21,
+   "note": {
+    "id": "check.1.note",
+    "en": "While many safety occurrences are triggered by the behaviours of front-line staff, there are some events where this is not the case (eg., component failure, as in the NASA 'space shuttle' accidents). In such cases the event may be triggered by an uncommon combination of Contextual Conditions, which are discussed in detail below. Also, in some rare cases the relevant triggering action (eg., a maintenance error) may have occurred days, weeks or months prior to the event.",
+    "ru": "Хотя многие события безопасности вызываются действиями персонала на передовой, есть случаи, когда это не так (напр., отказ компонента, как в авариях космических шаттлов NASA). В таких случаях событие может быть вызвано необычным сочетанием контекстных условий, которые подробно рассматриваются ниже. Также в редких случаях соответствующее триггерное действие (напр., ошибка технического обслуживания) может произойти за дни, недели или месяцы до события.",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 21
+   }
+  },
+  {
+   "id": "check.2",
+   "code": "2",
+   "en": "Does the item describe an aspect of the workplace, local organisational climate, or a person's attitudes, personality, performance limitations, physiological or emotional state that helps explain their actions / inactions and/or contributed to the occurrence?",
+   "ru": "Описывает ли пункт аспект рабочей среды, местного организационного климата либо личные установки, особенности, ограничения эффективности, физиологическое или эмоциональное состояние человека, которые помогают объяснить его действия / бездействие и/или способствовали возникновению события?",
+   "tj": "",
+   "tj_status": "todo",
+   "element": "CC",
+   "qrg_page": 23
+  },
+  {
+   "id": "check.3",
+   "code": "3",
+   "en": "Does the item describe an aspect of the organisation's culture, systems, processes, or decision-making that existed before the occurrence and which resulted in the contextual conditions or allowed those conditions to continue?",
+   "ru": "Описывает ли пункт аспект культуры, систем, процессов или принятия решений в организации, существовавший до события, который привёл к возникновению контекстных условий или позволил этим условиям сохраняться?",
+   "tj": "",
+   "tj_status": "todo",
+   "element": "OSF",
+   "qrg_page": 29
+  },
+  {
+   "id": "check.4",
+   "code": "4",
+   "en": "Does the item describe a work procedure, aspect of human awareness, physical obstacle, warning or control system, or protection measure designed to prevent an occurrence or lessen its consequences?",
+   "ru": "Описывает ли пункт рабочую процедуру, аспект осведомлённости человека, физическое препятствие, систему предупреждения или контроля либо меру защиты, предназначенные для предотвращения события или снижения его последствий?",
+   "tj": "",
+   "tj_status": "todo",
+   "element": "BAR",
+   "qrg_page": 42
+  }
+ ],
+ "contextual_conditions": [
+  {
+   "id": "cc.workplace",
+   "code": "workplace",
+   "en": "Workplace conditions",
+   "ru": "Условия на рабочем месте",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 24,
+   "examples": [
+    {
+     "id": "cc.workplace.error.01",
+     "en": "Communication",
+     "ru": "Коммуникация",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "error"
+    },
+    {
+     "id": "cc.workplace.error.02",
+     "en": "Signal to noise ratio",
+     "ru": "Соотношение сигнала и шума",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "error"
+    },
+    {
+     "id": "cc.workplace.error.03",
+     "en": "Designer / user mismatch",
+     "ru": "Несоответствие разработчика и пользователя",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "error"
+    },
+    {
+     "id": "cc.workplace.error.04",
+     "en": "Human-system interface (eg., HMI, mode confusion)",
+     "ru": "Человеко-машинный интерфейс (HMI) (напр., путаница режимов)",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "error"
+    },
+    {
+     "id": "cc.workplace.error.05",
+     "en": "Reliance on informal knowledge (vs written SOPs or instructions)",
+     "ru": "Опора на неформальные знания (вместо письменных СЭП (SOP) или инструкций)",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "error"
+    },
+    {
+     "id": "cc.workplace.error.06",
+     "en": "Demanding shift patterns / work rosters",
+     "ru": "Напряжённые режимы смен / графики работы",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "error"
+    },
+    {
+     "id": "cc.workplace.error.07",
+     "en": "Work environment (eg., temperature, lighting, visibility, noise, cramped workspace, etc.)",
+     "ru": "Условия рабочей среды (напр., температура, освещение, видимость, шум, стеснённое рабочее место и т. п.)",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "error"
+    },
+    {
+     "id": "cc.workplace.error.08",
+     "en": "Distraction",
+     "ru": "Отвлечение внимания",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "error"
+    },
+    {
+     "id": "cc.workplace.common.01",
+     "en": "Level of supervision",
+     "ru": "Уровень контроля (надзора)",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.workplace.common.02",
+     "en": "Time pressures",
+     "ru": "Временное давление",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.workplace.common.03",
+     "en": "Time shortage",
+     "ru": "Нехватка времени",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.workplace.common.04",
+     "en": "Working conditions",
+     "ru": "Условия труда",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.workplace.common.05",
+     "en": "Inappropriate tools / equipment",
+     "ru": "Неподходящие инструменты / оборудование",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.workplace.common.06",
+     "en": "Restricted visibility / access to job / worksite",
+     "ru": "Ограниченная видимость / ограниченный доступ к работе или месту работы",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.workplace.common.07",
+     "en": "Extent / quality of training",
+     "ru": "Объём и качество обучения",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.workplace.common.08",
+     "en": "Clarity of procedures / instructions",
+     "ru": "Ясность процедур / инструкций",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.workplace.common.09",
+     "en": "Supervisor to worker ratio",
+     "ru": "Соотношение числа руководителей и работников",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.workplace.common.10",
+     "en": "Workload (high or low)",
+     "ru": "Рабочая нагрузка (высокая или низкая)",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.workplace.common.11",
+     "en": "Staff availability",
+     "ru": "Наличие персонала",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.workplace.common.12",
+     "en": "Hazard identification / management",
+     "ru": "Выявление и управление опасностями",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.workplace.non_compliance.01",
+     "en": "Task allows for / encourages shortcuts",
+     "ru": "Задача допускает или поощряет сокращённые способы выполнения",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "non_compliance"
+    },
+    {
+     "id": "cc.workplace.non_compliance.02",
+     "en": "Work schedules or quotas that encourage / require shortcuts or rule-bending / breaking to complete tasks",
+     "ru": "Графики работы или нормы выработки, которые поощряют / требуют сокращения путей или нарушения правил для выполнения задач",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "non_compliance"
+    }
+   ]
+  },
+  {
+   "id": "cc.climate",
+   "code": "climate",
+   "en": "Organisational climate",
+   "ru": "Организационный климат",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 25,
+   "examples": [
+    {
+     "id": "cc.climate.error.01",
+     "en": "Organisational culture",
+     "ru": "Организационная культура",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "error"
+    },
+    {
+     "id": "cc.climate.error.02",
+     "en": "Validity of procedures",
+     "ru": "Обоснованность процедур",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "error"
+    },
+    {
+     "id": "cc.climate.common.01",
+     "en": "'Housekeeping' of documents or equipment",
+     "ru": "Порядок ведения («housekeeping») документов или оборудования",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.climate.common.02",
+     "en": "Applicability of procedures",
+     "ru": "Применимость процедур",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.climate.common.03",
+     "en": "Commercial or production pressure",
+     "ru": "Коммерческое или производственное давление",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.climate.common.04",
+     "en": "Punitive culture",
+     "ru": "Карательная культура",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.climate.non_compliance.01",
+     "en": "Non-compliance is tolerated by management",
+     "ru": "Несоблюдение терпится руководством",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "non_compliance"
+    },
+    {
+     "id": "cc.climate.non_compliance.02",
+     "en": "Procedures are impractical or unworkable",
+     "ru": "Процедуры непрактичны или неосуществимы",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "non_compliance"
+    },
+    {
+     "id": "cc.climate.non_compliance.03",
+     "en": "Compliance goes unrewarded",
+     "ru": "Соблюдение не поощряется",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "non_compliance"
+    },
+    {
+     "id": "cc.climate.non_compliance.04",
+     "en": "Errors are reprimanded or punished",
+     "ru": "Ошибки подвергаются выговорам или наказаниям",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "non_compliance"
+    },
+    {
+     "id": "cc.climate.non_compliance.05",
+     "en": "Macho culture",
+     "ru": "Культура «мачо»",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "non_compliance"
+    },
+    {
+     "id": "cc.climate.non_compliance.06",
+     "en": "Perceived licence to bend or break rules",
+     "ru": "Воспринимаемое разрешение нарушать или обходить правила",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "non_compliance"
+    },
+    {
+     "id": "cc.climate.non_compliance.07",
+     "en": "Inappropriate example set by manager / supervisor",
+     "ru": "Ненадлежащий пример, подаваемый руководителем / старшим смены",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "non_compliance"
+    },
+    {
+     "id": "cc.climate.non_compliance.08",
+     "en": "Subjective norms condone deviation from SOPs",
+     "ru": "Субъективные нормы допускают отклонение от СЭП (SOP)",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "non_compliance"
+    },
+    {
+     "id": "cc.climate.non_compliance.09",
+     "en": "Management sanctions",
+     "ru": "Санкции руководства",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "non_compliance"
+    },
+    {
+     "id": "cc.climate.non_compliance.10",
+     "en": "Little or no worker autonomy",
+     "ru": "Малая или отсутствующая самостоятельность работника",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "non_compliance"
+    },
+    {
+     "id": "cc.climate.non_compliance.11",
+     "en": "Worker status",
+     "ru": "Статус работника",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "non_compliance"
+    },
+    {
+     "id": "cc.climate.non_compliance.12",
+     "en": "Industrial climate",
+     "ru": "Климат в трудовых отношениях",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "non_compliance"
+    }
+   ]
+  },
+  {
+   "id": "cc.attitudes",
+   "code": "attitudes",
+   "en": "Attitudes and personality factors",
+   "ru": "Установки и личностные факторы",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 26,
+   "examples": [
+    {
+     "id": "cc.attitudes.error.01",
+     "en": "Confidence",
+     "ru": "Уверенность",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "error"
+    },
+    {
+     "id": "cc.attitudes.common.01",
+     "en": "Belief that personal skill can overcome risk",
+     "ru": "Убеждение, что личное мастерство может преодолеть риск",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.attitudes.common.02",
+     "en": "'Can do' attitude",
+     "ru": "Установка «справлюсь»",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.attitudes.common.03",
+     "en": "Judgement",
+     "ru": "Суждение",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.attitudes.common.04",
+     "en": "Complacency",
+     "ru": "Самоуспокоенность",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.attitudes.common.05",
+     "en": "Overconfidence",
+     "ru": "Переоценка себя",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.attitudes.non_compliance.01",
+     "en": "Attitude to 'the system'",
+     "ru": "Отношение к «системе»",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "non_compliance"
+    },
+    {
+     "id": "cc.attitudes.non_compliance.02",
+     "en": "Behavioural beliefs: (can't / won't happen to me)",
+     "ru": "Поведенческие убеждения: (со мной этого не случится)",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "non_compliance"
+    },
+    {
+     "id": "cc.attitudes.non_compliance.03",
+     "en": "Job dissatisfaction",
+     "ru": "Неудовлетворённость работой",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "non_compliance"
+    },
+    {
+     "id": "cc.attitudes.non_compliance.04",
+     "en": "'Learned helplessness'",
+     "ru": "«Выученная беспомощность»",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "non_compliance"
+    },
+    {
+     "id": "cc.attitudes.non_compliance.05",
+     "en": "Self-esteem issues",
+     "ru": "Проблемы с самооценкой",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "non_compliance"
+    },
+    {
+     "id": "cc.attitudes.non_compliance.06",
+     "en": "Personality: non-compliant",
+     "ru": "Личность: склонность к несоблюдению правил",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "non_compliance"
+    },
+    {
+     "id": "cc.attitudes.non_compliance.07",
+     "en": "High risk tolerance",
+     "ru": "Высокая толерантность к риску",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "non_compliance"
+    },
+    {
+     "id": "cc.attitudes.non_compliance.08",
+     "en": "Misperception of hazards",
+     "ru": "Неверное восприятие опасностей",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "non_compliance"
+    }
+   ]
+  },
+  {
+   "id": "cc.limitations",
+   "code": "limitations",
+   "en": "Human performance limitations",
+   "ru": "Ограничения человеческой деятельности",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 27,
+   "examples": [
+    {
+     "id": "cc.limitations.error.01",
+     "en": "Negative transfer",
+     "ru": "Негативный перенос",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "error"
+    },
+    {
+     "id": "cc.limitations.error.02",
+     "en": "Target fixation; preoccupation; distraction",
+     "ru": "Фиксация на цели; поглощённость; отвлечение внимания",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "error"
+    },
+    {
+     "id": "cc.limitations.error.03",
+     "en": "Confirmation bias",
+     "ru": "Предвзятость подтверждения",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "error"
+    },
+    {
+     "id": "cc.limitations.error.04",
+     "en": "Expectancy bias",
+     "ru": "Предвзятость ожидания",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "error"
+    },
+    {
+     "id": "cc.limitations.error.05",
+     "en": "False perceptions / sensations",
+     "ru": "Ложные восприятия / ощущения",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "error"
+    },
+    {
+     "id": "cc.limitations.error.06",
+     "en": "Memory failures: - encoding interference / storage loss / retrieval failure / prospective memory",
+     "ru": "Сбои памяти: интерференция при кодировании / потеря при хранении / сбой извлечения / перспективная память",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "error"
+    },
+    {
+     "id": "cc.limitations.error.07",
+     "en": "Perceptual set",
+     "ru": "Перцептивная установка",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "error"
+    },
+    {
+     "id": "cc.limitations.error.08",
+     "en": "False inference and/or reasoning",
+     "ru": "Ложные умозаключения и/или рассуждения",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "error"
+    },
+    {
+     "id": "cc.limitations.common.01",
+     "en": "Skill level",
+     "ru": "Уровень навыков",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.limitations.common.02",
+     "en": "Ability level",
+     "ru": "Уровень способностей",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.limitations.common.03",
+     "en": "Training deficit",
+     "ru": "Дефицит обучения",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.limitations.common.04",
+     "en": "Incomplete subject matter knowledge",
+     "ru": "Неполные предметные знания",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.limitations.common.05",
+     "en": "Unfamiliarity with task",
+     "ru": "Незнакомство с задачей",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.limitations.common.06",
+     "en": "Over-familiarity with task",
+     "ru": "Избыточная знакомость с задачей",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.limitations.common.07",
+     "en": "Situational awareness",
+     "ru": "Ситуационная осведомлённость",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.limitations.common.08",
+     "en": "Fatigue",
+     "ru": "Усталость",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.limitations.non_compliance.01",
+     "en": "Misperception of situation",
+     "ru": "Неверное восприятие ситуации",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "non_compliance"
+    }
+   ]
+  },
+  {
+   "id": "cc.physio",
+   "code": "physio",
+   "en": "Physiological and emotional factors",
+   "ru": "Физиологические и эмоциональные факторы",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 26,
+   "examples": [
+    {
+     "id": "cc.physio.error.01",
+     "en": "Disturbed sleep patterns",
+     "ru": "Нарушения режима сна",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "error"
+    },
+    {
+     "id": "cc.physio.error.02",
+     "en": "Problems at home",
+     "ru": "Проблемы дома",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "error"
+    },
+    {
+     "id": "cc.physio.error.03",
+     "en": "Stress / fatigue",
+     "ru": "Стресс / усталость",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "error"
+    },
+    {
+     "id": "cc.physio.error.04",
+     "en": "Physical health issues",
+     "ru": "Проблемы со здоровьем",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "error"
+    },
+    {
+     "id": "cc.physio.common.01",
+     "en": "Anxiety",
+     "ru": "Тревожность",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.physio.common.02",
+     "en": "Arousal state (low / high)",
+     "ru": "Состояние возбуждения (низкое / высокое)",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.physio.common.03",
+     "en": "Monotony / boredom",
+     "ru": "Монотонность / скука",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.physio.common.04",
+     "en": "Mental health or wellbeing issues",
+     "ru": "Проблемы психического здоровья или благополучия",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.physio.common.05",
+     "en": "Circadian low",
+     "ru": "Циркадный спад",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.physio.common.06",
+     "en": "Drug / alcohol dependence",
+     "ru": "Зависимость от наркотиков / алкоголя",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "common"
+    },
+    {
+     "id": "cc.physio.non_compliance.01",
+     "en": "Hostility / mood",
+     "ru": "Враждебность / настроение",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "non_compliance"
+    },
+    {
+     "id": "cc.physio.non_compliance.02",
+     "en": "Disregard for personal safety",
+     "ru": "Пренебрежение личной безопасностью",
+     "tj": "",
+     "tj_status": "todo",
+     "kind": "non_compliance"
+    }
+   ]
+  }
+ ],
+ "osf": [
+  {
+   "id": "osf.TR",
+   "code": "TR",
+   "en": "Training",
+   "ru": "Обучение",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 30,
+   "definition": {
+    "id": "osf.TR.def",
+    "en": "Factors relating to the quality and suitability of training provided for workers involved in conducting tasks linked directly to the occurrence. These may include issues to do with the design, structure, mode, content, duration, delivery, frequency, standardisation, assessment and evaluation of training processes.",
+    "ru": "Факторы, связанные с качеством и пригодностью обучения, проведённого для работников, непосредственно участвовавших в выполнении задач, связанных с событием. К ним могут относиться вопросы разработки, структуры, формы, содержания, продолжительности, проведения, периодичности, стандартизации, оценки и аттестации процессов обучения.",
+    "tj": "",
+    "tj_status": "todo"
+   },
+   "issues": [
+    {
+     "id": "osf.TR.issue.01",
+     "en": "Training design (syllabus, structure, content)",
+     "ru": "Разработка обучения (программа, структура, содержание)",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.TR.issue.02",
+     "en": "Training delivery (methods, devices, duration)",
+     "ru": "Проведение обучения (методы, средства, продолжительность)",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.TR.issue.03",
+     "en": "Training mode (classroom / online / WBT / OJT, etc)",
+     "ru": "Форма обучения (очная / онлайн / WBT / обучение на рабочем месте (OJT) и т. д.)",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.TR.issue.04",
+     "en": "Training standardisation",
+     "ru": "Стандартизация обучения",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.TR.issue.05",
+     "en": "Task / training fit",
+     "ru": "Соответствие обучения задаче",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.TR.issue.06",
+     "en": "Training planning",
+     "ru": "Планирование обучения",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.TR.issue.07",
+     "en": "Amount of training provided",
+     "ru": "Объём предоставленного обучения",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.TR.issue.08",
+     "en": "Competency assessment",
+     "ru": "Оценка компетентности",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.TR.issue.09",
+     "en": "Evaluation of training effectiveness",
+     "ru": "Оценка эффективности обучения",
+     "tj": "",
+     "tj_status": "todo"
+    }
+   ],
+   "consequences": [
+    {
+     "id": "osf.TR.cons.01",
+     "en": "Mismatch between required and actual performance",
+     "ru": "Несоответствие требуемой и фактической эффективности работы",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.TR.cons.02",
+     "en": "Lack of required knowledge and / or skill",
+     "ru": "Отсутствие необходимых знаний и / или навыков",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.TR.cons.03",
+     "en": "Ineffective training",
+     "ru": "Неэффективное обучение",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.TR.cons.04",
+     "en": "Inference or reasoning deficiencies",
+     "ru": "Дефициты умозаключений или рассуждений",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.TR.cons.05",
+     "en": "Misperception of hazards",
+     "ru": "Неверное восприятие опасностей",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.TR.cons.06",
+     "en": "Inability to perform assigned task/s",
+     "ru": "Неспособность выполнить назначенные задачи",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.TR.cons.07",
+     "en": "Excessive supervision required",
+     "ru": "Требуется чрезмерный надзор",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.TR.cons.08",
+     "en": "Lengthy task completion times",
+     "ru": "Длительное время выполнения задач",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.TR.cons.09",
+     "en": "Negative transfer",
+     "ru": "Негативный перенос",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.TR.cons.10",
+     "en": "Unfamiliarity with task",
+     "ru": "Незнакомство с задачей",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.TR.cons.11",
+     "en": "Workload management problems",
+     "ru": "Проблемы управления рабочей нагрузкой",
+     "tj": "",
+     "tj_status": "todo"
+    }
+   ]
+  },
+  {
+   "id": "osf.WM",
+   "code": "WM",
+   "en": "Workforce Management",
+   "ru": "Управление персоналом (Workforce Management)",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 31,
+   "definition": {
+    "id": "osf.WM.def",
+    "en": "Factors relating directly to management of operational staff. Includes HR policies and practices that impact on staff workload, supervision, performance and morale, such as organisational structure, job and work design, recruitment, selection, rostering, tasking, deployment, staffing levels, experience levels, remuneration and reward systems (but excludes training).",
+    "ru": "Факторы, непосредственно связанные с управлением оперативным персоналом. Включает кадровую политику и практики, влияющие на нагрузку персонала, надзор, результативность работы и моральный дух, такие как организационная структура, проектирование работ и должностей, набор, отбор, составление графиков работы, постановка задач, распределение, укомплектованность, уровень опыта, системы оплаты труда и вознаграждения (но без обучения).",
+    "tj": "",
+    "tj_status": "todo"
+   },
+   "issues": [
+    {
+     "id": "osf.WM.issue.01",
+     "en": "Organisational structure",
+     "ru": "Организационная структура",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.WM.issue.02",
+     "en": "Work design and / or job design",
+     "ru": "Проектирование работ и/или должностей",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.WM.issue.03",
+     "en": "Industrial relations / staff morale",
+     "ru": "Трудовые отношения / моральный дух персонала",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.WM.issue.04",
+     "en": "Selection processes and methods",
+     "ru": "Процессы и методы отбора",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.WM.issue.05",
+     "en": "Staffing levels / workforce experience",
+     "ru": "Укомплектованность / опыт персонала",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.WM.issue.06",
+     "en": "Rostering practices / tasking and workload",
+     "ru": "Практика составления графиков работы / постановки задач и нагрузка",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.WM.issue.07",
+     "en": "Fatigue Risk Management practices",
+     "ru": "Практики управления риском утомления (FRM)",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.WM.issue.08",
+     "en": "Supervisor to staff ratio",
+     "ru": "Соотношение числа руководителей и подчинённых",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.WM.issue.09",
+     "en": "Team composition / experience levels",
+     "ru": "Состав команды / уровень опыта",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.WM.issue.10",
+     "en": "Contractor management",
+     "ru": "Управление подрядчиками",
+     "tj": "",
+     "tj_status": "todo"
+    }
+   ],
+   "consequences": [
+    {
+     "id": "osf.WM.cons.01",
+     "en": "Slow or incorrect response to anomalies",
+     "ru": "Замедленная или неверная реакция на аномалии",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.WM.cons.02",
+     "en": "Inappropriate selection (person/job mismatch)",
+     "ru": "Неподходящий отбор (несоответствие человека должности)",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.WM.cons.03",
+     "en": "Undesirable shift patterns / fatigue risk",
+     "ru": "Нежелательные режимы смен / риск утомления",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.WM.cons.04",
+     "en": "Inadequate supervisor to staff ratio",
+     "ru": "Недостаточное соотношение числа руководителей и подчинённых",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.WM.cons.05",
+     "en": "Improper tasking / staffing / induction",
+     "ru": "Ненадлежащая постановка задач / укомплектование / вводный инструктаж",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.WM.cons.06",
+     "en": "Workforce age and/or experience imbalance",
+     "ru": "Дисбаланс по возрасту и/или опыту персонала",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.WM.cons.07",
+     "en": "Worker autonomy (too little / too much)",
+     "ru": "Самостоятельность работника (слишком мало / слишком много)",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.WM.cons.08",
+     "en": "Low worker status and/or pay",
+     "ru": "Низкий статус и/или низкая оплата работника",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.WM.cons.09",
+     "en": "Task design encourages shortcuts or non-compliance",
+     "ru": "Конструкция задач провоцирует сокращение путей или несоблюдение требований",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.WM.cons.10",
+     "en": "Worker inexperience",
+     "ru": "Недостаточный опыт работника",
+     "tj": "",
+     "tj_status": "todo"
+    }
+   ]
+  },
+  {
+   "id": "osf.AC",
+   "code": "AC",
+   "en": "Accountability",
+   "ru": "Подотчётность",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 32,
+   "definition": {
+    "id": "osf.AC.def",
+    "en": "Factors relating directly to the accountability of key staff and how responsibilities are assigned to them. Includes issues such as the assignment of responsibility for safety from senior management levels down, oversight of performance of safety-related duties, clear definition and communication of accountabilities throughout the organisation, and processes to ensure that key safety accountabilities are fulfilled.",
+    "ru": "Факторы, непосредственно связанные с подотчётностью ключевого персонала и тем, как ему назначаются обязанности. Включает такие вопросы, как возложение ответственности за безопасность, начиная с высшего руководства и далее по всем уровням, контроль выполнения обязанностей, связанных с безопасностью, чёткое определение и доведение до всей организации зон подотчётности, а также процессы, обеспечивающие выполнение ключевых обязанностей в области безопасности.",
+    "tj": "",
+    "tj_status": "todo"
+   },
+   "issues": [
+    {
+     "id": "osf.AC.issue.01",
+     "en": "Demonstrated management commitment to safety",
+     "ru": "Продемонстрированная приверженность руководства безопасности",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.AC.issue.02",
+     "en": "Clearly defined accountabilities for operational safety",
+     "ru": "Чётко определённая подотчётность за эксплуатационную безопасность",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.AC.issue.03",
+     "en": "Processes to ensure accountabilities are fulfilled",
+     "ru": "Процессы, обеспечивающие выполнение обязанностей по подотчётности",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.AC.issue.04",
+     "en": "Response by management to reported or rumoured breaches of rules or procedures by workers",
+     "ru": "Реакция руководства на сообщённые или слухи о нарушениях правил или процедур работниками",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.AC.issue.05",
+     "en": "Mechanisms to ensure that the commitment to safety is reflected in everyday actions of managers and staff",
+     "ru": "Механизмы, обеспечивающие отражение приверженности безопасности в повседневных действиях руководителей и персонала",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.AC.issue.06",
+     "en": "Processes to ensure that safety is embedded within the organisation as a top operational priority",
+     "ru": "Процессы, обеспечивающие, чтобы безопасность была встроена в организацию как главный эксплуатационный приоритет",
+     "tj": "",
+     "tj_status": "todo"
+    }
+   ],
+   "consequences": [
+    {
+     "id": "osf.AC.cons.01",
+     "en": "Blurred lines of responsibility for safety",
+     "ru": "Размытость границ ответственности за безопасность",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.AC.cons.02",
+     "en": "Uncertainty regarding the priority of safety",
+     "ru": "Неопределённость в отношении приоритета безопасности",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.AC.cons.03",
+     "en": "Accountability \"gaps\" for safety critical activities",
+     "ru": "Пробелы в подотчётности за критически важные для безопасности операции",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.AC.cons.04",
+     "en": "Ambiguity regarding where or how safety concerns should be directed or reported by workers",
+     "ru": "Неясность в отношении того, куда и как работники должны направлять или сообщать о проблемах безопасности",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.AC.cons.05",
+     "en": "Ambiguity or confusion amongst managers over who should act on safety-related concerns / deficiencies",
+     "ru": "Неоднозначность или путаница среди руководителей в вопросе о том, кто должен реагировать на проблемы и недостатки в области безопасности",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.AC.cons.06",
+     "en": "Action not taken by management to address known safety issues / concerns",
+     "ru": "Непринятие руководством мер по известным проблемам безопасности",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.AC.cons.07",
+     "en": "Management commitment to safety not reflected in the beliefs or behaviours of workers",
+     "ru": "Приверженность руководства безопасности не отражается в убеждениях и поведении работников",
+     "tj": "",
+     "tj_status": "todo"
+    }
+   ]
+  },
+  {
+   "id": "osf.CO",
+   "code": "CO",
+   "en": "Communication",
+   "ru": "Коммуникация",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 33,
+   "definition": {
+    "id": "osf.CO.def",
+    "en": "Factors relating to the clarity, quality and effectiveness of organisational communication systems and methods. This relates to the availability and flow of information within the organisation, whether and how employees are informed about safety critical information, and the clarity, quality and effectiveness of formal and informal communication processes.",
+    "ru": "Факторы, связанные с ясностью, качеством и эффективностью систем и методов организационной коммуникации. Относится к доступности и движению информации внутри организации, к тому, информируются ли работники о критически важной для безопасности информации и каким образом, а также к ясности, качеству и эффективности формальных и неформальных процессов коммуникации.",
+    "tj": "",
+    "tj_status": "todo"
+   },
+   "issues": [
+    {
+     "id": "osf.CO.issue.01",
+     "en": "Quality of documented policies and procedures",
+     "ru": "Качество документированных политик и процедур",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CO.issue.02",
+     "en": "Clarity of organisational structure and responsibilities",
+     "ru": "Ясность организационной структуры и обязанностей",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CO.issue.03",
+     "en": "Information flow within the organisation",
+     "ru": "Движение информации внутри организации",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CO.issue.04",
+     "en": "Communication within the organisation",
+     "ru": "Коммуникация внутри организации",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CO.issue.05",
+     "en": "Standardised communication tools",
+     "ru": "Стандартизированные средства коммуникации",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CO.issue.06",
+     "en": "Shift handover procedures",
+     "ru": "Процедуры передачи смены",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CO.issue.07",
+     "en": "Coordination within / between work groups or teams, with other sectors or departments",
+     "ru": "Координация внутри рабочих групп или команд, между ними, а также с другими секторами или подразделениями",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CO.issue.08",
+     "en": "Communication with other units or facilities, partners or stakeholders",
+     "ru": "Коммуникация с другими подразделениями или объектами, партнёрами и заинтересованными сторонами",
+     "tj": "",
+     "tj_status": "todo"
+    }
+   ],
+   "consequences": [
+    {
+     "id": "osf.CO.cons.01",
+     "en": "Uncertainty or ambiguity regarding organisational structure and responsibilities",
+     "ru": "Неопределённость или неоднозначность в отношении организационной структуры и обязанностей",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CO.cons.02",
+     "en": "Uncertainty or ambiguity regarding work rules or procedures",
+     "ru": "Неопределённость или неоднозначность в отношении правил работы или процедур",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CO.cons.03",
+     "en": "Uncertainty about organisational priorities",
+     "ru": "Неопределённость в отношении организационных приоритетов",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CO.cons.04",
+     "en": "Communication breakdowns, misunderstandings",
+     "ru": "Сбои в коммуникации, недопонимание",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CO.cons.05",
+     "en": "Workforce (including all staff and contractors) not adequately informed about important issues",
+     "ru": "Персонал (включая весь персонал и подрядчиков) недостаточно информирован о важных вопросах",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CO.cons.06",
+     "en": "Uncertainty about where / how to obtain information",
+     "ru": "Неопределённость в отношении того, где и как получить информацию",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CO.cons.07",
+     "en": "Lack of management knowledge or understanding regarding staff concerns, behaviour, etc.",
+     "ru": "Недостаток знаний или понимания руководством переживаний, поведения и т. п. персонала",
+     "tj": "",
+     "tj_status": "todo"
+    }
+   ]
+  },
+  {
+   "id": "osf.OC",
+   "code": "OC",
+   "en": "Organisational Culture",
+   "ru": "Организационная культура",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 34,
+   "definition": {
+    "id": "osf.OC.def",
+    "en": "Factors relating to shared values and beliefs within an organisation that influence \"the way things are done\" and distinguish the organisation from others. Includes safety culture elements such as commitment to safety, risk awareness, Just Culture, wariness about potential for accidents, and the capacity to learn from events.",
+    "ru": "Факторы, связанные с общими ценностями и убеждениями внутри организации, которые определяют «принятый порядок вещей» и отличают организацию от других. Включает элементы культуры безопасности: приверженность безопасности, осознание рисков, культуру справедливости (Just Culture), настороженность в отношении возможности происшествий и способность учиться на событиях.",
+    "tj": "",
+    "tj_status": "todo"
+   },
+   "issues": [
+    {
+     "id": "osf.OC.issue.01",
+     "en": "Values and beliefs relevant to safety and quality",
+     "ru": "Ценности и убеждения, важные для безопасности и качества",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.OC.issue.02",
+     "en": "Demonstrated management commitment to safety",
+     "ru": "Продемонстрированная приверженность руководства безопасности",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.OC.issue.03",
+     "en": "Safety Management System / reporting processes",
+     "ru": "Система управления безопасностью — СУБП (SMS) / процессы отчётности",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.OC.issue.04",
+     "en": "Examples set by supervisors and management",
+     "ru": "Пример, подаваемый непосредственными руководителями и руководством",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.OC.issue.05",
+     "en": "Management response to reporting of concerns",
+     "ru": "Реакция руководства на сообщения о проблемах",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.OC.issue.06",
+     "en": "Management response to safety occurrences",
+     "ru": "Реакция руководства на события, связанные с безопасностью",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.OC.issue.07",
+     "en": "Processes for anticipating and protecting against future incidents or accidents",
+     "ru": "Процессы предвидения и защиты от будущих инцидентов или происшествий",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.OC.issue.08",
+     "en": "Capacity to admit faults and learn from experience",
+     "ru": "Способность признавать ошибки и учиться на опыте",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.OC.issue.09",
+     "en": "Existence / maturity / resilience of a Just Culture",
+     "ru": "Наличие, зрелость и устойчивость культуры справедливости (Just Culture)",
+     "tj": "",
+     "tj_status": "todo"
+    }
+   ],
+   "consequences": [
+    {
+     "id": "osf.OC.cons.01",
+     "en": "Tolerance / condoning of 'routine violations'",
+     "ru": "Терпимость или попустительство «рутинным нарушениям»",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.OC.cons.02",
+     "en": "Perceived licence for workers to 'bend the rules'",
+     "ru": "Восприятие работниками как разрешения «гнуть правила»",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.OC.cons.03",
+     "en": "Rule compliance not encouraged or supported",
+     "ru": "Соблюдение правил не поощряется и не поддерживается",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.OC.cons.04",
+     "en": "Inappropriate example set by management",
+     "ru": "Ненадлежащий пример, подаваемый руководством",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.OC.cons.05",
+     "en": "Risk-taking / 'macho' culture encouraged",
+     "ru": "Поощрение рискованного поведения и культуры «бравады»",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.OC.cons.06",
+     "en": "Evidence of a 'blame culture' / unfair or inequitable management sanctions following occurrences",
+     "ru": "Признаки «культуры обвинения» / несправедливые или неравноправные санкции руководства после событий",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.OC.cons.07",
+     "en": "Defensive response to events (denial, cover-ups etc)",
+     "ru": "Защитная реакция на события (отрицание, сокрытие и т. п.)",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.OC.cons.08",
+     "en": "Low morale / job dissatisfaction / lack of pride in work",
+     "ru": "Низкий моральный дух / неудовлетворённость работой / отсутствие гордости за свою работу",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.OC.cons.09",
+     "en": "Complacency (that can't/won't happen here)",
+     "ru": "Самоуспокоенность («у нас этого не произойдёт»)",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.OC.cons.10",
+     "en": "Adversarial industrial climate",
+     "ru": "Конфликтный производственный климат",
+     "tj": "",
+     "tj_status": "todo"
+    }
+   ]
+  },
+  {
+   "id": "osf.CG",
+   "code": "CG",
+   "en": "Competing Goals",
+   "ru": "Конкурирующие цели",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 35,
+   "definition": {
+    "id": "osf.CG.def",
+    "en": "Factors relating to conflicts between competing goals, particularly those of production and safety. May include tension between safety and production targets or goals, including work schedules or financial targets, in addition to the vested interests of individuals or groups within the organisation. CGs are typically characterised by an overemphasis on meeting production or budget targets at the expense of safety.",
+    "ru": "Факторы, связанные с конфликтом между конкурирующими целями, прежде всего производственными целями и целями безопасности. Может включать напряжение между целями безопасности и производственными показателями, в том числе графиками работы или финансовыми показателями, а также личные интересы отдельных лиц или групп внутри организации. Для таких конфликтов обычно характерна чрезмерная ориентация на выполнение производственных или бюджетных показателей в ущерб безопасности.",
+    "tj": "",
+    "tj_status": "todo"
+   },
+   "issues": [
+    {
+     "id": "osf.CG.issue.01",
+     "en": "The focus or emphasis of management priorities",
+     "ru": "Направленность или акцент приоритетов руководства",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CG.issue.02",
+     "en": "Appropriateness of the balance between production goals and safety",
+     "ru": "Адекватность баланса между производственными целями и безопасностью",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CG.issue.03",
+     "en": "The prioritisation of productivity, service, budget or other goals ahead of safety",
+     "ru": "Приоритет производительности, обслуживания, бюджета или иных целей над безопасностью",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CG.issue.04",
+     "en": "The balance between safe work practices and production priorities or budget constraints",
+     "ru": "Баланс между безопасными практиками работы и производственными приоритетами или бюджетными ограничениями",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CG.issue.05",
+     "en": "The focus of staff reward or incentive systems, including for senior management",
+     "ru": "Направленность систем вознаграждения и стимулирования персонала, включая высшее руководство",
+     "tj": "",
+     "tj_status": "todo"
+    }
+   ],
+   "consequences": [
+    {
+     "id": "osf.CG.cons.01",
+     "en": "Staff shortages",
+     "ru": "Нехватка персонала",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CG.cons.02",
+     "en": "Budget cuts to safety or training programs",
+     "ru": "Сокращение бюджета программ безопасности или обучения",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CG.cons.03",
+     "en": "Lack of resources necessary to get the job done in accordance with SOPs",
+     "ru": "Недостаток ресурсов, необходимых для выполнения работы в соответствии с СЭП (SOP)",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CG.cons.04",
+     "en": "Unrealistic time pressures / time shortage",
+     "ru": "Нереалистичные сроки / нехватка времени",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CG.cons.05",
+     "en": "Tacit approval of informal 'short-cuts' that increase productivity",
+     "ru": "Негласное одобрение неформальных «сокращений путей», повышающих производительность",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CG.cons.06",
+     "en": "Acceptance of routine violations",
+     "ru": "Принятие рутинных нарушений",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CG.cons.07",
+     "en": "'Practical drift' away from safe practices / SOPs",
+     "ru": "«Практический дрейф» от безопасных практик и СЭП (SOP)",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CG.cons.08",
+     "en": "Pressure to short-cut procedures",
+     "ru": "Давление, побуждающее сокращать процедуры",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CG.cons.09",
+     "en": "Impractical workload levels",
+     "ru": "Нереалистичный объём работ",
+     "tj": "",
+     "tj_status": "todo"
+    }
+   ]
+  },
+  {
+   "id": "osf.PP",
+   "code": "PP",
+   "en": "Policies and Procedures",
+   "ru": "Политики и процедуры",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 36,
+   "definition": {
+    "id": "osf.PP.def",
+    "en": "Factors relating to the quality and suitability of policies, procedures and standards. Includes applicability, clarity, currency, specificity, availability and standardisation of all written work instructions and processes.",
+    "ru": "Факторы, связанные с качеством и пригодностью политик, процедур и стандартов. Включает применимость, ясность, актуальность, конкретность, доступность и стандартизацию всех письменных рабочих инструкций и процессов.",
+    "tj": "",
+    "tj_status": "todo"
+   },
+   "issues": [
+    {
+     "id": "osf.PP.issue.01",
+     "en": "Relevance or applicability of policies, procedures, checklists and instructions",
+     "ru": "Значимость или применимость политик, процедур, контрольных листов и инструкций",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.PP.issue.02",
+     "en": "Level of detail included in documentation",
+     "ru": "Уровень детализации документации",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.PP.issue.03",
+     "en": "Standardisation of operational procedures",
+     "ru": "Стандартизация эксплуатационных процедур",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.PP.issue.04",
+     "en": "Feedback loop between document authors and users",
+     "ru": "Обратная связь между авторами документов и их пользователями",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.PP.issue.05",
+     "en": "Availability of procedures or other documentation",
+     "ru": "Доступность процедур и иной документации",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.PP.issue.06",
+     "en": "Practicality / usability of policies, procedures and other instructions",
+     "ru": "Практичность и удобство использования политик, процедур и иных инструкций",
+     "tj": "",
+     "tj_status": "todo"
+    }
+   ],
+   "consequences": [
+    {
+     "id": "osf.PP.cons.01",
+     "en": "Inaccurate, poorly written, unclear or out of date procedures / instructions",
+     "ru": "Неточные, плохо написанные, неясные или устаревшие процедуры и инструкции",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.PP.cons.02",
+     "en": "Some important tasks not covered by procedures",
+     "ru": "Некоторые важные задачи не охвачены процедурами",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.PP.cons.03",
+     "en": "Different versions of the same procedure in circulation",
+     "ru": "В обращении находятся разные версии одной и той же процедуры",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.PP.cons.04",
+     "en": "Lack of standardisation within / between centres, sectors, units, shifts, work groups or teams",
+     "ru": "Отсутствие стандартизации внутри и между центрами, секторами, подразделениями, сменами, рабочими группами или командами",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.PP.cons.05",
+     "en": "Different groups using conflicting procedures",
+     "ru": "Разные группы используют противоречащие друг другу процедуры",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.PP.cons.06",
+     "en": "Non-SOP application of procedures / requirements",
+     "ru": "Применение процедур и требований с отступлениями от СЭП (SOP)",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.PP.cons.07",
+     "en": "Lack of understanding of policies and procedures",
+     "ru": "Непонимание политик и процедур",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.PP.cons.08",
+     "en": "Procedures that do not reflect operational practice",
+     "ru": "Процедуры не отражают реальную эксплуатационную практику",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.PP.cons.09",
+     "en": "Encouragement of procedural short-cuts / violations",
+     "ru": "Поощрение процедурных сокращений и нарушений",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.PP.cons.10",
+     "en": "Procedures that protect the system not the individual",
+     "ru": "Процедуры защищают систему, а не человека",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.PP.cons.11",
+     "en": "Inappropriate mix of \"hands on\" work and written instructions (over-reliance on informal knowledge)",
+     "ru": "Неадекватное сочетание практической работы «руками» и письменных инструкций (чрезмерная опора на неформальные знания)",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.PP.cons.12",
+     "en": "Legal, regulatory and/or other corporate obligations are not addressed",
+     "ru": "Юридические, нормативные и/или иные корпоративные обязательства не учтены",
+     "tj": "",
+     "tj_status": "todo"
+    }
+   ]
+  },
+  {
+   "id": "osf.MM",
+   "code": "MM",
+   "en": "Maintenance Management",
+   "ru": "Управление техническим обслуживанием",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 37,
+   "definition": {
+    "id": "osf.MM.def",
+    "en": "Factors relating to management of ATM equipment and facility maintenance. Typically includes the planning, scheduling, resourcing and oversight of maintenance and repair activities. MM also includes the effectiveness with which contracted maintenance organisations and staff are selected, inducted, trained, supervised and kept informed.",
+    "ru": "Факторы, связанные с управлением оборудованием ОрВД и техническим обслуживанием объектов. Как правило, включает планирование, составление графиков, ресурсное обеспечение и контроль работ по техническому обслуживанию и ремонту. Также включает эффективность отбора, вводного инструктажа, обучения, надзора и информирования подрядных организаций по техническому обслуживанию и их персонала.",
+    "tj": "",
+    "tj_status": "todo"
+   },
+   "issues": [
+    {
+     "id": "osf.MM.issue.01",
+     "en": "Serviceability of ATM equipment and facilities",
+     "ru": "Исправность оборудования и объектов ОрВД",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.MM.issue.02",
+     "en": "Scheduling of maintenance activities",
+     "ru": "Планирование работ по техническому обслуживанию",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.MM.issue.03",
+     "en": "Standardisation of maintenance activities",
+     "ru": "Стандартизация работ по техническому обслуживанию",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.MM.issue.04",
+     "en": "Communication of maintenance activities to workforce",
+     "ru": "Доведение информации о работах по техническому обслуживанию до персонала",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.MM.issue.05",
+     "en": "Resourcing of maintenance activities",
+     "ru": "Ресурсное обеспечение работ по техническому обслуживанию",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.MM.issue.06",
+     "en": "Supervision of maintenance activities",
+     "ru": "Надзор за работами по техническому обслуживанию",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.MM.issue.07",
+     "en": "Equipment operating manuals and documentation",
+     "ru": "Руководства по эксплуатации оборудования и документация",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.MM.issue.08",
+     "en": "Processes for maintenance contractor management",
+     "ru": "Процессы управления подрядчиками по техническому обслуживанию",
+     "tj": "",
+     "tj_status": "todo"
+    }
+   ],
+   "consequences": [
+    {
+     "id": "osf.MM.cons.01",
+     "en": "Scheduled servicing not performed / inadequately maintained or unserviceable equipment",
+     "ru": "Плановое обслуживание не выполнено / оборудование недостаточно обслуживается или неисправно",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.MM.cons.02",
+     "en": "Delays or unscheduled shutdowns due to equipment malfunctions or defects attributable to inadequate or inappropriate maintenance",
+     "ru": "Задержки или внеплановые остановки из-за отказов оборудования или дефектов, обусловленных недостаточным или ненадлежащим техническим обслуживанием",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.MM.cons.03",
+     "en": "Maintenance activities conducted at inappropriate times (eg., peak traffic / work periods)",
+     "ru": "Проведение работ по техническому обслуживанию в неподходящее время (напр., в периоды пиковой загрузки или интенсивного движения)",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.MM.cons.04",
+     "en": "Operational staff unaware of maintenance activities",
+     "ru": "Эксплуатационный персонал не осведомлён о работах по техническому обслуживанию",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.MM.cons.05",
+     "en": "Differences between standard of work performed by permanent maintenance staff and contractors",
+     "ru": "Различия в качестве работ, выполняемых штатным персоналом по техническому обслуживанию и подрядчиками",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.MM.cons.06",
+     "en": "Variable quality of maintenance work performed",
+     "ru": "Неравномерное качество выполняемых работ по техническому обслуживанию",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.MM.cons.07",
+     "en": "Lack of knowledge and/or concern shown by staff and/or contractors about hazards and risks associated with maintenance activities",
+     "ru": "Недостаточные знания и/или недостаточное внимание персонала и/или подрядчиков к опасностям и рискам, связанным с работами по техническому обслуживанию",
+     "tj": "",
+     "tj_status": "todo"
+    }
+   ]
+  },
+  {
+   "id": "osf.EI",
+   "code": "EI",
+   "en": "Equipment and Infrastructure",
+   "ru": "Оборудование и инфраструктура",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 38,
+   "definition": {
+    "id": "osf.EI.def",
+    "en": "Factors relating to the design, quality, availability and serviceability of workplace technology, equipment and other hardware used in conducting or supporting ATM operations. This element includes ergonomic design and Human-Machine Interface (HMI) issues that impact on the usability of all ATM equipment and infrastructure.",
+    "ru": "Факторы, связанные с конструкцией, качеством, доступностью и исправностью рабочих технологий, оборудования и иной аппаратуры, используемой при выполнении или обеспечении операций ОрВД. Этот элемент включает эргономическую конструкцию и вопросы человеко-машинного интерфейса (HMI), влияющие на удобство использования всего оборудования и инфраструктуры ОрВД.",
+    "tj": "",
+    "tj_status": "todo"
+   },
+   "issues": [
+    {
+     "id": "osf.EI.issue.01",
+     "en": "HMI design / ergonomics",
+     "ru": "Конструкция HMI / эргономика",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.EI.issue.02",
+     "en": "Equipment displays, functions and layouts",
+     "ru": "Дисплеи, функции и компоновка оборудования",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.EI.issue.03",
+     "en": "Purchase of 'fit-for-purpose' equipment and tools",
+     "ru": "Закупка оборудования и инструментов, соответствующих назначению",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.EI.issue.04",
+     "en": "System requirement / design compatibility: Do users require additional training or procedures to 'work-around' known issues?",
+     "ru": "Совместимость требований к системе и конструкции: требуется ли пользователям дополнительная подготовка или процедуры для обходных решений известных проблем?",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.EI.issue.05",
+     "en": "Standardisation of equipment design",
+     "ru": "Стандартизация конструкции оборудования",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.EI.issue.06",
+     "en": "Workstation layout, configuration and/or fit out",
+     "ru": "Компоновка, конфигурация и/или оснащение рабочего места",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.EI.issue.07",
+     "en": "Working conditions",
+     "ru": "Условия труда",
+     "tj": "",
+     "tj_status": "todo"
+    }
+   ],
+   "consequences": [
+    {
+     "id": "osf.EI.cons.01",
+     "en": "Problematic or inefficient HMI",
+     "ru": "Проблемный или неэффективный HMI",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.EI.cons.02",
+     "en": "Unsuitable tools and equipment",
+     "ru": "Неподходящие инструменты и оборудование",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.EI.cons.03",
+     "en": "Difficult access to workstations or work sites",
+     "ru": "Затруднённый доступ к рабочим местам или участкам работ",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.EI.cons.04",
+     "en": "Increased workload",
+     "ru": "Повышенная рабочая нагрузка",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.EI.cons.05",
+     "en": "Reduced situational awareness",
+     "ru": "Снижение ситуационной осведомлённости",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.EI.cons.06",
+     "en": "Inadequate system to user feedback",
+     "ru": "Недостаточная обратная связь системы с пользователем",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.EI.cons.07",
+     "en": "Information overload / task overload",
+     "ru": "Перегрузка информацией / перегрузка задачами",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.EI.cons.08",
+     "en": "Inappropriate signal to noise ratio",
+     "ru": "Неприемлемое соотношение сигнала и шума",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.EI.cons.09",
+     "en": "Negative transfer",
+     "ru": "Негативный перенос (интерференция навыков)",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.EI.cons.10",
+     "en": "Cramped working conditions",
+     "ru": "Стеснённые условия работы",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.EI.cons.11",
+     "en": "Noisy work environment",
+     "ru": "Шумная рабочая среда",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.EI.cons.12",
+     "en": "Uncomfortable working environment",
+     "ru": "Некомфортная рабочая среда",
+     "tj": "",
+     "tj_status": "todo"
+    }
+   ]
+  },
+  {
+   "id": "osf.RM",
+   "code": "RM",
+   "en": "Risk Management",
+   "ru": "Управление рисками",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 39,
+   "definition": {
+    "id": "osf.RM.def",
+    "en": "Factors relating to the systems, procedures, activities and accountabilities within the organisation that are designed to identify, analyse, manage and monitor risk. Risk is defined as any aspect of the organisation's operation that has the potential to cause damage or harm to people, equipment, the environment, the organisation's reputation or the wider community.",
+    "ru": "Факторы, связанные с системами, процедурами, деятельностью и распределением ответственности внутри организации, предназначенными для выявления, анализа, управления и мониторинга рисков. Риск определяется как любой аспект деятельности организации, который потенциально может причинить ущерб или вред людям, оборудованию, окружающей среде, репутации организации или широкому обществу.",
+    "tj": "",
+    "tj_status": "todo"
+   },
+   "issues": [
+    {
+     "id": "osf.RM.issue.01",
+     "en": "Management understanding of the importance of RM",
+     "ru": "Понимание руководством важности управления рисками",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.RM.issue.02",
+     "en": "Risk management policy and processes",
+     "ru": "Политика и процессы управления рисками",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.RM.issue.03",
+     "en": "Risk identification processes, eg., hazard reporting and risk analysis systems",
+     "ru": "Процессы выявления рисков, напр., системы донесения об опасностях и системы анализа рисков",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.RM.issue.04",
+     "en": "Qualitative and quantitative risk assessment methods",
+     "ru": "Качественные и количественные методы оценки рисков",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.RM.issue.05",
+     "en": "Training and competence of personnel involved in risk assessment and compliance activities",
+     "ru": "Подготовка и компетентность персонала, участвующего в оценке рисков и деятельности по обеспечению соответствия требованиям",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.RM.issue.06",
+     "en": "Assignment and monitoring of responsibilities and accountabilities for risk identification and control",
+     "ru": "Назначение и контроль обязанностей и ответственности за выявление рисков и управление ими",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.RM.issue.07",
+     "en": "Safety assessment processes",
+     "ru": "Процессы оценки безопасности",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.RM.issue.08",
+     "en": "Risk Assessments / Risk Register",
+     "ru": "Оценки рисков / реестр рисков",
+     "tj": "",
+     "tj_status": "todo"
+    }
+   ],
+   "consequences": [
+    {
+     "id": "osf.RM.cons.01",
+     "en": "Hazards not identified and/or appropriately managed",
+     "ru": "Опасности не выявлены и/или ненадлежащим образом контролируются",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.RM.cons.02",
+     "en": "Risk levels / risk tolerance inappropriately high",
+     "ru": "Уровень рисков и допустимость рисков необоснованно высоки",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.RM.cons.03",
+     "en": "Operational risks not identified / prioritised / mitigated",
+     "ru": "Операционные риски не выявлены, не приоритизированы или не смягчены",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.RM.cons.04",
+     "en": "Controls do not adequately address high priority risks",
+     "ru": "Меры контроля недостаточно решают задачи снижения приоритетных рисков",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.RM.cons.05",
+     "en": "Increased safety occurrence rates",
+     "ru": "Рост частоты событий, связанных с безопасностью",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.RM.cons.06",
+     "en": "Unexpected costs / losses",
+     "ru": "Непредвиденные расходы и потери",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.RM.cons.07",
+     "en": "Threats to employee and/or public welfare",
+     "ru": "Угроза безопасности работников и/или населения",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.RM.cons.08",
+     "en": "Non-compliance with regulatory requirements",
+     "ru": "Несоблюдение нормативных требований",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.RM.cons.09",
+     "en": "Threat of reputational damage",
+     "ru": "Угроза ущерба репутации",
+     "tj": "",
+     "tj_status": "todo"
+    }
+   ]
+  },
+  {
+   "id": "osf.CM",
+   "code": "CM",
+   "en": "Change Management",
+   "ru": "Управление изменениями",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 40,
+   "definition": {
+    "id": "osf.CM.def",
+    "en": "Factors linked with planning, testing, implementation and review of significant modifications to organisational structures, equipment or work processes, or change to / transition from one key organisational work process or system to another. Includes activities intended to instil new or different values / attitudes / norms / behaviours, to support new ways of doing work / new technology, and/or overcoming resistance to change.",
+    "ru": "Факторы, связанные с планированием, испытанием, внедрением и анализом существенных изменений организационной структуры, оборудования или рабочих процессов, а также с переходом от одного ключевого рабочего процесса или системы к другому. Включает мероприятия, направленные на формирование новых или иных ценностей, установок, норм и моделей поведения, на поддержку новых способов работы и новых технологий и/или на преодоление сопротивления изменениям.",
+    "tj": "",
+    "tj_status": "todo"
+   },
+   "issues": [
+    {
+     "id": "osf.CM.issue.01",
+     "en": "Clarity of goals, benefits or objectives of changes",
+     "ru": "Ясность целей, выгод и задач изменений",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CM.issue.02",
+     "en": "Consideration of scope / consequences of change",
+     "ru": "Учёт масштаба и последствий изменений",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CM.issue.03",
+     "en": "Design, management, oversight and review of change implementation plans",
+     "ru": "Разработка, управление, контроль и анализ планов внедрения изменений",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CM.issue.04",
+     "en": "Communication about objectives, outcomes and implications of change; potential costs / benefits",
+     "ru": "Информирование о целях, результатах и последствиях изменений; потенциальные издержки и выгоды",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CM.issue.05",
+     "en": "Change timing and/or timeframes",
+     "ru": "Сроки и временные рамки изменений",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CM.issue.06",
+     "en": "Consideration of the human impact: effect on employee values, attitudes, morale, performance",
+     "ru": "Учёт влияния изменений на человека: воздействие на ценности, установки, моральный дух и результативность работников",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CM.issue.07",
+     "en": "Monitoring of pre- and post-change performance",
+     "ru": "Мониторинг результативности до и после изменений",
+     "tj": "",
+     "tj_status": "todo"
+    }
+   ],
+   "consequences": [
+    {
+     "id": "osf.CM.cons.01",
+     "en": "Resistance to change",
+     "ru": "Сопротивление изменениям",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CM.cons.02",
+     "en": "Deterioration in safety performance or other KPIs",
+     "ru": "Ухудшение показателей безопасности или иных КПЭ",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CM.cons.03",
+     "en": "Gaps in structures, accountabilities or procedures",
+     "ru": "Пробелы в структурах, распределении ответственности или процедурах",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CM.cons.04",
+     "en": "Uncertainty / confusion about roles and responsibilities",
+     "ru": "Неопределённость и путаница в ролях и обязанностях",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CM.cons.05",
+     "en": "Mismatch between tasks and available resources",
+     "ru": "Несоответствие между задачами и имеющимися ресурсами",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CM.cons.06",
+     "en": "Change/s not implemented effectively / on time",
+     "ru": "Изменения внедрены неэффективно или не вовремя",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CM.cons.07",
+     "en": "Loss of 'corporate knowledge / memory'",
+     "ru": "Утрата «корпоративных знаний и памяти организации»",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CM.cons.08",
+     "en": "Increased staff stress / hostility / apathy / absenteeism",
+     "ru": "Рост стресса персонала, враждебности, апатии и прогулов",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CM.cons.09",
+     "en": "Decreased focus on SOPs, rules, safety, etc.",
+     "ru": "Снижение внимания к СЭП (SOP), правилам, безопасности и т. п.",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.CM.cons.10",
+     "en": "Reduced worker motivation / morale",
+     "ru": "Снижение мотивации и морального духа работников",
+     "tj": "",
+     "tj_status": "todo"
+    }
+   ]
+  },
+  {
+   "id": "osf.EE",
+   "code": "EE",
+   "en": "External Environment",
+   "ru": "Внешняя среда",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 41,
+   "definition": {
+    "id": "osf.EE.def",
+    "en": "Factors relating to elements of the ATM system and/or broader aviation system that fall outside the direct control or influence of the organisation yet can be considered to fall within the scope and potential influence of the safety investigation. May include international or local regulatory requirements or standards, issues of strategic airspace organisation and management, external air traffic flow or capacity management, airport and/or broader aviation system design, operation and maintenance, etc.",
+    "ru": "Факторы, связанные с элементами системы ОрВД и/или более широкой авиационной системы, которые находятся вне прямого контроля или влияния организации, но могут входить в сферу и потенциальное влияние расследования безопасности. Могут включать международные или местные нормативные требования и стандарты, вопросы стратегической организации и управления воздушным пространством, внешнее управление потоками воздушного движения и пропускной способностью, проектирование, эксплуатацию и техническое обслуживание аэродромов и/или более широкой авиационной системы и т. д.",
+    "tj": "",
+    "tj_status": "todo"
+   },
+   "issues": [
+    {
+     "id": "osf.EE.issue.01",
+     "en": "Effectiveness of consultation / communication / coordination between the various agencies and organisations involved in the local and/or global ATM system or aviation system regulation and operation",
+     "ru": "Эффективность консультаций, коммуникации и координации между различными ведомствами и организациями, участвующими в регулировании и эксплуатации местной и/или глобальной системы ОрВД или авиационной системы",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.EE.issue.02",
+     "en": "Integration of Safety Management Systems (SMS)",
+     "ru": "Интеграция СУБП (SMS)",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.EE.issue.03",
+     "en": "Safety regulation and oversight",
+     "ru": "Регулирование безопасности и надзор за ней",
+     "tj": "",
+     "tj_status": "todo"
+    }
+   ],
+   "consequences": [
+    {
+     "id": "osf.EE.cons.01",
+     "en": "Ambiguous or conflicting requirements",
+     "ru": "Неоднозначные или противоречивые требования",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.EE.cons.02",
+     "en": "Inefficient and/or hazardous movement of air traffic",
+     "ru": "Неэффективное и/или опасное движение воздушных судов",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.EE.cons.03",
+     "en": "Inaccurate / conflicting documentation or requirements",
+     "ru": "Неточная или противоречивая документация либо требования",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.EE.cons.04",
+     "en": "Inadequate aerodrome markings, signage, lighting etc.",
+     "ru": "Недостаточная разметка, знаки, освещение аэродрома и т. п.",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.EE.cons.05",
+     "en": "Inadequate quality assurance processes",
+     "ru": "Недостаточные процессы обеспечения качества",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.EE.cons.06",
+     "en": "Non-compliance with regulatory requirements",
+     "ru": "Несоблюдение нормативных требований",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.EE.cons.07",
+     "en": "Ineffective safety management",
+     "ru": "Неэффективное управление безопасностью",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.EE.cons.08",
+     "en": "Reduced situational awareness of ATCOs / flight crew",
+     "ru": "Снижение ситуационной осведомлённости диспетчеров УВД и экипажей ВС",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.EE.cons.09",
+     "en": "Ineffective coordination or communication within or between agencies or organisations",
+     "ru": "Неэффективная координация или коммуникация внутри организаций или между ними",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.EE.cons.10",
+     "en": "Ineffective communication of safety-critical information",
+     "ru": "Неэффективное доведение до адресатов критически важной для безопасности информации",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.EE.cons.11",
+     "en": "Increased risk to safety of operations",
+     "ru": "Повышенный риск для безопасности полётов",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "osf.EE.cons.12",
+     "en": "High workload",
+     "ru": "Высокая рабочая нагрузка",
+     "tj": "",
+     "tj_status": "todo"
+    }
+   ]
+  }
+ ],
+ "barriers": [
+  {
+   "id": "barrier.awareness",
+   "code": "awareness",
+   "en": "Awareness",
+   "ru": "Осведомлённость",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 43,
+   "definition": {
+    "id": "barrier.awareness.def",
+    "en": "Understanding about the system state, risks and hazards, and knowledge of the rules, guidelines, procedures and controls that apply to the task",
+    "ru": "Понимание состояния системы, рисков и опасностей, а также знание правил, руководств, процедур и мер контроля, применимых к задаче",
+    "tj": "",
+    "tj_status": "todo"
+   },
+   "examples": [
+    {
+     "id": "barrier.awareness.ex.01",
+     "en": "Rules, guidelines, SOPs",
+     "ru": "Правила, руководства, СЭП (SOP)",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "barrier.awareness.ex.02",
+     "en": "Communication (eg., briefings, shift handover)",
+     "ru": "Коммуникация (напр., брифинги, передача смены)",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "barrier.awareness.ex.03",
+     "en": "Training outcomes (ab initio, OJT, TRM etc.)",
+     "ru": "Результаты обучения (первоначальная подготовка, обучение на рабочем месте (OJT), TRM и т. п.)",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "barrier.awareness.ex.04",
+     "en": "Supervision",
+     "ru": "Надзор",
+     "tj": "",
+     "tj_status": "todo"
+    }
+   ]
+  },
+  {
+   "id": "barrier.restriction",
+   "code": "restriction",
+   "en": "Restriction",
+   "ru": "Ограничение",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 43,
+   "definition": {
+    "id": "barrier.restriction.def",
+    "en": "Limitation of movement or actions, or establishing pre-conditions for action, through physical, functional or administrative means",
+    "ru": "Ограничение перемещений или действий либо установление предварительных условий для действия физическими, функциональными или административными средствами",
+    "tj": "",
+    "tj_status": "todo"
+   },
+   "examples": [
+    {
+     "id": "barrier.restriction.ex.01",
+     "en": "Instructions, Clearances, Checklists, SOPs, etc.",
+     "ru": "Инструкции, разрешения (clearances), контрольные перечни, СЭП (SOP) и т. д.",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "barrier.restriction.ex.02",
+     "en": "Standard phraseology, read-back / hear-back",
+     "ru": "Стандартная фразеология, подтверждение указаний (read-back / hear-back)",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "barrier.restriction.ex.03",
+     "en": "Work permits, work orders",
+     "ru": "Наряды-допуски на работы, рабочие задания",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "barrier.restriction.ex.04",
+     "en": "'Deadman' systems, entry systems, interlocks",
+     "ru": "Системы типа «deadman», системы контроля доступа, блокировки (interlocks)",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "barrier.restriction.ex.05",
+     "en": "Software logic, passwords, biometrics etc.",
+     "ru": "Логика программного обеспечения, пароли, биометрия и т. д.",
+     "tj": "",
+     "tj_status": "todo"
+    }
+   ]
+  },
+  {
+   "id": "barrier.detection",
+   "code": "detection",
+   "en": "Detection",
+   "ru": "Обнаружение",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 43,
+   "definition": {
+    "id": "barrier.detection.def",
+    "en": "Indicating systems (human or engineered) that warn about system status, including the presence of non-normal conditions or imminent dangers",
+    "ru": "Индикационные системы (человеческие или технические), предупреждающие о состоянии системы, в том числе о наличии ненормальных условий или надвигающейся опасности",
+    "tj": "",
+    "tj_status": "todo"
+   },
+   "examples": [
+    {
+     "id": "barrier.detection.ex.01",
+     "en": "Warnings, alarms, alerts, eg., Short Term Conflict Alert (STCA), Minimum Safe Altitude Warning (MSAW), Area Proximity Warning (APW), TCAS, EGPWS, NOTAMS.",
+     "ru": "Предупреждения, сигналы тревоги и оповещения, напр., краткосрочное предупреждение о конфликте (STCA), предупреждение о минимальной безопасной высоте (MSAW), предупреждение о близости зоны (APW), TCAS, EGPWS, NOTAM.",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "barrier.detection.ex.02",
+     "en": "Signals (visual, auditory)",
+     "ru": "Сигналы (визуальные, звуковые)",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "barrier.detection.ex.03",
+     "en": "Detection by people (ATCO, flight crew etc.)",
+     "ru": "Обнаружение людьми (диспетчер УВД, экипаж ВС и т. д.)",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "barrier.detection.ex.04",
+     "en": "Signage (eg., warnings, cautions, reminders etc.)",
+     "ru": "Знаки и надписи (напр., предупреждения, предостережения, напоминания и т. п.)",
+     "tj": "",
+     "tj_status": "todo"
+    }
+   ]
+  },
+  {
+   "id": "barrier.control_recovery",
+   "code": "control_recovery",
+   "en": "Control & Recovery",
+   "ru": "Контроль и восстановление",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 44,
+   "definition": {
+    "id": "barrier.control_recovery.def",
+    "en": "Recovering from a non-normal condition and restoring the system to a safe state, with minimal harm or loss",
+    "ru": "Восстановление из ненормального состояния и возвращение системы в безопасное состояние с минимальным вредом или потерями",
+    "tj": "",
+    "tj_status": "todo"
+   },
+   "examples": [
+    {
+     "id": "barrier.control_recovery.ex.01",
+     "en": "Timely and successful recovery action by people / heroic improvisation (ATCO / flight crew, etc.)",
+     "ru": "Своевременные и успешные действия людей по восстановлению, в том числе импровизация в критической ситуации (диспетчер УВД, экипаж ВС и т. д.)",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "barrier.control_recovery.ex.02",
+     "en": "Automated protection systems",
+     "ru": "Автоматические системы защиты",
+     "tj": "",
+     "tj_status": "todo"
+    }
+   ]
+  },
+  {
+   "id": "barrier.protection_containment",
+   "code": "protection_containment",
+   "en": "Protection & Containment",
+   "ru": "Защита и локализация",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 44,
+   "definition": {
+    "id": "barrier.protection_containment.def",
+    "en": "Defending people against injury and minimising environmental damage by controlling the accidental release of harmful energy or substances",
+    "ru": "Защита людей от травм и минимизация ущерба окружающей среде путём контроля над случайным высвобождением опасной энергии или веществ",
+    "tj": "",
+    "tj_status": "todo"
+   },
+   "examples": [
+    {
+     "id": "barrier.protection_containment.ex.01",
+     "en": "Walls, doors, filters, containers",
+     "ru": "Стены, двери, фильтры, ёмкости",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "barrier.protection_containment.ex.02",
+     "en": "Personal Protective Equipment (PPE)",
+     "ru": "Средства индивидуальной защиты (PPE)",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "barrier.protection_containment.ex.03",
+     "en": "Seat belts, harnesses, airbags",
+     "ru": "Ремни безопасности, привязные системы, подушки безопасности",
+     "tj": "",
+     "tj_status": "todo"
+    }
+   ]
+  },
+  {
+   "id": "barrier.escape_rescue",
+   "code": "escape_rescue",
+   "en": "Escape & Rescue",
+   "ru": "Эвакуация и спасение",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 44,
+   "definition": {
+    "id": "barrier.escape_rescue.def",
+    "en": "Enabling potential victims to escape out-of-control hazards; treating injuries, restoring the environment",
+    "ru": "Обеспечение возможности эвакуации потенциальных пострадавших из неконтролируемых опасных ситуаций; оказание помощи при травмах, восстановление окружающей среды",
+    "tj": "",
+    "tj_status": "todo"
+   },
+   "examples": [
+    {
+     "id": "barrier.escape_rescue.ex.01",
+     "en": "Emergency exits, escape slides, first aid",
+     "ru": "Аварийные выходы, эвакуационные трапы, первая помощь",
+     "tj": "",
+     "tj_status": "todo"
+    },
+    {
+     "id": "barrier.escape_rescue.ex.02",
+     "en": "Emergency services, Rescue and Fire Fighting",
+     "ru": "Аварийно-спасательные службы, спасение и пожаротушение",
+     "tj": "",
+     "tj_status": "todo"
+    }
+   ]
+  }
+ ],
+ "barrier_states": [
+  {
+   "id": "barrier_state.absent",
+   "code": "absent",
+   "en": "Absent: not in place, but might have prevented the occurrence if it had been",
+   "ru": "Отсутствует: не установлен, но мог бы предотвратить событие, если бы был установлен",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 42
+  },
+  {
+   "id": "barrier_state.failed",
+   "code": "failed",
+   "en": "Failed: in place but did not work as intended to prevent the occurrence or reduce its consequences",
+   "ru": "Отказал: установлен, но не сработал должным образом, чтобы предотвратить событие или уменьшить его последствия",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 42
+  },
+  {
+   "id": "barrier_state.worked",
+   "code": "worked",
+   "en": "Worked: successful or partially successful barrier, human or technological",
+   "ru": "Сработал: успешный или частично успешный барьер, человеческий или технологический",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 42
+  }
+ ],
+ "safety_actions": {
+  "coverage_rule": {
+   "id": "sa.rule.coverage",
+   "en": "Each Absent or Failed Barrier and each Organisational or System Factor must be addressed by at least one safety action, unless already adequately covered by a separate safety action.",
+   "ru": "Каждый отсутствующий или отказавший барьер и каждый организационный или системный фактор должны быть рассмотрены по меньшей мере одной мерой безопасности, если только они уже не охвачены адекватно отдельной мерой безопасности.",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 50
+  },
+  "checklist": [
+   {
+    "id": "sa.check.01",
+    "en": "focus on systemic deficiencies and absent, failed or mitigating barriers, not on people and their actions",
+    "ru": "быть направлена на системные недостатки и отсутствующие, отказавшие или смягчающие барьеры, а не на людей и их действия",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 51
+   },
+   {
+    "id": "sa.check.02",
+    "en": "be clearly linked to evidence ~ the facts or findings of the investigation regarding contributing factors",
+    "ru": "быть явно связана с доказательствами, то есть с фактами или выводами расследования о способствующих факторах",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 51
+   },
+   {
+    "id": "sa.check.03",
+    "en": "aim at reducing the likelihood of recurrence of the event, and/or reducing risk",
+    "ru": "быть направлена на снижение вероятности повторения события и/или снижение риска",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 51
+   },
+   {
+    "id": "sa.check.04",
+    "en": "focus on findings that are amenable to corrective action",
+    "ru": "быть направлена на выводы, поддающиеся корректирующим действиям",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 51
+   },
+   {
+    "id": "sa.check.05",
+    "en": "be specific and prescriptive enough to be practical, but not cover detailed subject matter outside the expertise of the investigators",
+    "ru": "быть достаточно конкретной и предписывающей, чтобы оставаться практичной, но не охватывать подробные вопросы, выходящие за пределы компетенции расследователей",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 51
+   },
+   {
+    "id": "sa.check.06",
+    "en": "not be contaminated by the personal agendas or biases of the investigator/s",
+    "ru": "не искажаться личными интересами или предубеждениями расследователя(ей)",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 51
+   },
+   {
+    "id": "sa.check.07",
+    "en": "be targeted to include specific reference to the accountable manager, department or organisation to be responsible for implementing the safety action",
+    "ru": "содержать конкретное указание на ответственного руководителя, подразделение или организацию, которые будут отвечать за выполнение меры безопасности",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 51
+   },
+   {
+    "id": "sa.check.08",
+    "en": "include realistic compliance times as appropriate to the safety issue addressed",
+    "ru": "включать реалистичные сроки выполнения там, где это уместно для рассматриваемой проблемы безопасности",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 51
+   },
+   {
+    "id": "sa.check.09",
+    "en": "where appropriate, promote positive findings regarding actions or technology that limited the severity or consequences of the occurrence.",
+    "ru": "при необходимости отмечайте положительные выводы о действиях или технологиях, которые ограничили тяжесть или последствия события.",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 51
+   }
+  ],
+  "smarter": [
+   {
+    "id": "smarter.S",
+    "code": "S",
+    "en": "Specific",
+    "ru": "Конкретная",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 52
+   },
+   {
+    "id": "smarter.M",
+    "code": "M",
+    "en": "Measurable",
+    "ru": "Измеримая",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 52
+   },
+   {
+    "id": "smarter.A",
+    "code": "A",
+    "en": "Accountable",
+    "ru": "С ответственным",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 52
+   },
+   {
+    "id": "smarter.R1",
+    "code": "R1",
+    "en": "Reasonable",
+    "ru": "Разумная",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 52
+   },
+   {
+    "id": "smarter.T",
+    "code": "T",
+    "en": "Timely",
+    "ru": "Своевременная",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 52
+   },
+   {
+    "id": "smarter.E",
+    "code": "E",
+    "en": "Effective",
+    "ru": "Эффективная",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 52
+   },
+   {
+    "id": "smarter.R2",
+    "code": "R2",
+    "en": "Reviewed",
+    "ru": "Пересматриваемая",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 52
+   }
+  ]
+ },
+ "qa_checklist": [
+  {
+   "id": "qa.01",
+   "en": "Facts of the occurrence established",
+   "ru": "Факты события установлены",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 53
+  },
+  {
+   "id": "qa.02",
+   "en": "Relevant data gathered and reviewed",
+   "ru": "Соответствующие данные собраны и проанализированы",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 53
+  },
+  {
+   "id": "qa.03",
+   "en": "All contributing Human Involvement, Contextual Conditions, Organisational or System Factors and Absent or Failed Barriers identified and classified, using the supplied Check Questions",
+   "ru": "Все способствующие факторы — Участие человека, Контекстные условия, Организационные или системные факторы и Отсутствующие или отказавшие барьеры — выявлены и классифицированы с использованием прилагаемых контрольных вопросов",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 53
+  },
+  {
+   "id": "qa.04",
+   "en": "Issues that may require follow-up or further data collection identified and actioned",
+   "ru": "Вопросы, которые могут требовать последующих действий или дополнительного сбора данных, выявлены, и по ним приняты меры",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 53
+  },
+  {
+   "id": "qa.05",
+   "en": "Adequacy of existing barriers and system controls reviewed",
+   "ru": "Адекватность существующих барьеров и системных средств контроля проверена",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 53
+  },
+  {
+   "id": "qa.06",
+   "en": "SOAM Chart prepared and reviewed",
+   "ru": "Диаграмма SOAM подготовлена и проверена",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 53
+  },
+  {
+   "id": "qa.07",
+   "en": "Safety actions identified to address all contributing Barriers and Organisational / System Factors",
+   "ru": "Меры безопасности определены для устранения всех способствующих барьеров и организационных / системных факторов",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 53
+  },
+  {
+   "id": "qa.08",
+   "en": "Available data reviewed to ensure that all findings and safety actions are supported by evidence",
+   "ru": "Имеющиеся данные проверены, чтобы подтвердить, что все выводы и меры безопасности подкреплены доказательствами",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 53
+  },
+  {
+   "id": "qa.09",
+   "en": "Safety actions reviewed to ensure they are realistic, practical and clearly linked to the facts and findings of the investigation",
+   "ru": "Меры безопасности проверены на реалистичность, практичность и чёткую связь с фактами и выводами расследования",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 53
+  },
+  {
+   "id": "qa.10",
+   "en": "Findings, conclusions and safety actions reviewed by relevant subject matter experts",
+   "ru": "Выводы, заключения и меры безопасности проверены соответствующими специалистами предметной области",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 53
+  },
+  {
+   "id": "qa.11",
+   "en": "Accountability for safety actions is assigned, with compliance timelines specified as required",
+   "ru": "Ответственность за меры безопасности назначена; при необходимости указаны сроки выполнения",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 53
+  },
+  {
+   "id": "qa.12",
+   "en": "Key lessons from the safety occurrence are identified and widely disseminated",
+   "ru": "Ключевые уроки из события, связанного с безопасностью, выявлены и широко распространены",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 53
+  }
+ ]
+}
