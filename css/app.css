@@ -206,3 +206,25 @@ span.ok { color: #1a7f37; } span.warn { color: var(--accent); font-size: .85rem;
 .tabs .count.ok { background: #1a7f37; color: #fff; }
 .tag.ok { border-color: #1a7f37; color: #1a7f37; }
 p.warn { color: var(--accent); }
+
+/* ---------- этап 3: отчёт и печать ---------- */
+.report { background: #fff; color: #1b2430; padding: 24px 32px; border: 1px solid var(--line); border-radius: var(--radius); max-width: 100%; }
+.report h1 { font-size: 1.5rem; margin: 4px 0 12px; }
+.report h2 { font-size: 1.1rem; margin: 22px 0 8px; border-bottom: 2px solid #004080; padding-bottom: 2px; }
+.report h3 { font-size: .95rem; margin: 12px 0 4px; }
+.rep-kicker { color: #5b6673; font-size: .85rem; margin: 0; text-transform: uppercase; letter-spacing: .4px; }
+.rep-draft { background: #a50021; color: #fff; padding: 6px 10px; border-radius: 6px; font-weight: 700; display: inline-block; margin-bottom: 8px; }
+.rep-meta th { text-align: left; color: #5b6673; font-weight: 600; padding: 2px 12px 2px 0; width: 180px; border: 0; }
+.rep-meta td { padding: 2px 0; border: 0; }
+.rep-table { font-size: .85rem; } .rep-table th, .rep-table td { border: 1px solid #d9dee5; padding: 4px 6px; color: #1b2430; }
+.rep-table th { background: #f4f6f9; }
+.report .nowrap { white-space: nowrap; }
+.rep-svg { overflow: auto; } .rep-svg svg { max-width: 100%; height: auto; }
+.rep-qa { padding-left: 20px; } .rep-foot { margin-top: 24px; font-size: .8rem; color: #5b6673; border-top: 1px solid #d9dee5; padding-top: 8px; }
+@media print {
+  .topbar, .footer, .tabs, .occ-head, .no-print, #toast { display: none !important; }
+  body { background: #fff; } .view { padding: 0; max-width: none; }
+  .report { border: 0; padding: 0; }
+  .rep-section { break-inside: avoid; } .rep-chart { break-before: page; }
+  @page { size: A4; margin: 14mm; }
+}
