@@ -296,6 +296,30 @@ await test('rules: уровень расследования по тяжести
   eq(R.investigationAdvice({ type: 'incident', severity: 'A', investigate: true }).conflict, false);
 });
 
+await test('rules: реестр мер — просрочка и порядок; статистика по кодам OSF', () => {
+  const today = '2026-10-10';
+  eq(R.actionOverdue({ due: '2026-10-09', status: 'planned' }, today), true);
+  eq(R.actionOverdue({ due: '2026-10-10', status: 'planned' }, today), false, 'срок сегодня — не просрочена');
+  eq(R.actionOverdue({ due: '2026-10-09', status: 'done' }, today), false, 'выполненная не просрочена');
+  eq(R.actionOverdue({ status: 'planned' }, today), false, 'без срока');
+  const reg = R.actionsRegistry([
+    { id: 'done', due: '2026-01-01', status: 'done' },
+    { id: 'nodue', status: 'planned' },
+    { id: 'late', due: '2026-10-01', status: 'in_progress' },
+    { id: 'soon', due: '2026-11-01', status: 'planned' },
+  ], today);
+  eq(reg.map((a) => a.id).join(','), 'late,soon,nodue,done');
+  const st = R.osfStats([
+    { element: 'OSF', osfCodes: ['TR', 'WM'] }, { element: 'OSF', osfCodes: ['TR'] }, { element: 'BAR' }, { element: 'OSF', osfCodes: ['XX'] },
+  ], OSF);
+  eq(st.length, 12); eq(st[0].code, 'TR'); eq(st[0].n, 2); eq(st[1].code, 'WM'); eq(st[1].n, 1); eq(st[2].n, 0); eq(st[2].code, 'AC', 'при равенстве — порядок QRG');
+});
+
+await test('taxonomy: глоссарий QRG (стр. 58–60) — 23 термина с en и ru', () => {
+  eq(tax.glossary.length, 23);
+  for (const g of tax.glossary) assert(g.code && g.en && g.ru && g.qrg_page >= 58 && g.qrg_page <= 60, g.id);
+});
+
 await test('db: факт с вложением (Blob) сохраняется и читается', async () => {
   const name = TEST_DB + '-blob';
   const s = await openDB(name);
