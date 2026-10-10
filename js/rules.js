@@ -58,15 +58,54 @@ export function qaComplete(qa, ids) {
   return ids.every((id) => qa.items[id] && qa.items[id].checked === true);
 }
 
+/** Открытые вопросы по фактам (QA № 4: issues requiring follow-up identified and actioned). */
+export function openFollowUps(facts) {
+  return facts.filter((f) => f.followUp && f.followUp.needed && f.followUp.status !== 'closed');
+}
+
 /** Сводка готовности дела к статусу «Завершено». */
-export function readiness({ facts, classifications, actions, qa, qaIds }) {
+export function readiness({ facts, classifications, actions, qa, qaIds, occurrence = {} }) {
   const cov = coverage(classifications, actions);
   const unsorted = unsortedFacts(facts).length;
   const unconfirmed = classifications.filter((c) => c.confirmed !== true).length;
   const qaDone = qaIds.filter((id) => qa && qa.items && qa.items[id] && qa.items[id].checked).length;
   const noClassifications = classifications.length === 0;
-  const ok = unsorted === 0 && unconfirmed === 0 && cov.ok && qaDone === qaIds.length && !noClassifications;
-  return { unsorted, unconfirmed, uncovered: cov.uncovered, required: cov.required.length, qaDone, qaTotal: qaIds.length, noClassifications, ok };
+  const followUps = openFollowUps(facts).length;
+  const noLessons = !(Array.isArray(occurrence.lessons) && occurrence.lessons.some((l) => l && l.trim()));
+  const ok = unsorted === 0 && unconfirmed === 0 && cov.ok && qaDone === qaIds.length && !noClassifications && followUps === 0 && !noLessons;
+  return { unsorted, unconfirmed, uncovered: cov.uncovered, required: cov.required.length, qaDone, qaTotal: qaIds.length, noClassifications, followUps, noLessons, ok };
+}
+
+// ---------------------------------------------------------------- связи на схеме
+
+const LEVEL_ORDER = ['OSF', 'CC', 'HI', 'BAR'];
+const levelOf = (c) => c.element;
+
+/**
+ * Предложение связей: (1) каждый барьер → исход; (2) факты, привязанные к одному событию хронологии,
+ * связываются между соседними уровнями SOAM (OSF→CC, CC→HI, HI→BAR). Возвращает только новые связи.
+ */
+export function suggestLinks({ classifications, events, links, occurrenceId }) {
+  const have = new Set(links.map((l) => `${l.fromId}>${l.toId}`));
+  const out = [];
+  const add = (fromId, toId, reason) => {
+    const k = `${fromId}>${toId}`;
+    if (have.has(k)) return;
+    have.add(k);
+    out.push({ fromId, toId, reason });
+  };
+  for (const c of classifications) if (c.element === 'BAR') add(c.id, occurrenceId, 'barrier-outcome');
+  const byFact = {};
+  for (const c of classifications) (byFact[c.factId] = byFact[c.factId] || []).push(c);
+  for (const ev of events) {
+    const cls = (ev.factIds || []).flatMap((fid) => byFact[fid] || []);
+    for (const a of cls) for (const b of cls) {
+      if (a === b) continue;
+      const ia = LEVEL_ORDER.indexOf(levelOf(a)), ib = LEVEL_ORDER.indexOf(levelOf(b));
+      if (ia >= 0 && ib === ia + 1) add(a.id, b.id, 'same-event');
+    }
+  }
+  return out;
 }
 
 /** Тяжесть по схеме EUROCONTROL (QRG, стр. 7) применяется к инцидентам; для АП не требуется. */

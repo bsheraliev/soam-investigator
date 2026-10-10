@@ -243,12 +243,36 @@ await test('rules: правило 7 — QA целиком; сводка гото
   const ids = ['qa.01', 'qa.02'];
   eq(R.qaComplete({ items: { 'qa.01': { checked: true } } }, ids), false);
   eq(R.qaComplete({ items: { 'qa.01': { checked: true }, 'qa.02': { checked: true } } }, ids), true);
-  const base = { facts: [{ contributes: true }], classifications: [{ id: 'o1', element: 'OSF', confirmed: true }], actions: [{ addresses: ['o1'] }], qa: { items: { 'qa.01': { checked: true }, 'qa.02': { checked: true } } }, qaIds: ids };
+  const base = { facts: [{ contributes: true }], classifications: [{ id: 'o1', element: 'OSF', confirmed: true }], actions: [{ addresses: ['o1'] }], qa: { items: { 'qa.01': { checked: true }, 'qa.02': { checked: true } } }, qaIds: ids, occurrence: { lessons: ['урок'] } };
   eq(R.readiness(base).ok, true);
   eq(R.readiness({ ...base, actions: [] }).ok, false);
   eq(R.readiness({ ...base, facts: [{}] }).unsorted, 1);
   eq(R.readiness({ ...base, classifications: [{ id: 'o1', element: 'OSF' }] }).unconfirmed, 1);
   eq(R.readiness({ ...base, classifications: [] }).ok, false);
+  // этап 3.5: открытые вопросы (QA № 4) и уроки (QA № 12)
+  eq(R.readiness({ ...base, facts: [{ contributes: true, followUp: { needed: true, question: 'x' } }] }).ok, false);
+  eq(R.readiness({ ...base, facts: [{ contributes: true, followUp: { needed: true, question: 'x', status: 'closed' } }] }).ok, true);
+  eq(R.readiness({ ...base, occurrence: { lessons: [] } }).noLessons, true);
+  eq(R.readiness({ ...base, occurrence: {} }).ok, false);
+});
+
+await test('rules: открытые вопросы по фактам', () => {
+  const facts = [{ id: 1, followUp: { needed: true } }, { id: 2, followUp: { needed: true, status: 'closed' } }, { id: 3 }, { id: 4, followUp: { needed: false } }];
+  eq(R.openFollowUps(facts).map((f) => f.id).join(), '1');
+});
+
+await test('rules: предложение связей — барьер → исход и соседние уровни по событию хронологии', () => {
+  const cls = [
+    { id: 'o', factId: 'f1', element: 'OSF' }, { id: 'c', factId: 'f2', element: 'CC' },
+    { id: 'h', factId: 'f3', element: 'HI' }, { id: 'b', factId: 'f4', element: 'BAR' }, { id: 'b2', factId: 'f5', element: 'BAR' },
+  ];
+  const events = [{ factIds: ['f1', 'f2', 'f3'] }, { factIds: ['f3', 'f4'] }];
+  const got = R.suggestLinks({ classifications: cls, events, links: [{ fromId: 'b', toId: 'occ' }], occurrenceId: 'occ' });
+  const keys = got.map((l) => `${l.fromId}>${l.toId}`).sort().join();
+  eq(keys, 'b2>occ,c>h,h>b,o>c');
+  eq(got.find((l) => l.fromId === 'b2').reason, 'barrier-outcome');
+  // OSF→HI не предлагается (не соседние уровни), повторов нет
+  eq(got.some((l) => l.fromId === 'o' && l.toId === 'h'), false);
 });
 
 await test('rules: тяжесть обязательна для инцидента, не для АП; лимит вложений 5 МБ; сортировка хронологии', () => {
