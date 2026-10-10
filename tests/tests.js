@@ -211,12 +211,44 @@ await test('rules: правило 2 — классификация требуе�
   eq(R.validateClassification({ element: 'XX', confirmed: true }).join(), 'element');
 });
 
-await test('rules: статусы — «Завершено» недоступно до этапа 2, переходы по цепочке', () => {
+await test('rules: статусы — «Завершено» только из «Меры» и только при готовности', () => {
   eq(R.canTransition('draft', 'collection'), true);
   eq(R.canTransition('draft', 'analysis'), false);
   eq(R.canTransition('analysis', 'completed'), false);
   eq(R.canTransition('actions', 'completed'), false);
+  eq(R.canTransition('actions', 'completed', true), true);
+  eq(R.canTransition('analysis', 'completed', true), false);
   eq(R.canTransition('collection', 'draft'), true);
+});
+
+await test('rules: правило 4 — покрытие мерами OSF и absent/failed барьеров', () => {
+  const cls = [
+    { id: 'o1', element: 'OSF' }, { id: 'b1', element: 'BAR', barrierState: 'failed' },
+    { id: 'b2', element: 'BAR', barrierState: 'worked' }, { id: 'b3', element: 'BAR', barrierState: null },
+    { id: 'h1', element: 'HI' }, { id: 'c1', element: 'CC' },
+  ];
+  eq(R.coverage(cls, []).required.map((c) => c.id).join(), 'o1,b1,b3');
+  const cov = R.coverage(cls, [{ addresses: ['o1', 'b3'] }]);
+  eq(cov.uncovered.map((c) => c.id).join(), 'b1'); eq(cov.ok, false);
+  eq(R.coverage(cls, [{ addresses: ['o1', 'b1'] }, { addresses: ['b3'] }]).ok, true);
+});
+
+await test('rules: правило 5 — мера адресует барьеры/OSF и имеет ответственного', () => {
+  eq(R.validateAction({ text: 'x', addresses: ['a'], responsible: 'Отдел', status: 'planned' }).length, 0);
+  eq(R.validateAction({ text: 'x', addresses: [], responsible: 'Отдел', status: 'planned' }).join(), 'addresses');
+  eq(R.validateAction({ text: '', addresses: ['a'], responsible: '', status: 'bogus' }).join(), 'text,responsible,status');
+});
+
+await test('rules: правило 7 — QA целиком; сводка готовности', () => {
+  const ids = ['qa.01', 'qa.02'];
+  eq(R.qaComplete({ items: { 'qa.01': { checked: true } } }, ids), false);
+  eq(R.qaComplete({ items: { 'qa.01': { checked: true }, 'qa.02': { checked: true } } }, ids), true);
+  const base = { facts: [{ contributes: true }], classifications: [{ id: 'o1', element: 'OSF', confirmed: true }], actions: [{ addresses: ['o1'] }], qa: { items: { 'qa.01': { checked: true }, 'qa.02': { checked: true } } }, qaIds: ids };
+  eq(R.readiness(base).ok, true);
+  eq(R.readiness({ ...base, actions: [] }).ok, false);
+  eq(R.readiness({ ...base, facts: [{}] }).unsorted, 1);
+  eq(R.readiness({ ...base, classifications: [{ id: 'o1', element: 'OSF' }] }).unconfirmed, 1);
+  eq(R.readiness({ ...base, classifications: [] }).ok, false);
 });
 
 await test('rules: тяжесть обязательна для инцидента, не для АП; лимит вложений 5 МБ; сортировка хронологии', () => {
@@ -244,10 +276,12 @@ await test('taxonomy: подсказки «Участие человека» (QR
 });
 
 // ---------------------------------------------------------------- i18n
-await test('i18n: ru, tj, en содержат один и тот же набор ключей', async () => {
+await test('i18n: ru — эталон; tj и en — подмножества без лишних ключей (до приёмки новые строки только RU)', async () => {
   const [ru, tj, en] = await Promise.all(['ru', 'tj', 'en'].map((l) => json(`../data/i18n/${l}.json`)));
-  const k = (o) => Object.keys(o).sort().join('|');
-  eq(k(tj), k(ru), 'tj vs ru'); eq(k(en), k(ru), 'en vs ru');
+  for (const [name, d] of [['tj', tj], ['en', en]]) {
+    const extra = Object.keys(d).filter((k) => !(k in ru));
+    eq(extra.join(), '', name + ': лишние ключи');
+  }
   for (const d of [ru, tj, en]) for (const [key, v] of Object.entries(d)) assert(v && v.trim(), 'пустая строка ' + key);
 });
 

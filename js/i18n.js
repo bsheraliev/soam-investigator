@@ -12,7 +12,9 @@ export function getLang() { return lang; }
 export async function setLang(next) {
   if (!LANGS.includes(next)) next = 'ru';
   await load(next);
+  // Подстановка: язык → en → ru → ключ. Новые строки до приёмки есть только в ru.
   if (next !== 'en') await load('en');
+  if (next !== 'ru') await load('ru');
   lang = next;
   try { localStorage.setItem(STORAGE_KEY, next); } catch (_) { /* приватный режим */ }
   document.documentElement.lang = next;
@@ -37,7 +39,7 @@ async function load(l) {
 
 /** Строка интерфейса по ключу с подстановкой {name}. */
 export function t(key, params) {
-  let s = (dicts[lang] && dicts[lang][key]) ?? (dicts.en && dicts.en[key]) ?? key;
+  let s = (dicts[lang] && dicts[lang][key]) ?? (dicts.en && dicts.en[key]) ?? (dicts.ru && dicts.ru[key]) ?? key;
   if (params) for (const [k, v] of Object.entries(params)) s = s.replaceAll(`{${k}}`, String(v));
   return s;
 }

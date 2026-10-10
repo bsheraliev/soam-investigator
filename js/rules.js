@@ -12,8 +12,61 @@ const TRANSITIONS = {
   completed: [],
 };
 
-export function canTransition(from, to) {
+/** Переход статуса. «completed» — только при ready === true (правила 4 и 7). */
+export function canTransition(from, to, ready = false) {
+  if (to === 'completed') return from === 'actions' && ready === true;
   return (TRANSITIONS[from] || []).includes(to);
+}
+
+// ---------------------------------------------------------------- этап 2: меры, покрытие, QA
+
+export const ACTION_STATUSES = ['planned', 'in_progress', 'done'];
+export const SMARTER_CODES = ['S', 'M', 'A', 'R1', 'T', 'E', 'R2'];
+
+/**
+ * Правило 4: мерой должен быть закрыт каждый OSF и каждый Absent/Failed барьер (QRG, стр. 50).
+ * Барьер без состояния считается требующим меры (осторожная трактовка); worked — по желанию.
+ */
+export function needsAction(c) {
+  if (c.element === 'OSF') return true;
+  if (c.element === 'BAR') return c.barrierState !== 'worked';
+  return false;
+}
+
+/** Покрытие: какие классификации требуют меры и какие из них не закрыты. */
+export function coverage(classifications, actions) {
+  const covered = new Set();
+  for (const a of actions) for (const id of a.addresses || []) covered.add(id);
+  const required = classifications.filter(needsAction);
+  const uncovered = required.filter((c) => !covered.has(c.id));
+  return { required, uncovered, ok: uncovered.length === 0 };
+}
+
+/** Правило 5: мера адресует барьеры/OSF (поле addresses обязательно), ответственный — подразделение/должность. */
+export function validateAction(a) {
+  const errors = [];
+  if (!a.text || !a.text.trim()) errors.push('text');
+  if (!Array.isArray(a.addresses) || !a.addresses.length) errors.push('addresses');
+  if (!a.responsible || !a.responsible.trim()) errors.push('responsible');
+  if (!ACTION_STATUSES.includes(a.status)) errors.push('status');
+  return errors;
+}
+
+/** Правило 7: QA-чек-лист пройден целиком. */
+export function qaComplete(qa, ids) {
+  if (!qa || !qa.items) return false;
+  return ids.every((id) => qa.items[id] && qa.items[id].checked === true);
+}
+
+/** Сводка готовности дела к статусу «Завершено». */
+export function readiness({ facts, classifications, actions, qa, qaIds }) {
+  const cov = coverage(classifications, actions);
+  const unsorted = unsortedFacts(facts).length;
+  const unconfirmed = classifications.filter((c) => c.confirmed !== true).length;
+  const qaDone = qaIds.filter((id) => qa && qa.items && qa.items[id] && qa.items[id].checked).length;
+  const noClassifications = classifications.length === 0;
+  const ok = unsorted === 0 && unconfirmed === 0 && cov.ok && qaDone === qaIds.length && !noClassifications;
+  return { unsorted, unconfirmed, uncovered: cov.uncovered, required: cov.required.length, qaDone, qaTotal: qaIds.length, noClassifications, ok };
 }
 
 /** Тяжесть по схеме EUROCONTROL (QRG, стр. 7) применяется к инцидентам; для АП не требуется. */
