@@ -4,7 +4,7 @@ import { newId } from '../db.js';
 import { t, tx } from '../i18n.js';
 import { taxonomy, osf, barrier, element } from '../taxonomy.js';
 import { escapeHtml, toast } from '../ui.js';
-import { otherSafetyIssues } from '../rules.js';
+import { otherSafetyIssues, suggestLinks } from '../rules.js';
 
 const LEVELS = ['other', 'OSF', 'CC', 'HI', 'BAR', 'outcome'];
 const L = {
@@ -167,6 +167,7 @@ export async function renderTab(container, ctx) {
       <div class="btn-row top">
         <button class="btn secondary" id="expSvg">${t('chart.exportSvg')}</button>
         <button class="btn secondary" id="expPng">${t('chart.exportPng')}</button>
+        <button class="btn secondary" id="suggest">${t('chart.suggest')}</button>
         <span class="small muted">${t('chart.counts', { nodes: classes.length, links: links.length })}</span>
       </div>
       <p class="small muted">${t('chart.howToLink')}${selected ? ` <strong>${t('chart.selected')}</strong> <button class="link" id="clearSel">${t('btn.cancel')}</button>` : ''}</p>
@@ -187,6 +188,14 @@ export async function renderTab(container, ctx) {
   const cleanSvg = () => renderSvg(o, layout(o, classes, factById), links, { interactive: false });
   container.querySelector('#expSvg').addEventListener('click', () => download(new Blob([cleanSvg()], { type: 'image/svg+xml;charset=utf-8' }), name + '.svg'));
   container.querySelector('#expPng').addEventListener('click', () => exportPng(cleanSvg(), lay.width, lay.height, name).catch((e) => toast(t('error.title') + ': ' + e.message)));
+  container.querySelector('#suggest').addEventListener('click', async () => {
+    const events = await ctx.store.byIndex('event', 'occurrenceId', ctx.id);
+    const sugg = suggestLinks({ classifications: classes, events, links, occurrenceId: o.id });
+    if (!sugg.length) { toast(t('chart.suggestNone'), 5000); return; }
+    if (!confirm(t('chart.suggestConfirm', { n: sugg.length }))) return;
+    await ctx.store.putMany('link', sugg.map((l) => ({ id: newId(), occurrenceId: ctx.id, fromId: l.fromId, toId: l.toId, style: 'solid', reason: l.reason })));
+    toast(t('chart.suggestApplied', { n: sugg.length })); ctx.refresh();
+  });
   const clr = container.querySelector('#clearSel');
   if (clr) clr.addEventListener('click', () => { selected = null; ctx.refresh(); });
 

@@ -2,7 +2,7 @@
 import { t, tx } from '../i18n.js';
 import { taxonomy, osf, barrier, element, severity, shelo } from '../taxonomy.js';
 import { escapeHtml, fmtDateTime } from '../ui.js';
-import { sortEvents, otherSafetyIssues, contributingFacts, qaComplete, SMARTER_CODES } from '../rules.js';
+import { sortEvents, otherSafetyIssues, contributingFacts, qaComplete, SMARTER_CODES, openFollowUps } from '../rules.js';
 import { layout, renderSvg } from './chart.js';
 
 function section(title, body) {
@@ -67,6 +67,10 @@ export function buildReportHtml(ctx, { classes, links, events, actions, qa }) {
   const other = otherSafetyIssues(facts);
   const otherHtml = section(t('sort.otherTitle'), other.length ? `<ul>${other.map((f) => `<li>${escapeHtml(f.text)}</li>`).join('')}</ul>` : `<p>${t('report.none')}</p>`);
 
+  const open = openFollowUps(facts);
+  const followHtml = open.length ? section(t('report.followUps'), `<ul>${open.map((f) => `<li>${escapeHtml(f.followUp.question || '—')} <em>— ${escapeHtml(f.text)}</em></li>`).join('')}</ul>`) : '';
+  const lessonsHtml = section(t('report.lessons'), ((o.lessons || []).length ? `<ul>${o.lessons.map((l) => `<li>${escapeHtml(l)}</li>`).join('')}</ul>` : '<p>—</p>') + (o.disseminated ? `<p><strong>${t('report.disseminated')}:</strong> ${escapeHtml(o.disseminated)}</p>` : ''));
+
   const qaHtml = section(t('qa.title'), `<ol class="rep-qa">${tax.qa_checklist.map((q) => {
     const st = (qa && qa.items && qa.items[q.id]) || {};
     return `<li>${st.checked ? '☑' : '☐'} ${escapeHtml(tx(q))}${st.note ? ` <em>— ${escapeHtml(st.note)}</em>` : ''}</li>`;
@@ -74,7 +78,7 @@ export function buildReportHtml(ctx, { classes, links, events, actions, qa }) {
 
   const footer = `<footer class="rep-foot">${t('report.source')}: ${escapeHtml(tax.meta.source)}<br>SOAM Investigator v${escapeHtml(ctx.appVersion || '')} · ${t('report.stats', { facts: facts.length, contributing: contributingFacts(facts).length, classes: classes.length, links: links.length, actions: acts.length })}</footer>`;
 
-  return head + outcome + factsHtml + timeline + chart + factors + actionsHtml + otherHtml + qaHtml + footer;
+  return head + outcome + factsHtml + timeline + chart + factors + actionsHtml + otherHtml + followHtml + lessonsHtml + qaHtml + footer;
 }
 
 export async function renderTab(container, ctx) {

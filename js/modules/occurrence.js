@@ -33,7 +33,7 @@ export async function render(view, id, tab = 'event') {
     store.get('qa', id),
   ]);
   const qaIds = taxonomy().qa_checklist.map((q) => q.id);
-  const ready = readiness({ facts, classifications, actions, qa, qaIds });
+  const ready = readiness({ facts, classifications, actions, qa, qaIds, occurrence: o });
   const sev = o.severity ? severity(o.severity) : null;
   const base = `#/occurrence/${encodeURIComponent(id)}`;
   const badge = (k) => {
