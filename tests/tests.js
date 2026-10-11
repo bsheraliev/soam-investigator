@@ -487,6 +487,41 @@ await test('bundle: копия всех дел — exportAll → restorePlan (п
   s.close(); s2.close(); await deleteDB(name); await deleteDB(name + '-2');
 });
 
+// ---------------------------------------------------------------- anon.js
+const AN = await import('../js/anon.js');
+
+await test('anon: словарь — порядок по длине, пустая замена, комментарии; автоправила — почта, телефон, борт, рейс', () => {
+  const d = AN.parseDictionary('Иванов → ДИСПЕТЧЕР-1\nИванов И. И. => ДИСПЕТЧЕР-1\n# комментарий\nДушанбе\t\n\n');
+  eq(d.length, 3); eq(d[0].from, 'Иванов И. И.', 'длинный первым'); eq(d.find((x) => x.from === 'Душанбе').to, '[СКРЫТО]', 'пустая замена');
+  const r = AN.anonymiseText('Диспетчер Иванов И. И. (иванов) звонил +992 93 123-45-67, писал ivanov@aga.tj; борт EY-777, рейс TJK123 над Душанбе', d);
+  assert(!/Иванов|иванов/.test(r.text), 'фамилия убрана: ' + r.text);
+  assert(r.text.includes('[ТЕЛЕФОН]') && r.text.includes('[ПОЧТА]') && r.text.includes('[БОРТ]') && r.text.includes('[РЕЙС]') && r.text.includes('[СКРЫТО]'), r.text);
+  eq(r.counts['Иванов И. И.'], 1); eq(r.counts['Иванов'], 1, 'строчная «иванов» тоже'); eq(r.counts.email, 1); eq(r.counts.phone, 1);
+  eq(AN.anonymiseText('без замен 2026-10-01 10:00', d).text, 'без замен 2026-10-01 10:00', 'даты и обычный текст не тронуты');
+  eq(AN.anonymiseText('', d).text, '');
+});
+
+await test('anon: пакет — тексты обезличены, вложения удалены со счётчиком, коды и связи целы, remote убран', () => {
+  const p = {
+    format: 'soam-investigator/occurrence', schema: 1,
+    occurrence: { id: 'o', title: { ru: 'Дело Иванова', en: 'Ivanov case' }, place: 'Душанбе', outcome: ['звонок +992 93 123 45 67'], lessons: ['урок'], remote: { version: 2 }, status: 'analysis', anonDict: 'Иванов → РАБОТНИК-1' },
+    facts: [{ id: 'f', occurrenceId: 'o', text: 'Иванов не доложил', source: 'ivanov@aga.tj', attachments: [{ id: 'a', name: 'x.pdf', data: 'AAAA' }], followUp: { needed: true, question: 'спросить Иванова' } }],
+    events: [{ id: 'e', occurrenceId: 'o', description: 'TJK123 запросил снижение', factIds: ['f'] }],
+    classifications: [{ id: 'c', occurrenceId: 'o', factId: 'f', element: 'OSF', osfCodes: ['TR'], note: 'см. Иванов' }],
+    links: [{ id: 'l', fromId: 'c', toId: 'o' }],
+    actions: [{ id: 'a1', occurrenceId: 'o', text: 'обучить Иванова', responsible: 'Отдел', addresses: ['c'] }],
+    qa: { occurrenceId: 'o', items: { 'qa.01': { checked: true, note: 'Иванов согласен' } } },
+  };
+  const { bundle: b, counts, removedAttachments } = AN.anonymiseBundle(p, AN.parseDictionary('Иванова → РАБОТНИК-1\nИванов → РАБОТНИК-1'));
+  assert(!JSON.stringify(b).includes('Иванов'), 'фамилии нет нигде: ' + JSON.stringify(b).slice(0, 200));
+  eq(b.occurrence.title.ru, 'Дело РАБОТНИК-1'); eq(b.occurrence.outcome[0], 'звонок [ТЕЛЕФОН]'); eq(b.occurrence.remote, undefined); assert(b.occurrence.anonymised.at);
+  eq(b.facts[0].attachments.length, 0); eq(b.facts[0].attachmentsRemoved, 1); eq(removedAttachments, 1); eq(b.facts[0].source, '[ПОЧТА]');
+  eq(b.events[0].description, '[РЕЙС] запросил снижение'); eq(b.classifications[0].osfCodes[0], 'TR'); eq(b.links[0].toId, 'o'); eq(b.actions[0].addresses[0], 'c');
+  eq(b.qa.items['qa.01'].note, 'РАБОТНИК-1 согласен'); eq(b.occurrence.status, 'analysis');
+  eq(counts['Иванов'] + counts['Иванова'], 6);
+  eq(p.facts[0].attachments.length, 1, 'исходный пакет не изменён');
+});
+
 // ---------------------------------------------------------------- docx.js
 const D = await import('../js/docx.js');
 
