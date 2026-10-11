@@ -127,10 +127,10 @@ export function docxXml(blocks) {
 }
 
 /** Нижний колонтитул: подпись слева, «Стр. N из M» справа (поля PAGE / NUMPAGES — Word считает сам). */
-export function footerXml(label) {
+export function footerXml(label, { page = 'Стр.', of = 'из' } = {}) {
   const fld = (instr) => `<w:r><w:fldChar w:fldCharType="begin"/></w:r><w:r><w:instrText xml:space="preserve"> ${instr} </w:instrText></w:r><w:r><w:fldChar w:fldCharType="separate"/></w:r><w:r><w:t>1</w:t></w:r><w:r><w:fldChar w:fldCharType="end"/></w:r>`;
   return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<w:ftr xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:p><w:pPr><w:tabs><w:tab w:val="right" w:pos="9638"/></w:tabs><w:spacing w:after="0"/></w:pPr><w:r><w:rPr><w:sz w:val="16"/><w:color w:val="5B6673"/></w:rPr><w:t xml:space="preserve">${xmlEscape(label)}</w:t></w:r><w:r><w:rPr><w:sz w:val="16"/><w:color w:val="5B6673"/></w:rPr><w:tab/><w:t xml:space="preserve">Стр. </w:t></w:r>${fld('PAGE')}<w:r><w:rPr><w:sz w:val="16"/><w:color w:val="5B6673"/></w:rPr><w:t xml:space="preserve"> из </w:t></w:r>${fld('NUMPAGES')}</w:p></w:ftr>`;
+<w:ftr xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:p><w:pPr><w:tabs><w:tab w:val="right" w:pos="9638"/></w:tabs><w:spacing w:after="0"/></w:pPr><w:r><w:rPr><w:sz w:val="16"/><w:color w:val="5B6673"/></w:rPr><w:t xml:space="preserve">${xmlEscape(label)}</w:t></w:r><w:r><w:rPr><w:sz w:val="16"/><w:color w:val="5B6673"/></w:rPr><w:tab/><w:t xml:space="preserve">${xmlEscape(page)} </w:t></w:r>${fld('PAGE')}<w:r><w:rPr><w:sz w:val="16"/><w:color w:val="5B6673"/></w:rPr><w:t xml:space="preserve"> ${xmlEscape(of)} </w:t></w:r>${fld('NUMPAGES')}</w:p></w:ftr>`;
 }
 
 const STYLES = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -153,7 +153,7 @@ const NUMBERING = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
  * Собрать .docx: блоки; картинки — блоки { type: 'image', width, height, png: Uint8Array, mime? }. Блок-картинка без байтов
  * выбрасывается. Для совместимости: опция png кладётся в первый image-блок без собственных байтов. Возвращает Uint8Array.
  */
-export function buildDocx(blocks, { png = null, title = 'SOAM Investigator', footer = 'SOAM Investigator' } = {}) {
+export function buildDocx(blocks, { png = null, title = 'SOAM Investigator', footer = 'SOAM Investigator', footerWords = undefined } = {}) {
   imageSeq = 0;
   if (png) { const first = blocks.find((b) => b.type === 'image' && !b.png); if (first) first.png = png; }
   const images = [];
@@ -183,7 +183,7 @@ export function buildDocx(blocks, { png = null, title = 'SOAM Investigator', foo
     { name: 'word/_rels/document.xml.rels', data: docRels },
     { name: 'word/styles.xml', data: STYLES },
     { name: 'word/numbering.xml', data: NUMBERING },
-    { name: 'word/footer1.xml', data: footerXml(footer) },
+    { name: 'word/footer1.xml', data: footerXml(footer, footerWords) },
     { name: 'docProps/core.xml', data: core },
   ];
   for (const i of images) entries.push({ name: 'word/' + i.name, data: i.data });

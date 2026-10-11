@@ -131,7 +131,7 @@ export async function renderTab(container, ctx) {
           else if (b.dataUrl) { const r = await fetch(b.dataUrl); b.mime = r.headers.get('content-type') || 'image/png'; b.png = new Uint8Array(await r.arrayBuffer()); }
         } catch { b.png = null; }
       }
-      const bytes = buildDocx(blocks, { title: tx(ctx.occurrence.title), footer: `${tx(ctx.occurrence.title)} · SOAM Investigator v${ctx.appVersion || ''}` });
+      const bytes = buildDocx(blocks, { title: tx(ctx.occurrence.title), footer: `${tx(ctx.occurrence.title)} · SOAM Investigator v${ctx.appVersion || ''}`, footerWords: { page: t('docx.page'), of: t('docx.of') } });
       downloadFile(new Blob([bytes], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' }),
         ('soam-' + tx(ctx.occurrence.title)).replace(/[^\p{L}\p{N}]+/gu, '-').slice(0, 60) + '.docx');
     } catch (e) { toast(t('error.title') + ': ' + e.message); }

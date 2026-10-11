@@ -333,6 +333,28 @@ export function createApp(db, { allowedOrigins = process.env.ALLOWED_ORIGINS, al
   app.get('/api/stats/actions', auth(), wrap(async (req, res) => res.json(actionsSummary(await orgBundles(req.user.org_id, wantTests(req))))));
   app.get('/api/stats/osf', auth(), wrap(async (req, res) => res.json(osfSummary(await orgBundles(req.user.org_id, wantTests(req))))));
 
+  // --- AI-ревью всего дела: обезличенный конспект (факты с классификациями, число связей, меры) → замечания по QA SOAM.
+  app.post('/api/ai/review', auth('admin', 'investigator'), wrap(async (req, res) => {
+    if (!ai.enabled) bad(503, 'ai-disabled');
+    const { context, lang } = req.body || {};
+    if (!context || !context.anonymised) bad(400, 'not-anonymised');
+    if (!Array.isArray(context.facts) || !context.facts.length) bad(400, 'facts');
+    const key = `${req.user.org_id}|${req.user.id}`;
+    aiLimit.check(key, blocked);
+    aiLimit.hit(key);
+    const facts = context.facts.slice(0, 80).map((f) => ({ id: str(f.id, 80), text: str(f.text, 500), contributes: f.contributes === true ? true : f.contributes === false ? false : null, elements: (f.elements || []).slice(0, 6).map((e) => ({ element: str(e.element, 3), codes: (e.codes || []).slice(0, 6).map((c) => str(c, 40)) })) }));
+    const actions = (context.actions || []).slice(0, 40).map((a) => ({ text: str(a.text, 300), addresses: (a.addresses || []).slice(0, 10).map((x) => str(x, 40)) }));
+    let review;
+    try {
+      review = await ai.review({ context: { title: str(context.title, 300), type: context.type, outcome: (context.outcome || []).slice(0, 10).map((s) => str(s, 300)), facts, linkCount: Number(context.linkCount) || 0, actions }, lang: lang === 'en' ? 'en' : 'ru' });
+    } catch (e) {
+      await audit(req.user.org_id, req.user.id, 'ai.error', null, { provider: ai.provider, error: String(e.message).slice(0, 100) });
+      bad(502, 'ai-failed', { reason: String(e.message).slice(0, 100) });
+    }
+    await audit(req.user.org_id, req.user.id, 'ai.review', context.caseId ? String(context.caseId) : null, { provider: ai.provider, observations: review.observations.length });
+    res.json({ provider: ai.provider, model: ai.model, review });
+  }));
+
   app.get('/api/audit', auth('admin', 'investigator'), wrap(async (req, res) => {
     const limit = Math.min(500, Math.max(1, Number(req.query.limit) || 100));
     const params = [req.user.org_id];

@@ -268,6 +268,7 @@ for (const kind of ['sqlite', 'pglite']) describe(`API на ${kind}`, () => {
 
     const appAi = createApp(db, { allowRegistration: true, ai: createAi({ provider: 'mock' }) });
     const s = await new Promise((r) => { const x = appAi.listen(0, () => r(x)); });
+    try {
     const call = (token, body) => fetch(`http://127.0.0.1:${s.address().port}/api/ai/suggest`, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token }, body: JSON.stringify(body) }).then(async (r) => ({ status: r.status, json: await r.json() }));
     const h = await fetch(`http://127.0.0.1:${s.address().port}/api/health`).then((r) => r.json());
     assert.equal(h.ai.enabled, true); assert.equal(h.ai.provider, 'mock');
@@ -283,7 +284,26 @@ for (const kind of ['sqlite', 'pglite']) describe(`API на ${kind}`, () => {
     const au = await api('GET', '/api/audit?caseId=s-1', { token: otherTok });
     const rec = au.json.audit.find((a) => a.action === 'ai.suggest');
     assert.ok(rec && rec.details.provider === 'mock' && !JSON.stringify(rec.details).includes('Диспетчер'), 'в журнале нет текста факта');
-    s.close();
+
+    // ревью всего дела
+    const callR = (token, body) => fetch(`http://127.0.0.1:${s.address().port}/api/ai/review`, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token }, body: JSON.stringify(body) }).then(async (r) => ({ status: r.status, json: await r.json() }));
+    const rctx = { anonymised: true, caseId: 's-1', title: 'Дело', type: 'incident', outcome: ['исход'], linkCount: 0,
+      facts: [{ id: 'f1', text: 'Диспетчер проигнорировал предупреждение', contributes: true, elements: [{ element: 'HI', codes: [] }] }, { id: 'f2', text: 'Факт без теста', contributes: null, elements: [] }, { id: 'f3', text: 'Способствовал, но не разобран', contributes: true, elements: [] }],
+      actions: [{ text: 'Мера без адреса', addresses: [] }] };
+    assert.equal((await callR(readerTok, { context: rctx })).status, 403);
+    assert.equal((await callR(otherTok, { context: { ...rctx, anonymised: false } })).json.error, 'not-anonymised');
+    assert.equal((await callR(otherTok, { context: { ...rctx, facts: [] } })).json.error, 'facts');
+    const rv = await callR(otherTok, { context: rctx, lang: 'ru' });
+    assert.equal(rv.status, 200); assert.ok(rv.json.review.summary);
+    const kinds = rv.json.review.observations.map((o) => o.kind);
+    for (const k of ['wording', 'unsorted', 'missing-link', 'action']) assert.ok(kinds.includes(k), 'нет замечания ' + k + ': ' + kinds.join());
+    assert.ok(rv.json.review.observations.find((o) => o.kind === 'wording').factIds.includes('f1'));
+    const { normaliseReview } = await import('../src/ai.js');
+    const nr = normaliseReview({ summary: 5, observations: [{ kind: 'bogus', text: 'x', factIds: ['a', 7] }, { text: 9 }], questions: ['q', 1] });
+    assert.equal(nr.summary, ''); assert.equal(nr.observations.length, 1); assert.equal(nr.observations[0].kind, 'other'); assert.deepEqual(nr.observations[0].factIds, ['a']); assert.deepEqual(nr.questions, ['q']);
+    const au2 = await api('GET', '/api/audit?caseId=s-1', { token: otherTok });
+    assert.ok(au2.json.audit.some((a) => a.action === 'ai.review' && a.details.observations >= 4));
+    } finally { s.close(); }
   });
 
   test('регистрация закрыта флагом', async () => {

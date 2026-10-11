@@ -40,7 +40,7 @@ export async function render(view) {
     </div>
     ${tax.principles ? `<div class="card">
       <details>
-        <summary><strong>${t('about.principles')}</strong> <span class="muted small">(QRG, стр. 8–9, 18)</span></summary>
+        <summary><strong>${t('about.principles')}</strong> <span class="muted small">(${t('qrg.p', { p: '8–9, 18' })})</span></summary>
         <h4>${t('about.systemsThinking')}</h4>
         <p>${escapeHtml(tx(tax.principles.systems_thinking_intro))}</p>
         <ol>${li(tax.principles.systems_thinking, (e) => escapeHtml(tx(e)))}</ol>
@@ -51,7 +51,7 @@ export async function render(view) {
     </div>` : ''}
     <div class="card">
       <details>
-        <summary><strong>${t('about.pirate')}</strong> <span class="muted small">(QRG, стр. 54–56)</span></summary>
+        <summary><strong>${t('about.pirate')}</strong> <span class="muted small">(${t('qrg.p', { p: '54–56' })})</span></summary>
         <p>${escapeHtml(tx(tax.pirate.intro))}</p>
         <p>${escapeHtml(tx(tax.pirate.principle))}</p>
         <h4>${t('about.pirateSteps')}</h4><ol>${li(tax.pirate.steps, (e) => escapeHtml(tx(e)))}</ol>
@@ -61,7 +61,7 @@ export async function render(view) {
     </div>
     <div class="card">
       <details>
-        <summary><strong>${t('about.glossary')}</strong> <span class="muted small">(${tax.glossary.length} · QRG, стр. 58–60)</span></summary>
+        <summary><strong>${t('about.glossary')}</strong> <span class="muted small">(${tax.glossary.length} · ${t('qrg.p', { p: '58–60' })})</span></summary>
         <dl class="glossary">${tax.glossary.map((g) => `<dt>${escapeHtml(g.code)}</dt><dd>${escapeHtml(tx(g))}<br><span class="small muted">${escapeHtml(g.en)}</span></dd>`).join('')}</dl>
       </details>
     </div>

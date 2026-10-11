@@ -76,7 +76,7 @@ export async function renderTab(container, ctx) {
     <div class="two-col">
       <div>${formHtml(f)}</div>
       <div class="card">
-        ${(taxonomy().principles || {}).iterative ? `<details class="hint"><summary>${t('facts.iterative')} <span class="muted small">(QRG, стр. 12)</span></summary><p>${escapeHtml(tx(taxonomy().principles.iterative))}</p><p class="small muted">${t('facts.iterativeHint')}</p></details>` : ''}
+        ${(taxonomy().principles || {}).iterative ? `<details class="hint"><summary>${t('facts.iterative')} <span class="muted small">(${t('qrg.p', { p: '12' })})</span></summary><p>${escapeHtml(tx(taxonomy().principles.iterative))}</p><p class="small muted">${t('facts.iterativeHint')}</p></details>` : ''}
         <h3>${t('facts.list')} <span class="muted">(${facts.length})</span></h3>
         ${listHtml(facts)}
       </div>

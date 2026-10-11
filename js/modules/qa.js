@@ -14,6 +14,11 @@ export async function renderTab(container, ctx) {
   const canFinish = o.status !== 'completed' && (canTransition(o.status, 'completed', r.ok) || (r.ok && canTransition('actions', 'completed', r.ok)));
   const open = openFollowUps(ctx.facts);
   const closed = ctx.facts.filter((f) => f.followUp && f.followUp.status === 'closed' && f.followUp.question);
+  // AI-ревью всего дела: только при входе на сервер с включённым AI и пишущей роли; уходит обезличенный конспект
+  const sync = await import('./sync.js');
+  const session = sync.getSession();
+  const canAsk = session && session.token && ['admin', 'investigator'].includes(session.user.role);
+  const aiOn = canAsk ? await sync.aiStatus().then((s) => (s.enabled ? s : null)) : null;
 
   container.innerHTML = `
     <div class="two-col">
@@ -55,6 +60,12 @@ export async function renderTab(container, ctx) {
           </div>
 `}
         </div>
+        ${aiOn ? `<div class="card">
+          <h3>${t('qa.aiReview')}</h3>
+          <p class="small muted">${t('qa.aiReviewHint', { provider: escapeHtml(aiOn.provider || '') })}</p>
+          <div class="btn-row"><button class="btn secondary" id="aiReview">${t('qa.aiReviewRun')}</button></div>
+          <div id="aiReviewOut"></div>
+        </div>` : ''}
         <form class="card form" id="lessonsForm">
           <h3>${t('qa.lessons')}</h3>
           <p class="small muted">${t('qa.lessonsHint')}</p>
@@ -81,6 +92,39 @@ export async function renderTab(container, ctx) {
     await ctx.store.put('fact', { ...f, followUp: { ...f.followUp, status: 'closed', closedAt: nowIso() } });
     ctx.refresh();
   }));
+  const aiBtn = container.querySelector('#aiReview');
+  if (aiBtn) aiBtn.addEventListener('click', async () => {
+    aiBtn.disabled = true;
+    const out = container.querySelector('#aiReviewOut');
+    out.innerHTML = `<p class="small muted">${t('sort.aiWorking')}</p>`;
+    try {
+      const { toPortable } = await import('../bundle.js');
+      const { parseDictionary, anonymiseBundle } = await import('../anon.js');
+      const labels = { email: t('anon.label.email'), phone: t('anon.label.phone'), registration: t('anon.label.registration'), callsign: t('anon.label.callsign') };
+      const portable = await toPortable(await ctx.store.exportOccurrence(ctx.id), ctx.appVersion);
+      const { bundle } = anonymiseBundle(portable, parseDictionary(o.anonDict || '', { redacted: t('anon.redacted') }), { labels });
+      const byFact = {};
+      for (const c of bundle.classifications || []) (byFact[c.factId] = byFact[c.factId] || []).push({ element: c.element, codes: c.osfCodes || (c.ccCategory ? [c.ccCategory] : c.barrierType ? [c.barrierType, c.barrierState || ''] : []) });
+      const context = {
+        anonymised: true, caseId: ctx.id, title: tx(bundle.occurrence.title), type: o.type, outcome: bundle.occurrence.outcome || [],
+        facts: (bundle.facts || []).map((f) => ({ id: f.id, text: f.text, contributes: f.contributes === true ? true : f.contributes === false ? false : null, elements: byFact[f.id] || [] })),
+        linkCount: (bundle.links || []).length,
+        actions: (bundle.actions || []).map((a) => ({ text: a.text, addresses: (a.addresses || []).map((id) => { const c = (bundle.classifications || []).find((x) => x.id === id); return c ? c.element : ''; }) })),
+      };
+      const r = await sync.api('POST', '/api/ai/review', { context, lang: document.documentElement.lang === 'en' ? 'en' : 'ru' });
+      const rv = r.review;
+      const factText = (id) => { const f = ctx.facts.find((x) => x.id === id); return f ? escapeHtml(short(f.text, 60)) : ''; };
+      out.innerHTML = `<div class="hint">
+        <p><span class="small muted">(${escapeHtml(r.provider)}${r.model ? ' · ' + escapeHtml(r.model) : ''})</span></p>
+        ${rv.summary ? `<p>${escapeHtml(rv.summary)}</p>` : ''}
+        ${rv.observations.length ? `<ul>${rv.observations.map((ob) => `<li><span class="tag">${t('qa.aiKind.' + ob.kind)}</span> ${escapeHtml(ob.text)}${ob.factIds.length ? `<br><span class="small muted">${ob.factIds.map(factText).filter(Boolean).join(' · ')}</span>` : ''}</li>`).join('')}</ul>` : `<p class="small muted">${t('qa.aiNoObservations')}</p>`}
+        ${rv.questions.length ? `<p><strong>${t('sort.aiQuestions')}:</strong></p><ul>${rv.questions.map((q) => `<li>${escapeHtml(q)}</li>`).join('')}</ul>` : ''}
+        <p class="small muted">${t('qa.aiReviewDisclaimer')}</p>
+      </div>`;
+    } catch (e) { out.innerHTML = `<p class="warn small">${escapeHtml(sync.errText(e))}</p>`; }
+    aiBtn.disabled = false;
+  });
+
   container.querySelector('#lessonsForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const fd = e.target;
