@@ -10,7 +10,7 @@ import * as cases from './modules/cases.js';
 import * as occurrence from './modules/occurrence.js';
 import * as occurrenceForm from './modules/occurrence-form.js';
 
-export const APP_VERSION = '0.5.9';
+export const APP_VERSION = '0.5.10';
 export { escapeHtml, toast };
 
 const ROUTES = [
@@ -32,6 +32,21 @@ const NAV = [
 ];
 
 const view = document.getElementById('view');
+
+// Доступность: кликабельные строки списков и узлы схемы получают фокус и срабатывают по Enter / Space.
+function makeFocusable(root) {
+  root.querySelectorAll('.link-row:not([tabindex])').forEach((r) => { r.tabIndex = 0; r.setAttribute('role', 'button'); });
+}
+new MutationObserver((muts) => {
+  for (const m of muts) for (const n of m.addedNodes) if (n.nodeType === 1) { if (n.matches && n.matches('.link-row:not([tabindex])')) { n.tabIndex = 0; n.setAttribute('role', 'button'); } makeFocusable(n); }
+}).observe(view, { childList: true, subtree: true });
+view.addEventListener('keydown', (e) => {
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  const target = e.target.closest('.link-row, [data-node][tabindex]');
+  if (!target || target !== e.target) return; // клавиши внутри полей и кнопок не трогаем
+  e.preventDefault();
+  target.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true })); // у SVG-элементов нет click()
+});
 
 function currentPath() {
   const h = location.hash.replace(/^#/, '') || '/';
