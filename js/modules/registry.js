@@ -9,13 +9,17 @@ import { getSession, api, errText } from './sync.js';
 
 let filter = 'open'; // open | overdue | all
 let scope = 'local'; // local | server
+let includeTests = false; // тестовые кейсы из QRG в сводках — только по явному выбору
 
 /** Данные из локальной базы — в том же виде, что отдаёт сервер. */
 async function localData() {
   const store = await db();
   const today = new Date().toISOString().slice(0, 10);
-  const [occurrences, actions, classes] = await Promise.all([store.all('occurrence'), store.all('action'), store.all('classification')]);
+  const [allOcc, allActions, allClasses] = await Promise.all([store.all('occurrence'), store.all('action'), store.all('classification')]);
+  const occurrences = allOcc.filter((o) => includeTests || !o.isTestCase);
   const occById = Object.fromEntries(occurrences.map((o) => [o.id, o]));
+  const actions = allActions.filter((a) => occById[a.occurrenceId]);
+  const classes = allClasses.filter((c) => occById[c.occurrenceId]);
   const classById = Object.fromEntries(classes.map((c) => [c.id, c]));
   const all = actions.map((a) => ({
     ...a, caseTitle: occById[a.occurrenceId] ? tx(occById[a.occurrenceId].title) : '—', caseId: a.occurrenceId, local: true,
@@ -31,7 +35,7 @@ async function localData() {
 }
 
 async function serverData() {
-  const { actions, osf } = await api('GET', '/api/stats'); // одна выборка на обе сводки
+  const { actions, osf } = await api('GET', '/api/stats' + (includeTests ? '?tests=1' : '')); // одна выборка на обе сводки
   return { actions: actions.actions, stats: osf.stats, casesWithOsf: osf.casesWithOsf, cases: osf.cases };
 }
 
@@ -65,10 +69,11 @@ export async function render(view) {
   view.innerHTML = `
     <h1>${t('registry.title')}</h1>
     <p class="lead">${t('registry.lead')}</p>
-    ${connected ? `<div class="card"><div class="btn-row top">
-      <button class="btn ${scope === 'local' ? '' : 'secondary'} small" data-scope="local">${t('registry.scopeLocal')}</button>
-      <button class="btn ${scope === 'server' ? '' : 'secondary'} small" data-scope="server">${t('registry.scopeServer', { org: escapeHtml(session.org.name) })}</button>
-    </div></div>` : ''}
+    <div class="card"><div class="btn-row top">
+      ${connected ? `<button class="btn ${scope === 'local' ? '' : 'secondary'} small" data-scope="local">${t('registry.scopeLocal')}</button>
+      <button class="btn ${scope === 'server' ? '' : 'secondary'} small" data-scope="server">${t('registry.scopeServer', { org: escapeHtml(session.org.name) })}</button>` : ''}
+      <label class="check small"><input type="checkbox" id="inclTests" ${includeTests ? 'checked' : ''}> ${t('registry.includeTests')}</label>
+    </div></div>
     <div class="card">
       <div class="btn-row top">
         ${[['open', t('registry.filterOpen', { n: all.filter((a) => a.status !== 'done').length })], ['overdue', t('registry.filterOverdue', { n: overdue.length })], ['all', t('registry.filterAll', { n: all.length })]]
@@ -88,6 +93,7 @@ export async function render(view) {
 
   view.querySelectorAll('[data-filter]').forEach((b) => b.addEventListener('click', () => { filter = b.dataset.filter; render(view); }));
   view.querySelectorAll('[data-scope]').forEach((b) => b.addEventListener('click', () => { scope = b.dataset.scope; render(view); }));
+  view.querySelector('#inclTests').addEventListener('change', (e) => { includeTests = e.target.checked; render(view); });
 
   // CSV для Excel / Power BI — та же выборка, что на экране (все меры, не только отфильтрованные)
   const stamp = new Date().toISOString().slice(0, 10);

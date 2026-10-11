@@ -276,8 +276,11 @@ export function createApp(db, { allowedOrigins = process.env.ALLOWED_ORIGINS, al
   }));
 
   // --- сводки по всем делам организации (из пакетов; та же логика rules.js, что в приложении)
-  const orgBundles = async (orgId) => (await db.q('SELECT id, title, bundle FROM occurrence_case WHERE org_id = ?', [orgId]))
-    .map((r) => ({ id: r.id, title: r.title, bundle: JSON.parse(r.bundle) }));
+  // Тестовые кейсы из QRG (occurrence.isTestCase) в сводки не входят, если не запрошено ?tests=1.
+  const orgBundles = async (orgId, includeTests = false) => (await db.q('SELECT id, title, bundle FROM occurrence_case WHERE org_id = ?', [orgId]))
+    .map((r) => ({ id: r.id, title: r.title, bundle: JSON.parse(r.bundle) }))
+    .filter((c) => includeTests || !(c.bundle.occurrence && c.bundle.occurrence.isTestCase));
+  const wantTests = (req) => req.query.tests === '1';
 
   const actionsSummary = (cases) => {
     const today = new Date().toISOString().slice(0, 10);
@@ -302,11 +305,11 @@ export function createApp(db, { allowedOrigins = process.env.ALLOWED_ORIGINS, al
 
   // Одна выборка и один разбор пакетов на обе сводки (клиент запрашивает их вместе).
   app.get('/api/stats', auth(), wrap(async (req, res) => {
-    const cases = await orgBundles(req.user.org_id);
+    const cases = await orgBundles(req.user.org_id, wantTests(req));
     res.json({ actions: actionsSummary(cases), osf: osfSummary(cases) });
   }));
-  app.get('/api/stats/actions', auth(), wrap(async (req, res) => res.json(actionsSummary(await orgBundles(req.user.org_id)))));
-  app.get('/api/stats/osf', auth(), wrap(async (req, res) => res.json(osfSummary(await orgBundles(req.user.org_id)))));
+  app.get('/api/stats/actions', auth(), wrap(async (req, res) => res.json(actionsSummary(await orgBundles(req.user.org_id, wantTests(req))))));
+  app.get('/api/stats/osf', auth(), wrap(async (req, res) => res.json(osfSummary(await orgBundles(req.user.org_id, wantTests(req))))));
 
   app.get('/api/audit', auth('admin', 'investigator'), wrap(async (req, res) => {
     const limit = Math.min(500, Math.max(1, Number(req.query.limit) || 100));

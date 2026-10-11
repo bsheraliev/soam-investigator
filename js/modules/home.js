@@ -58,7 +58,7 @@ export async function render(view) {
 
   let lastBackup = null;
   try { lastBackup = localStorage.getItem('soam.lastBackup'); } catch { /* приватный режим */ }
-  const due = backupDue(all.length, lastBackup);
+  const due = backupDue(all.filter((o) => !o.isTestCase).length, lastBackup); // тестовые кейсы копировать не нужно
   view.innerHTML = `
     <h1>${t('home.title')}</h1>
     <p class="lead">${t('home.lead')}</p>

@@ -155,6 +155,13 @@ test('сводки организации: реестр мер с просроч
   assert.equal(acts.json.actions[0].overdue, true); assert.equal(acts.json.actions[0].caseTitle, 'Дело s-1');
   assert.deepEqual(acts.json.actions[1].addresses, ['OSF TR', 'BAR']);
 
+  // тестовый кейс из QRG не входит в сводки без ?tests=1
+  assert.equal((await put('s-test', { ...full('s-test', [{ id: 'at', occurrenceId: 's-test', text: 'Тестовая', addresses: ['s-test:c1'], responsible: 'x', due: '2000-01-01', status: 'planned' }], ['TR']), occurrence: { ...bundle('s-test').occurrence, isTestCase: true } })).status, 201);
+  assert.equal((await api('GET', '/api/stats', { token: otherTok })).json.osf.cases, 2, 'тестовый кейс исключён');
+  assert.equal((await api('GET', '/api/stats?tests=1', { token: otherTok })).json.osf.cases, 3, 'с ?tests=1 включён');
+  assert.equal((await api('GET', '/api/stats/actions', { token: otherTok })).json.overdue, 1, 'просроченная тестовая не считается');
+  await api('DELETE', '/api/cases/s-test', { token: otherTok });
+
   const osf = await api('GET', '/api/stats/osf', { token: otherTok });
   assert.equal(osf.json.stats.length, 12);
   assert.equal(osf.json.stats[0].code, 'TR'); assert.equal(osf.json.stats[0].n, 2);
