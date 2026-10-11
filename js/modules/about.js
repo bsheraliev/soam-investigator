@@ -38,6 +38,17 @@ export async function render(view) {
       <div class="card"><h3>SMARTER</h3><ul class="plain">${li(tax.safety_actions.smarter, (e) => `<strong>${e.code.replace(/\d/, '')}</strong> — ${escapeHtml(tx(e))}`)}</ul></div>
       <div class="card"><h3>${t('about.qa')} (${tax.qa_checklist.length})</h3><ol>${li(tax.qa_checklist, (e) => escapeHtml(tx(e)))}</ol></div>
     </div>
+    ${tax.principles ? `<div class="card">
+      <details>
+        <summary><strong>${t('about.principles')}</strong> <span class="muted small">(QRG, стр. 8–9, 18)</span></summary>
+        <h4>${t('about.systemsThinking')}</h4>
+        <p>${escapeHtml(tx(tax.principles.systems_thinking_intro))}</p>
+        <ol>${li(tax.principles.systems_thinking, (e) => escapeHtml(tx(e)))}</ol>
+        <h4>Safety-II</h4>${tax.principles.safety_ii.map((p) => `<p>${escapeHtml(tx(p))}</p>`).join('')}
+        <h4>Just Culture</h4><p>${escapeHtml(tx(tax.principles.just_culture[0]))}</p><ul>${li(tax.principles.just_culture.slice(1), (e) => escapeHtml(tx(e)))}</ul>
+        <p class="small muted">${escapeHtml(tax.principles.source_note)}</p>
+      </details>
+    </div>` : ''}
     <div class="card">
       <details>
         <summary><strong>${t('about.pirate')}</strong> <span class="muted small">(QRG, стр. 54–56)</span></summary>
