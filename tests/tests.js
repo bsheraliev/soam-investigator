@@ -312,6 +312,19 @@ await test('taxonomy: PIRATe (QRG, стр. 54–56) — вступление, п
   for (const e of [...tax.pirate.steps, ...tax.pirate.uses]) assert(e.en && e.ru && e.qrg_page >= 54 && e.qrg_page <= 56, e.id);
 });
 
+await test('rules: CSV — BOM, «;», кавычки и удвоение, CRLF, массивы и пустые значения', () => {
+  const csv = R.toCsv(
+    [{ a: 'x;y', b: 'он сказал "да"', c: ['TR', 'WM'], d: null, n: 0 }, { a: 'plain', b: 'line\nbreak', c: [], d: undefined, n: 2 }],
+    [{ key: 'a', title: 'A' }, { key: 'b', title: 'B;' }, { key: 'c', title: 'C' }, { key: 'd', title: 'D' }, { key: (r) => r.n * 2, title: 'N2' }],
+  );
+  assert(csv.startsWith('﻿'), 'BOM');
+  const lines = csv.slice(1).split('\r\n');
+  eq(lines[0], 'A;"B;";C;D;N2');
+  eq(lines[1], '"x;y";"он сказал ""да""";TR, WM;;0');
+  eq(lines[2], 'plain;"line\nbreak";;;4');
+  eq(lines[3], '', 'завершающий CRLF');
+});
+
 await test('rules: автопродвижение статуса — только вперёд, «Завершено» не трогаем', () => {
   eq(R.advanceStatus('draft', 'collection'), 'collection');
   eq(R.advanceStatus('draft', 'actions'), 'actions', 'можно перепрыгнуть');

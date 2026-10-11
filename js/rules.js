@@ -107,6 +107,22 @@ export function osfStats(classifications, codes) {
   return codes.map((code) => ({ code, n: count[code] })).sort((a, b) => b.n - a.n || codes.indexOf(a.code) - codes.indexOf(b.code));
 }
 
+/**
+ * CSV для Excel / Power BI: разделитель «;» (русская локаль Excel), поля в кавычках при необходимости,
+ * строки через CRLF, в начале BOM — Excel тогда читает UTF-8 без вопросов.
+ * columns: [{ key, title }]; rows: объекты. Значения null/undefined → пусто, массивы → через «, ».
+ */
+export function toCsv(rows, columns) {
+  const cell = (v) => {
+    if (v === null || v === undefined) return '';
+    const s = Array.isArray(v) ? v.join(', ') : String(v);
+    return /[;"\r\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+  };
+  const lines = [columns.map((c) => cell(c.title)).join(';')];
+  for (const r of rows) lines.push(columns.map((c) => cell(typeof c.key === 'function' ? c.key(r) : r[c.key])).join(';'));
+  return '﻿' + lines.join('\r\n') + '\r\n';
+}
+
 // ---------------------------------------------------------------- связи на схеме
 
 const LEVEL_ORDER = ['OSF', 'CC', 'HI', 'BAR'];

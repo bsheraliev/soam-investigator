@@ -3,8 +3,8 @@
 import { db } from '../db.js';
 import { t, tx } from '../i18n.js';
 import { taxonomy, osf } from '../taxonomy.js';
-import { escapeHtml, short, toast } from '../ui.js';
-import { actionsRegistry, actionOverdue, osfStats, ACTION_STATUSES } from '../rules.js';
+import { escapeHtml, short, toast, downloadFile } from '../ui.js';
+import { actionsRegistry, actionOverdue, osfStats, ACTION_STATUSES, toCsv } from '../rules.js';
 import { getSession, api } from './sync.js';
 
 let filter = 'open'; // open | overdue | all
@@ -73,6 +73,7 @@ export async function render(view) {
       <div class="btn-row top">
         ${[['open', t('registry.filterOpen', { n: all.filter((a) => a.status !== 'done').length })], ['overdue', t('registry.filterOverdue', { n: overdue.length })], ['all', t('registry.filterAll', { n: all.length })]]
           .map(([k, label]) => `<button class="btn ${filter === k ? '' : 'secondary'} small" data-filter="${k}">${label}</button>`).join('')}
+        ${all.length ? `<button class="btn secondary small" data-csv="actions" title="${t('registry.csvHint')}">${t('registry.csvActions')}</button>` : ''}
       </div>
       ${list.length ? `<table>
         <thead><tr><th>${t('registry.occurrence')}</th><th>${t('actions.text')}</th><th>${t('actions.addresses')}</th><th>${t('actions.responsible')}</th><th>${t('actions.due')}</th><th>${t('field.status')}</th></tr></thead>
@@ -80,10 +81,33 @@ export async function render(view) {
     </div>
     <div class="card">
       <h2>${t('registry.osfTitle')}</h2>
-      <p class="small muted">${t('registry.osfLead', { n: data.casesWithOsf, total: data.cases })}</p>
+      <p class="small muted">${t('registry.osfLead', { n: data.casesWithOsf, total: data.cases })}
+        ${data.stats.some((s) => s.n) ? `<button class="btn secondary small" data-csv="osf" title="${t('registry.csvHint')}">${t('registry.csvOsf')}</button>` : ''}</p>
       ${data.stats.some((s) => s.n) ? `<table class="stats">${data.stats.map((s) => `<tr><td class="nowrap"><strong>${s.code}</strong></td><td class="small">${escapeHtml(tx(osf(s.code)))}</td><td class="bar-cell"><div class="bar" style="width:${Math.round(100 * s.n / max)}%"></div></td><td class="nowrap">${s.n}</td></tr>`).join('')}</table>` : `<p class="muted">${t('registry.osfEmpty')}</p>`}
     </div>`;
 
   view.querySelectorAll('[data-filter]').forEach((b) => b.addEventListener('click', () => { filter = b.dataset.filter; render(view); }));
   view.querySelectorAll('[data-scope]').forEach((b) => b.addEventListener('click', () => { scope = b.dataset.scope; render(view); }));
+
+  // CSV для Excel / Power BI — та же выборка, что на экране (все меры, не только отфильтрованные)
+  const stamp = new Date().toISOString().slice(0, 10);
+  const suffix = scope === 'server' ? 'org' : 'local';
+  view.querySelectorAll('[data-csv]').forEach((b) => b.addEventListener('click', () => {
+    if (b.dataset.csv === 'actions') {
+      const csv = toCsv(all, [
+        { key: 'caseTitle', title: t('registry.occurrence') }, { key: 'caseId', title: 'caseId' },
+        { key: 'text', title: t('actions.text') }, { key: 'addresses', title: t('actions.addresses') },
+        { key: 'responsible', title: t('actions.responsible') }, { key: 'due', title: t('actions.due') },
+        { key: (a) => t('actions.status.' + (ACTION_STATUSES.includes(a.status) ? a.status : 'planned')), title: t('field.status') },
+        { key: (a) => (a.overdue ? 1 : 0), title: t('registry.overdue') },
+      ]);
+      downloadFile(csv, `soam-actions-${suffix}-${stamp}.csv`, 'text/csv;charset=utf-8');
+    } else {
+      const csv = toCsv(data.stats, [
+        { key: 'code', title: 'OSF' }, { key: (s) => tx(osf(s.code)), title: t('about.osf') }, { key: (s) => osf(s.code).en, title: 'OSF (EN)' }, { key: 'n', title: t('registry.count') },
+      ]);
+      downloadFile(csv, `soam-osf-${suffix}-${stamp}.csv`, 'text/csv;charset=utf-8');
+    }
+    toast(t('registry.csvDone'));
+  }));
 }

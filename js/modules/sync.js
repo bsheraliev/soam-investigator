@@ -133,8 +133,9 @@ export async function render(view) {
     <div class="card">
       <p>${t('sync.loggedAs', { name: escapeHtml(session.user.name), role: t('sync.role.' + session.user.role), org: escapeHtml(session.org.name) })} <span class="small muted">· ${escapeHtml(session.url)}</span></p>
       <div class="btn-row"><button class="btn secondary small" id="logout">${t('sync.logout')}</button>
-        ${session.user.role === 'admin' ? `<button class="btn secondary small" id="orgExport">${t('sync.orgExport')}</button>` : ''}</div>
-      ${session.user.role === 'admin' ? `<p class="small muted">${t('sync.orgExportHint')}</p>` : ''}
+        ${session.user.role === 'admin' ? `<button class="btn secondary small" id="orgExport">${t('sync.orgExport')}</button>
+        <label class="btn secondary small" for="orgImport">${t('sync.orgImport')}</label><input id="orgImport" type="file" accept="application/json,.json" hidden>` : ''}</div>
+      ${session.user.role === 'admin' ? `<p class="small muted">${t('sync.orgExportHint')} ${t('sync.orgImportHint')}</p>` : ''}
     </div>
     <div class="card">
       <h3>${t('sync.serverCases')} <span class="muted">(${remote.length})</span></h3>
@@ -226,6 +227,22 @@ export async function render(view) {
       toast(t('sync.orgExported', { n: data.cases.length }));
     } catch (e) { toast(errText(e)); }
     finally { exp.disabled = false; render(view); } // журнал действий получит запись о копии
+  });
+
+  const imp = body.querySelector('#orgImport');
+  if (imp) imp.addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    e.target.value = '';
+    if (!file) return;
+    let data;
+    try { data = JSON.parse(await file.text()); } catch { toast(t('import.err.format')); return; }
+    if (data.format !== 'soam-investigator/organisation' || !Array.isArray(data.cases)) { toast(t('sync.err.format')); return; }
+    if (!confirm(t('sync.orgImportConfirm', { n: data.cases.length, org: data.organisation ? data.organisation.name : '—' }))) return;
+    try {
+      const r = await api('POST', '/api/import', data);
+      toast(t('sync.orgImported', { imported: r.imported, updated: r.updated, skipped: r.skipped, errors: r.errors.length }), 6000);
+    } catch (err) { toast(errText(err)); }
+    render(view);
   });
 
   body.querySelector('#logout').addEventListener('click', async () => {

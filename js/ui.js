@@ -49,6 +49,15 @@ export function formValues(form) {
   return out;
 }
 
+/** Скачать файл из строки или Blob. */
+export function downloadFile(data, name, type = 'application/octet-stream') {
+  const blob = data instanceof Blob ? data : new Blob([data], { type });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = name; a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 5000);
+}
+
 export function nowIso() {
   return new Date().toISOString();
 }
