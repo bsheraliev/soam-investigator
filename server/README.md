@@ -39,7 +39,7 @@
 ```powershell
 cd C:\Users\user\Claude\Projects\soam-investigator\server
 npm install
-npm test        # node:test, SQLite в памяти
+npm test        # node:test: каждый сценарий дважды — SQLite в памяти и PGlite (Postgres в WASM, dev-зависимость; проверка диалекта для Render + Neon)
 npm start       # http://localhost:8160/api/health, БД server\data\soam.sqlite
 ```
 

@@ -43,16 +43,21 @@ async function openSqlite(path) {
   };
 }
 
+/** Обёртка над любым Postgres-клиентом с query(text, params) → { rows, rowCount } (pg.Pool, PGlite в тестах). */
+function fromPgClient(client) {
+  return {
+    kind: 'pg',
+    async q(sql, params = []) { return (await client.query(toPg(sql), params)).rows; },
+    async run(sql, params = []) { const r = await client.query(toPg(sql), params); return { changes: r.rowCount || 0 }; },
+    async exec(sql) { await client.query(sql); },
+    async close() { await client.end(); },
+  };
+}
+
 async function openPg(url) {
   const { default: pg } = await import('pg');
   const pool = new pg.Pool({ connectionString: url, ssl: /localhost|127\.0\.0\.1/.test(url) ? false : { rejectUnauthorized: false } });
-  return {
-    kind: 'pg',
-    async q(sql, params = []) { return (await pool.query(toPg(sql), params)).rows; },
-    async run(sql, params = []) { const r = await pool.query(toPg(sql), params); return { changes: r.rowCount || 0 }; },
-    async exec(sql) { await pool.query(sql); },
-    async close() { await pool.end(); },
-  };
+  return fromPgClient(pool);
 }
 
 async function migrate(db) {
@@ -69,8 +74,8 @@ async function migrate(db) {
 }
 
 /** DATABASE_URL → Postgres; иначе SQLite по пути (по умолчанию память — для тестов). */
-export async function openDb({ databaseUrl = process.env.DATABASE_URL, sqlitePath = ':memory:' } = {}) {
-  const db = databaseUrl ? await openPg(databaseUrl) : await openSqlite(sqlitePath);
+export async function openDb({ databaseUrl = process.env.DATABASE_URL, sqlitePath = ':memory:', client = null } = {}) {
+  const db = client ? fromPgClient(client) : databaseUrl ? await openPg(databaseUrl) : await openSqlite(sqlitePath);
   db.schemaVersion = await migrate(db);
   return db;
 }
