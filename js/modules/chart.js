@@ -100,7 +100,8 @@ function nodeSvg(n, lv, interactive) {
   if (n.head && n.head.length) { text += textBlock(n.head, n.x + L.pad, ty, { bold: true }); ty += n.head.length * L.line; }
   text += textBlock(n.lines, n.x + L.pad, ty);
   const anchor = `${n.x + n.w / 2}`;
-  return `<g data-node="${esc(n.id)}" ${interactive ? 'style="cursor:pointer"' : ''}>${sel}<rect x="${n.x}" y="${n.y}" width="${n.w}" height="${n.h}" rx="7" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" ${dash}/>${text}</g>`;
+  const label = interactive ? ` tabindex="0" role="button" aria-label="${esc([...(n.head || []), ...(n.lines || [])].join(' ')).replace(/"/g, '&quot;')}"` : '';
+  return `<g data-node="${esc(n.id)}" ${interactive ? 'style="cursor:pointer"' : ''}${label}>${sel}<rect x="${n.x}" y="${n.y}" width="${n.w}" height="${n.h}" rx="7" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" ${dash}/>${text}</g>`;
 }
 
 function linkPath(a, b, lay, style) {
@@ -127,7 +128,7 @@ export function renderSvg(o, lay, links, { interactive = false } = {}) {
     if (!a || !b || a.x >= b.x) continue;
     parts.push(linkPath(a, b, lay, l.style));
   }
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${lay.width}" height="${lay.height}" viewBox="0 0 ${lay.width} ${lay.height}" font-family="${L.family}">${parts.join('')}</svg>`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${lay.width}" height="${lay.height}" viewBox="0 0 ${lay.width} ${lay.height}" font-family="${L.family}" role="img" aria-label="SOAM Chart: ${esc(tx(o.title)).replace(/"/g, '&quot;')}">${parts.join('')}</svg>`;
 }
 
 // ---------------------------------------------------------------- экспорт
