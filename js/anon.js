@@ -14,7 +14,7 @@ export const AUTO_RULES = [
  * Словарь замен из текста «оригинал → замена» (по строке на пару; разделитель «→», «=>» или табуляция).
  * Пустая замена → «[СКРЫТО]». Длинные оригиналы заменяются первыми, чтобы «Иванов И. И.» не ломался заменой «Иванов».
  */
-export function parseDictionary(text) {
+export function parseDictionary(text, { redacted = '[СКРЫТО]' } = {}) {
   const out = [];
   for (const raw of String(text || '').split('\n')) {
     const line = raw.trim();
@@ -22,7 +22,7 @@ export function parseDictionary(text) {
     const m = line.split(/\s*(?:→|=>|\t)\s*/);
     const from = (m[0] || '').trim();
     if (!from) continue;
-    out.push({ from, to: (m[1] || '').trim() || '[СКРЫТО]' });
+    out.push({ from, to: (m[1] || '').trim() || redacted });
   }
   return out.sort((a, b) => b.from.length - a.from.length);
 }
@@ -30,7 +30,7 @@ export function parseDictionary(text) {
 const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 /** Обезличить строку: сначала словарь (без учёта регистра), затем автоправила. Возвращает { text, counts }. */
-export function anonymiseText(text, dict = [], { auto = true } = {}) {
+export function anonymiseText(text, dict = [], { auto = true, labels = {} } = {}) {
   if (typeof text !== 'string' || !text) return { text, counts: {} };
   const counts = {};
   let out = text;
@@ -40,7 +40,7 @@ export function anonymiseText(text, dict = [], { auto = true } = {}) {
   }
   if (auto) {
     for (const r of AUTO_RULES) {
-      out = out.replace(r.re, (m) => { if (m.startsWith('[') || (r.test && !r.test(m))) return m; counts[r.key] = (counts[r.key] || 0) + 1; return `[${r.label}]`; });
+      out = out.replace(r.re, (m) => { if (m.startsWith('[') || (r.test && !r.test(m))) return m; counts[r.key] = (counts[r.key] || 0) + 1; return `[${labels[r.key] || r.label}]`; });
     }
   }
   return { text: out, counts };

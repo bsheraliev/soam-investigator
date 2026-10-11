@@ -457,5 +457,13 @@
   "chart.suggest": "Предложить связи",
   "chart.suggestNone": "Новых связей не найдено: привяжите факты к событиям хронологии — связи предлагаются между фактами одного события.",
   "chart.suggestApplied": "Добавлено связей: {n}",
-  "chart.suggestConfirm": "Добавить {n} связей по хронологии и барьер → исход?"
+  "chart.suggestConfirm": "Добавить {n} связей по хронологии и барьер → исход?",
+  "qrg.p": "QRG, стр. {p}",
+  "docx.page": "Стр.",
+  "docx.of": "из",
+  "anon.redacted": "[СКРЫТО]",
+  "anon.label.email": "ПОЧТА",
+  "anon.label.phone": "ТЕЛЕФОН",
+  "anon.label.registration": "БОРТ",
+  "anon.label.callsign": "РЕЙС"
 }

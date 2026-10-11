@@ -24,7 +24,7 @@ function formHtml(o, ready = false) {
       <p class="small muted">${t('occ.modeHint')}</p>
     </fieldset>
     <div id="pirateOnly" ${pirate ? '' : 'hidden'}>
-      <details class="hint"><summary>${t('occ.pirateGuide')} <span class="muted small">(QRG, стр. 54–56)</span></summary>
+      <details class="hint"><summary>${t('occ.pirateGuide')} <span class="muted small">(${t('qrg.p', { p: '54–56' })})</span></summary>
         <p>${escapeHtml(tx(tax.pirate.intro))}</p>
         <ol>${tax.pirate.steps.map((s) => `<li>${escapeHtml(tx(s))}</li>`).join('')}</ol>
       </details>
@@ -192,7 +192,8 @@ export async function renderTab(container, ctx) {
     const dictText = container.querySelector('#anonDict').value;
     await ctx.store.put('occurrence', { ...(await ctx.store.get('occurrence', ctx.id)), anonDict: dictText });
     const portable = await toPortable(await ctx.store.exportOccurrence(ctx.id), ctx.appVersion);
-    const { bundle, counts, removedAttachments } = anonymiseBundle(portable, parseDictionary(dictText));
+    const labels = { email: t('anon.label.email'), phone: t('anon.label.phone'), registration: t('anon.label.registration'), callsign: t('anon.label.callsign') };
+    const { bundle, counts, removedAttachments } = anonymiseBundle(portable, parseDictionary(dictText, { redacted: t('anon.redacted') }), { labels });
     const out = container.querySelector('#anonOut');
     const lines = Object.entries(counts).map(([k, v]) => `${k}: ${v}`);
     out.textContent = `${t('anon.summary', { n: lines.length ? Object.values(counts).reduce((a, b) => a + b, 0) : 0, files: removedAttachments })}\n${lines.join('\n')}\n\n${t('anon.sample')}:\n${(bundle.facts || []).slice(0, 5).map((f, i) => `${i + 1}. ${f.text}`).join('\n')}`;
