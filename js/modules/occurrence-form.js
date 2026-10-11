@@ -162,6 +162,15 @@ export async function renderTab(container, ctx) {
       ${connected ? `<button class="btn secondary" id="pushOcc">${t('sync.pushButton')}</button>
       <p class="small muted">${ctx.occurrence.remote ? t('sync.remoteInfo', { v: ctx.occurrence.remote.version, at: escapeHtml(fmtDateTime(ctx.occurrence.remote.at)) }) : t('sync.notRemote')}</p>` : ''}
     </div>
+    <details class="card">
+      <summary><strong>${t('anon.title')}</strong></summary>
+      <p class="small muted">${t('anon.hint')}</p>
+      <label class="field"><span>${t('anon.dictionary')}</span>
+        <textarea id="anonDict" rows="4" placeholder="${t('anon.dictPlaceholder')}">${escapeHtml(ctx.occurrence.anonDict || '')}</textarea></label>
+      <p class="small muted">${t('anon.autoRules')}</p>
+      <div class="btn-row"><button class="btn secondary" id="anonPreview">${t('anon.preview')}</button><button class="btn secondary" id="anonExport">${t('anon.export')}</button></div>
+      <pre id="anonOut" class="small" hidden></pre>
+    </details>
     <div class="card">
       <h3>${t('occ.dangerZone')}</h3>
       <button class="btn danger" id="delOcc">${t('btn.deleteOccurrence')}</button>
@@ -176,6 +185,27 @@ export async function renderTab(container, ctx) {
     a.href = url; a.download = ('soam-' + tx(ctx.occurrence.title)).replace(/[^\p{L}\p{N}]+/gu, '-').slice(0, 60) + '.json'; a.click();
     setTimeout(() => URL.revokeObjectURL(url), 5000);
   });
+  // Обезличенная копия: словарь сохраняется в деле (локально), вложения в копию не попадают.
+  const anonRun = async (download) => {
+    const { toPortable } = await import('../bundle.js');
+    const { parseDictionary, anonymiseBundle } = await import('../anon.js');
+    const dictText = container.querySelector('#anonDict').value;
+    await ctx.store.put('occurrence', { ...(await ctx.store.get('occurrence', ctx.id)), anonDict: dictText });
+    const portable = await toPortable(await ctx.store.exportOccurrence(ctx.id), ctx.appVersion);
+    const { bundle, counts, removedAttachments } = anonymiseBundle(portable, parseDictionary(dictText));
+    const out = container.querySelector('#anonOut');
+    const lines = Object.entries(counts).map(([k, v]) => `${k}: ${v}`);
+    out.textContent = `${t('anon.summary', { n: lines.length ? Object.values(counts).reduce((a, b) => a + b, 0) : 0, files: removedAttachments })}\n${lines.join('\n')}\n\n${t('anon.sample')}:\n${(bundle.facts || []).slice(0, 5).map((f, i) => `${i + 1}. ${f.text}`).join('\n')}`;
+    out.hidden = false;
+    if (download) {
+      const { downloadFile } = await import('../ui.js');
+      downloadFile(JSON.stringify(bundle, null, 1), ('soam-anon-' + tx(ctx.occurrence.title)).replace(/[^\p{L}\p{N}]+/gu, '-').slice(0, 60) + '.json', 'application/json');
+      toast(t('anon.done'));
+    }
+  };
+  container.querySelector('#anonPreview').addEventListener('click', () => anonRun(false).catch((e) => toast(t('error.title') + ': ' + e.message)));
+  container.querySelector('#anonExport').addEventListener('click', () => anonRun(true).catch((e) => toast(t('error.title') + ': ' + e.message)));
+
   const pushBtn = container.querySelector('#pushOcc');
   if (pushBtn) pushBtn.addEventListener('click', async () => { pushBtn.disabled = true; await sync.pushOccurrence(ctx.store, ctx.id); ctx.refresh(); });
   const form = container.querySelector('#occForm');
