@@ -1,7 +1,7 @@
 // Вкладка «Отчёт»: печатная страница (в PDF через печать браузера). Правило 7: полноценный отчёт — только после QA.
 import { t, tx } from '../i18n.js';
 import { taxonomy, osf, barrier, element, severity, shelo } from '../taxonomy.js';
-import { escapeHtml, fmtDateTime } from '../ui.js';
+import { escapeHtml, fmtDateTime, toast } from '../ui.js';
 import { sortEvents, otherSafetyIssues, contributingFacts, qaComplete, SMARTER_CODES, openFollowUps, investigationAdvice, isPirate } from '../rules.js';
 import { layout, renderSvg } from './chart.js';
 
@@ -107,9 +107,29 @@ export async function renderTab(container, ctx) {
     <div class="card no-print">
       <div class="btn-row top">
         <button class="btn" id="printBtn">${t('report.print')}</button>
+        <button class="btn secondary" id="docxBtn" title="${t('report.docxHint')}">${t('report.docx')}</button>
         <span class="small ${final ? 'muted' : 'warn'}">${final ? t('report.finalNote') : t('report.draftNote', { done: ctx.readiness.qaDone, total: ctx.readiness.qaTotal })}</span>
       </div>
     </div>
     <article class="report" id="report">${buildReportHtml(ctx, data)}</article>`;
   container.querySelector('#printBtn').addEventListener('click', () => window.print());
+  const docxBtn = container.querySelector('#docxBtn');
+  docxBtn.addEventListener('click', async () => {
+    docxBtn.disabled = true;
+    try {
+      const { htmlToBlocks, buildDocx } = await import('../docx.js');
+      const { svgToPngBlob } = await import('./chart.js');
+      const { downloadFile } = await import('../ui.js');
+      const blocks = htmlToBlocks(container.querySelector('#report'));
+      const img = blocks.find((b) => b.type === 'image');
+      let png = null;
+      if (img) {
+        try { png = new Uint8Array(await (await svgToPngBlob(img.svg, img.width, img.height)).arrayBuffer()); } catch { png = null; }
+      }
+      const bytes = buildDocx(blocks, { png, title: tx(ctx.occurrence.title) });
+      downloadFile(new Blob([bytes], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' }),
+        ('soam-' + tx(ctx.occurrence.title)).replace(/[^\p{L}\p{N}]+/gu, '-').slice(0, 60) + '.docx');
+    } catch (e) { toast(t('error.title') + ': ' + e.message); }
+    docxBtn.disabled = false;
+  });
 }

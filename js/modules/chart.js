@@ -138,15 +138,19 @@ function download(blob, name) {
 }
 function safeName(o) { return ('soam-chart-' + tx(o.title)).replace(/[^\p{L}\p{N}]+/gu, '-').slice(0, 60); }
 
-async function exportPng(svgText, w, h, name) {
+/** SVG-текст → PNG Blob (масштаб 2, белый фон для Word/печати). */
+export async function svgToPngBlob(svgText, w, h, scale = 2) {
   const img = new Image();
   const url = URL.createObjectURL(new Blob([svgText], { type: 'image/svg+xml;charset=utf-8' }));
   await new Promise((res, rej) => { img.onload = res; img.onerror = rej; img.src = url; });
-  const scale = 2;
   const c = document.createElement('canvas'); c.width = w * scale; c.height = h * scale;
-  const g = c.getContext('2d'); g.scale(scale, scale); g.drawImage(img, 0, 0);
+  const g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, c.width, c.height); g.scale(scale, scale); g.drawImage(img, 0, 0);
   URL.revokeObjectURL(url);
-  c.toBlob((b) => download(b, name + '.png'), 'image/png');
+  return new Promise((res, rej) => c.toBlob((b) => (b ? res(b) : rej(new Error('png'))), 'image/png'));
+}
+
+async function exportPng(svgText, w, h, name) {
+  download(await svgToPngBlob(svgText, w, h), name + '.png');
 }
 
 // ---------------------------------------------------------------- вкладка

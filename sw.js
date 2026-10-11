@@ -1,6 +1,6 @@
 // Service worker: кэш оболочки приложения для работы офлайн.
 // При любом изменении кэшируемых файлов — поднять CACHE_VERSION.
-const CACHE_VERSION = '0.5.4';
+const CACHE_VERSION = '0.5.5';
 const CACHE_NAME = `soam-investigator-${CACHE_VERSION}`;
 
 const SHELL = [
@@ -15,6 +15,7 @@ const SHELL = [
   './js/ui.js',
   './js/rules.js',
   './js/bundle.js',
+  './js/docx.js',
   './js/modules/home.js',
   './js/modules/about.js',
   './js/modules/cases.js',

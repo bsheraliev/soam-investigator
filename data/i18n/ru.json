@@ -368,6 +368,8 @@
   "report.source": "Методология",
   "report.stats": "фактов: {facts} (способствовали: {contributing}) · классификаций: {classes} · связей: {links} · мер: {actions}",
   "report.print": "Печать / сохранить в PDF",
+  "report.docx": "Скачать Word (DOCX)",
+  "report.docxHint": "Тот же отчёт в формате Word: разделы, таблицы, схема как картинка. Открывается в Word и LibreOffice.",
   "report.finalNote": "QA пройден — отчёт итоговый.",
   "report.draftNote": "QA-чек-лист {done} из {total} — отчёт печатается как черновик (правило SOAM: отчёт после QA).",
   "export.button": "Скачать дело (JSON)",

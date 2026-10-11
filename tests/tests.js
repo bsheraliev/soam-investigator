@@ -417,6 +417,59 @@ await test('bundle: экспорт → JSON → импорт сохраняет 
   s.close(); await deleteDB(name);
 });
 
+// ---------------------------------------------------------------- docx.js
+const D = await import('../js/docx.js');
+
+await test('docx: crc32 эталон, ZIP без сжатия — сигнатуры, число записей, смещения', () => {
+  eq(D.crc32(new TextEncoder().encode('123456789')), 0xCBF43926, 'crc32("123456789")');
+  const zip = D.zipStore([{ name: 'a.txt', data: 'hello' }, { name: 'dir/b.bin', data: new Uint8Array([1, 2, 3]) }], new Date(2026, 9, 11, 12, 0, 0));
+  const dv = new DataView(zip.buffer);
+  eq(dv.getUint32(0, true), 0x04034b50, 'локальный заголовок');
+  eq(dv.getUint32(zip.length - 22, true), 0x06054b50, 'EOCD');
+  eq(dv.getUint16(zip.length - 22 + 10, true), 2, 'записей в каталоге');
+  const cdOffset = dv.getUint32(zip.length - 22 + 16, true);
+  eq(dv.getUint32(cdOffset, true), 0x02014b50, 'центральный каталог по смещению');
+  // вторая локальная запись начинается ровно после первой: 30 + 5 ("a.txt") + 5 ("hello")
+  eq(dv.getUint32(40, true), 0x04034b50, 'вторая локальная запись');
+  eq(new TextDecoder().decode(zip.slice(30, 35)), 'a.txt');
+  eq(new TextDecoder().decode(zip.slice(35, 40)), 'hello');
+});
+
+await test('docx: экранирование XML, блоки → document.xml, картинка только при наличии PNG', () => {
+  eq(D.xmlEscape('a<b>&"c"'), 'a&lt;b&gt;&amp;&quot;c&quot;');
+  const xml = D.docxXml([{ type: 'h1', text: 'Отчёт <1>' }, { type: 'p', runs: [{ text: 'жирный', bold: true }, { text: ' обычный' }] }, { type: 'li', text: 'пункт' }, { type: 'oli', text: 'шаг' }, { type: 'table', rows: [[[{ text: 'A' }], [{ text: 'B' }]], [[{ text: '1' }], [{ text: '2;3' }]]] }, { type: 'image', width: 800, height: 400 }, { type: 'pagebreak' }]);
+  assert(xml.includes('Heading1') && xml.includes('Отчёт &lt;1&gt;'), 'заголовок экранирован');
+  assert(xml.includes('<w:b/>') && xml.includes('жирный'), 'жирный run');
+  assert(xml.includes('w:numId w:val="1"') && xml.includes('w:numId w:val="2"'), 'списки');
+  assert(xml.includes('<w:tbl>') && xml.includes('<w:tblHeader/>') && xml.includes('2;3'), 'таблица с шапкой');
+  assert(xml.includes('<w:drawing>') && xml.includes('cx="6096000"'), 'картинка 640 px ширины в EMU');
+  assert(xml.includes('w:type="page"'), 'разрыв страницы');
+  const docx = D.buildDocx([{ type: 'p', text: 'x' }, { type: 'image', width: 10, height: 10 }], { png: null });
+  const dvn = new DataView(docx.buffer); eq(dvn.getUint16(docx.length - 22 + 10, true), 7, 'без PNG — 7 частей, картинка выброшена');
+  const withPng = D.buildDocx([{ type: 'p', text: 'x' }, { type: 'image', width: 10, height: 10 }], { png: new Uint8Array([137, 80, 78, 71]) });
+  eq(new DataView(withPng.buffer).getUint16(withPng.length - 22 + 10, true), 8, 'с PNG — 8 частей');
+});
+
+await test('docx: HTML отчёта → блоки (заголовки, абзацы с форматированием, списки, таблицы, схема, черновик)', () => {
+  const root = document.createElement('div');
+  root.innerHTML = `<div class="no-print">кнопки</div><header class="rep-head"><div class="rep-draft">ЧЕРНОВИК</div><p class="rep-kicker">Отчёт</p><h1>Дело</h1>
+    <table class="rep-meta"><tr><th>Тип</th><td>Инцидент</td></tr></table></header>
+    <section class="rep-section"><h2>Факты</h2><table class="rep-table"><thead><tr><th>#</th><th>Текст</th></tr></thead><tbody><tr><td>1</td><td>факт <small>📎 a.pdf</small></td></tr></tbody></table></section>
+    <section class="rep-section rep-chart"><h2>Схема</h2><div class="rep-svg"><svg width="700" height="300"></svg></div></section>
+    <section><h3>HI (1)</h3><ol><li>действие <em>— примечание</em><br><small>Доказательства: интервью</small></li></ol><ul><li>урок</li></ul></section>
+    <footer class="rep-foot">Методология: QRG</footer>`;
+  const b = D.htmlToBlocks(root);
+  const types = b.map((x) => x.type).join(',');
+  eq(types, 'p,small,h1,table,h2,table,h2,image,h3,oli,li,small');
+  eq(b[0].runs[0].color, 'A50021', 'черновик красным');
+  eq(b[3].rows[0][0][0].bold, true, 'th жирный'); eq(b[3].header, true, 'rep-meta как таблица с шапкой');
+  eq(b[7].width, 700); assert(b[7].svg.startsWith('<svg'), 'svg сохранён для PNG');
+  const li = b[9].runs.map((r) => r.text).join('');
+  assert(li.includes('действие') && li.includes('— примечание') && li.includes(' · ') && li.includes('Доказательства'), 'inline-форматирование и перенос: ' + li);
+  eq(b[9].runs.find((r) => r.italic).text.trim(), '— примечание');
+  assert(!JSON.stringify(b).includes('кнопки'), 'no-print выброшен');
+});
+
 // ---------------------------------------------------------------- i18n
 await test('i18n: ru — эталон; tj и en — подмножества без лишних ключей (до приёмки новые строки только RU)', async () => {
   const [ru, tj, en] = await Promise.all(['ru', 'tj', 'en'].map((l) => json(`../data/i18n/${l}.json`)));
