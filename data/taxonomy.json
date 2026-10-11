@@ -2,13 +2,13 @@
  "meta": {
   "source": "EUROCONTROL. Systemic Occurrence Analysis Methodology (SOAM) Quick Reference Guide, Version 3.0, April 2023. © EUROCONTROL 2023.",
   "source_note": "English text ('en') is reproduced verbatim from the QRG for non-commercial use. 'qrg_page' is the printed page number.",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "languages": [
    "ru",
    "tj",
    "en"
   ],
-  "ru_status": "machine-translated, needs review",
+  "ru_status": "machine-translated, reviewed 2026-10-11 (11 fixes), owner check pending",
   "tj_status": "todo"
  },
  "soam_elements": [
@@ -63,7 +63,7 @@
    "id": "severity.B",
    "code": "B",
    "en": "Major Incident – An incident associated with the operation of an aircraft, in which safety of aircraft may have been compromised, having led to a near collision between aircraft, with ground or obstacles",
-   "ru": "Крупный инцидент (Major Incident) – инцидент, связанный с эксплуатацией воздушного судна, при котором безопасность воздушного судна могла быть нарушена и который привёл к сближению между воздушными судами, с землёй или с препятствиями",
+   "ru": "Крупный инцидент (Major Incident) – инцидент, связанный с эксплуатацией воздушного судна, при котором безопасность воздушного судна могла быть нарушена и который привёл к опасному сближению между воздушными судами, с землёй или с препятствиями",
    "tj": "",
    "tj_status": "todo",
    "qrg_page": 7
@@ -101,7 +101,7 @@
    "id": "shelo.S",
    "code": "S",
    "en": "Software",
-   "ru": "Программное обеспечение (Software)",
+   "ru": "Процедуры и документация (Software)",
    "tj": "",
    "tj_status": "todo",
    "qrg_page": 12,
@@ -231,7 +231,7 @@
       {
        "id": "shelo.H.g01.i04",
        "en": "Familiarity",
-       "ru": "Знакомость",
+       "ru": "Знакомство с оборудованием",
        "tj": "",
        "tj_status": "todo"
       },
@@ -673,7 +673,7 @@
       {
        "id": "shelo.O.g02.i03",
        "en": "Work rosters",
-       "ru": "Графики работы",
+       "ru": "Графики смен",
        "tj": "",
        "tj_status": "todo"
       },
@@ -953,7 +953,7 @@
     {
      "id": "cc.workplace.error.06",
      "en": "Demanding shift patterns / work rosters",
-     "ru": "Напряжённые режимы смен / графики работы",
+     "ru": "Напряжённые режимы смен / графики смен",
      "tj": "",
      "tj_status": "todo",
      "kind": "error"
@@ -1116,7 +1116,7 @@
     {
      "id": "cc.climate.common.01",
      "en": "'Housekeeping' of documents or equipment",
-     "ru": "Порядок ведения («housekeeping») документов или оборудования",
+     "ru": "Поддержание порядка в документах и оборудовании («housekeeping»)",
      "tj": "",
      "tj_status": "todo",
      "kind": "common"
@@ -1418,7 +1418,7 @@
     {
      "id": "cc.limitations.error.06",
      "en": "Memory failures: - encoding interference / storage loss / retrieval failure / prospective memory",
-     "ru": "Сбои памяти: интерференция при кодировании / потеря при хранении / сбой извлечения / перспективная память",
+     "ru": "Сбои памяти: интерференция при кодировании / потеря при хранении / сбой извлечения / проспективная память",
      "tj": "",
      "tj_status": "todo",
      "kind": "error"
@@ -1482,7 +1482,7 @@
     {
      "id": "cc.limitations.common.06",
      "en": "Over-familiarity with task",
-     "ru": "Избыточная знакомость с задачей",
+     "ru": "Излишняя привычность задачи (рутинность)",
      "tj": "",
      "tj_status": "todo",
      "kind": "common"
@@ -1982,7 +1982,7 @@
     {
      "id": "osf.AC.issue.04",
      "en": "Response by management to reported or rumoured breaches of rules or procedures by workers",
-     "ru": "Реакция руководства на сообщённые или слухи о нарушениях правил или процедур работниками",
+     "ru": "Реакция руководства на сообщения и слухи о нарушениях правил или процедур работниками",
      "tj": "",
      "tj_status": "todo"
     },
@@ -3311,7 +3311,7 @@
     {
      "id": "barrier.awareness.ex.03",
      "en": "Training outcomes (ab initio, OJT, TRM etc.)",
-     "ru": "Результаты обучения (первоначальная подготовка, обучение на рабочем месте (OJT), TRM и т. п.)",
+     "ru": "Результаты обучения (первоначальная подготовка, обучение на рабочем месте (OJT), управление ресурсами команды (TRM) и т. п.)",
      "tj": "",
      "tj_status": "todo"
     },
@@ -3481,7 +3481,7 @@
     {
      "id": "barrier.protection_containment.ex.02",
      "en": "Personal Protective Equipment (PPE)",
-     "ru": "Средства индивидуальной защиты (PPE)",
+     "ru": "Средства индивидуальной защиты (СИЗ, PPE)",
      "tj": "",
      "tj_status": "todo"
     },
