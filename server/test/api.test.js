@@ -253,6 +253,39 @@ for (const kind of ['sqlite', 'pglite']) describe(`API на ${kind}`, () => {
     delete process.env.X_TEST_LIMIT;
   });
 
+  test('AI-подсказка: выключено → 503; заглушка → строгий JSON по таксономии; только обезличенные данные; reader → 403; журнал без текста', async () => {
+    const { createAi, parseJson, normalise, buildPrompt } = await import('../src/ai.js');
+    assert.equal(createAi({ provider: 'none' }).enabled, false);
+    assert.equal(createAi({ provider: 'gemini', apiKey: '' }).enabled, false, 'без ключа выключено');
+    assert.equal(createAi({ provider: 'claude', apiKey: 'k' }).model, 'claude-haiku-5-5');
+    assert.deepEqual(parseJson('```json\n{"a":1}\n```'), { a: 1 });
+    const n = normalise({ contributes: 'yes', elements: [{ element: 'OSF', osfCodes: ['TR', 'XX'] }, { element: 'ZZ' }, { element: 'BAR', barrierType: 'nope', barrierState: 'failed' }], hiRewrite: ' x ', questions: ['q', 5] });
+    assert.deepEqual(n.elements.map((e) => e.element), ['OSF', 'BAR']); assert.deepEqual(n.elements[0].osfCodes, ['TR']); assert.equal(n.elements[1].barrierType, null); assert.equal(n.hiRewrite, 'x'); assert.deepEqual(n.questions, ['q']);
+    assert.ok(buildPrompt({ fact: { text: 'x' } }).includes('TR — Training'), 'таксономия в промпте');
+
+    const ctx = { anonymised: true, title: 'Дело', type: 'incident', outcome: ['исход'], otherFacts: ['факт 2'], caseId: 's-1' };
+    assert.equal((await api('POST', '/api/ai/suggest', { token: otherTok, body: { fact: { text: 'x' }, context: ctx } })).json.error, 'ai-disabled', 'по умолчанию выключено');
+
+    const appAi = createApp(db, { allowRegistration: true, ai: createAi({ provider: 'mock' }) });
+    const s = await new Promise((r) => { const x = appAi.listen(0, () => r(x)); });
+    const call = (token, body) => fetch(`http://127.0.0.1:${s.address().port}/api/ai/suggest`, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token }, body: JSON.stringify(body) }).then(async (r) => ({ status: r.status, json: await r.json() }));
+    const h = await fetch(`http://127.0.0.1:${s.address().port}/api/health`).then((r) => r.json());
+    assert.equal(h.ai.enabled, true); assert.equal(h.ai.provider, 'mock');
+    assert.equal((await call(readerTok, { fact: { text: 'x' }, context: ctx })).status, 403);
+    assert.equal((await call(otherTok, { fact: { text: 'x' }, context: { ...ctx, anonymised: false } })).json.error, 'not-anonymised');
+    assert.equal((await call(otherTok, { fact: { text: '' }, context: ctx })).json.error, 'fact');
+    const r = await call(otherTok, { fact: { text: 'Диспетчер не прошёл обучение по новой процедуре, предупреждение не обнаружено' }, context: ctx });
+    assert.equal(r.status, 200); assert.equal(r.json.provider, 'mock');
+    const els = r.json.suggestion.elements.map((e) => e.element);
+    assert.ok(els.includes('HI') && els.includes('OSF') && els.includes('BAR'), els.join());
+    assert.equal(r.json.suggestion.elements.find((e) => e.element === 'OSF').osfCodes[0], 'TR');
+    assert.ok(r.json.suggestion.hiRewrite, 'нейтральная формулировка');
+    const au = await api('GET', '/api/audit?caseId=s-1', { token: otherTok });
+    const rec = au.json.audit.find((a) => a.action === 'ai.suggest');
+    assert.ok(rec && rec.details.provider === 'mock' && !JSON.stringify(rec.details).includes('Диспетчер'), 'в журнале нет текста факта');
+    s.close();
+  });
+
   test('регистрация закрыта флагом', async () => {
     const closed = createApp(db, { allowRegistration: false });
     const s = await new Promise((r) => { const x = closed.listen(0, () => r(x)); });

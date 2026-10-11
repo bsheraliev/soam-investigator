@@ -9,6 +9,7 @@ import { actionsRegistry, actionOverdue, osfStats } from '../../js/rules.js';
 const OSF_CODES = JSON.parse(readFileSync(new URL('../../data/taxonomy.json', import.meta.url), 'utf8')).osf.map((o) => o.code);
 import { ROLES, MAX_PASSWORD, validPassword, hashPassword, verifyPassword, newToken, tokenHash, uuid, nowIso, sessionExpiry } from './auth.js';
 import { limiter, envInt } from './limiter.js';
+import { createAi } from './ai.js';
 
 const BODY_LIMIT = process.env.BODY_LIMIT || '30mb'; // дело с вложениями (до 5 МБ каждое, base64)
 
@@ -43,7 +44,7 @@ const isEmail = (s) => typeof s === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.tes
 const str = (v, max = 300) => (typeof v === 'string' ? v.trim().slice(0, max) : '');
 const titleOf = (occ) => (typeof occ.title === 'string' ? occ.title : (occ.title && (occ.title.ru || occ.title.en)) || '');
 
-export function createApp(db, { allowedOrigins = process.env.ALLOWED_ORIGINS, allowRegistration = process.env.ALLOW_REGISTRATION !== 'false' } = {}) {
+export function createApp(db, { allowedOrigins = process.env.ALLOWED_ORIGINS, allowRegistration = process.env.ALLOW_REGISTRATION !== 'false', ai = createAi() } = {}) {
   const app = express();
   app.disable('x-powered-by');
   app.set('trust proxy', 1); // Render: реальный IP клиента в X-Forwarded-For
@@ -86,7 +87,28 @@ export function createApp(db, { allowedOrigins = process.env.ALLOWED_ORIGINS, al
   });
 
   app.get('/api/health', wrap(async (req, res) => {
-    res.json({ ok: true, db: db.kind, schema: db.schemaVersion, registration: allowRegistration });
+    res.json({ ok: true, db: db.kind, schema: db.schemaVersion, registration: allowRegistration, ai: { enabled: ai.enabled, provider: ai.provider, model: ai.model } });
+  }));
+
+  // --- AI-подсказка по одному факту (этап 5). Принимаются только обезличенные данные (occurrence.anonymised), никаких вложений.
+  const aiLimit = limiter(envInt('AI_MAX_PER_HOUR', 60), 60 * 60 * 1000);
+  app.post('/api/ai/suggest', auth('admin', 'investigator'), wrap(async (req, res) => {
+    if (!ai.enabled) bad(503, 'ai-disabled');
+    const { fact, context, lang } = req.body || {};
+    if (!fact || typeof fact.text !== 'string' || !fact.text.trim()) bad(400, 'fact');
+    if (!context || !context.anonymised) bad(400, 'not-anonymised');
+    const key = `${req.user.org_id}|${req.user.id}`;
+    aiLimit.check(key, blocked);
+    aiLimit.hit(key);
+    let suggestion;
+    try {
+      suggestion = await ai.suggest({ fact: { text: fact.text.slice(0, 2000), source: str(fact.source, 300), shelo: fact.shelo || null }, context: { title: str(context.title, 300), type: context.type, outcome: (context.outcome || []).slice(0, 10).map((s) => str(s, 300)), otherFacts: (context.otherFacts || []).slice(0, 30).map((s) => str(s, 300)) }, lang: lang === 'en' ? 'en' : 'ru' });
+    } catch (e) {
+      await audit(req.user.org_id, req.user.id, 'ai.error', null, { provider: ai.provider, error: String(e.message).slice(0, 100) });
+      bad(502, 'ai-failed', { reason: String(e.message).slice(0, 100) });
+    }
+    await audit(req.user.org_id, req.user.id, 'ai.suggest', context.caseId ? String(context.caseId) : null, { provider: ai.provider, elements: suggestion.elements.map((e) => e.element) });
+    res.json({ provider: ai.provider, model: ai.model, suggestion });
   }));
 
   // Регистрация организации вместе с первым администратором.

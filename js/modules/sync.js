@@ -32,6 +32,19 @@ export async function api(method, path, body, session = getSession()) {
 /** Текст ошибки сервера для пользователя; неизвестный код — общее сообщение с кодом. */
 export const errText = (e) => { const k = 'sync.err.' + (e.code || 'generic'); const s = t(k); return s === k ? t('sync.err.generic') + ' (' + e.message + ')' : s; };
 
+/** Состояние AI на сервере (из /api/health), кэш 5 минут. { enabled, provider } или { enabled: false }. */
+let aiCache = { url: null, at: 0, value: null };
+export async function aiStatus() {
+  const s = getSession();
+  if (!s || !s.token) return { enabled: false };
+  if (aiCache.value && aiCache.url === s.url && Date.now() - aiCache.at < 300000) return aiCache.value;
+  try {
+    const h = await api('GET', '/api/health');
+    aiCache = { url: s.url, at: Date.now(), value: h.ai || { enabled: false } };
+  } catch { aiCache = { url: s.url, at: Date.now(), value: { enabled: false } }; }
+  return aiCache.value;
+}
+
 /** Отправить дело на сервер. Возвращает { version } или null (отменено / ошибка показана). */
 export async function pushOccurrence(store, id) {
   const bundle = await store.exportOccurrence(id);

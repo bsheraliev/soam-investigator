@@ -258,3 +258,4 @@ table.small { font-size: .85rem; } tr.muted td { opacity: .6; } .form h4 { margi
 svg g[data-node]:focus { outline: none; } svg g[data-node]:focus-visible > rect { stroke: #c53030; stroke-width: 3; }
 main a:not(.btn) { color: var(--brand-text); }
 .check-question .btn.secondary { color: var(--soam-ink); border-color: currentColor; }
+.ai-box { margin: 8px 0; }

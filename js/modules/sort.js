@@ -131,6 +131,11 @@ export async function renderTab(container, ctx) {
   const cls = allCls.filter((c) => c.factId === f.id).sort((a, b) => (a.order || 0) - (b.order || 0));
   const nextUnsorted = unsortedFacts(facts).find((x) => x.id !== f.id);
   const fu = f.followUp || {};
+  // AI-подсказка: только при входе на сервер с включённым AI и пишущей ролью; отправляется обезличенный текст
+  const sync = await import('./sync.js');
+  const session = sync.getSession();
+  const canAsk = session && session.token && ['admin', 'investigator'].includes(session.user.role);
+  const aiOn = canAsk ? await sync.aiStatus().then((s) => (s.enabled ? s : null)) : null;
 
   container.innerHTML = `
     ${reviewHtml()}
@@ -165,6 +170,10 @@ export async function renderTab(container, ctx) {
             </li>`).join('')}</ul>` : ''}
             <div class="small muted">${t('sort.quick')}:</div>
             <div class="quick">${ELEMENTS.map((k) => `<button class="btn secondary" data-el="${k}"><strong>${k}</strong> ${escapeHtml(tx(element(k)))}</button>`).join('')}</div>` : ''}
+          ${aiOn ? `<div class="ai-box">
+            <div class="btn-row"><button class="btn secondary small" id="aiSuggest">${t('sort.ai')}</button><span class="small muted">${t('sort.aiHint', { provider: escapeHtml(aiOn.provider || '') })}</span></div>
+            <div id="aiOut"></div>
+          </div>` : ''}
           <div class="btn-row">
             ${nextUnsorted ? `<button class="btn secondary" id="nextFact">${t('sort.next')}</button>` : `<span class="small muted">${t('sort.allSorted')}</span>`}
           </div>
@@ -198,6 +207,40 @@ export async function renderTab(container, ctx) {
   };
   fuNeeded.addEventListener('change', async () => { fuQ.hidden = !fuNeeded.checked; await saveFu(); if (!fuNeeded.checked) ctx.refresh(); else fuQ.focus(); });
   fuQ.addEventListener('change', saveFu);
+
+  const aiBtn = container.querySelector('#aiSuggest');
+  if (aiBtn) aiBtn.addEventListener('click', async () => {
+    aiBtn.disabled = true;
+    const out = container.querySelector('#aiOut');
+    out.innerHTML = `<p class="small muted">${t('sort.aiWorking')}</p>`;
+    try {
+      const { toPortable } = await import('../bundle.js');
+      const { parseDictionary, anonymiseBundle } = await import('../anon.js');
+      const occ = await ctx.store.get('occurrence', ctx.id);
+      const portable = await toPortable(await ctx.store.exportOccurrence(ctx.id), ctx.appVersion);
+      const { bundle } = anonymiseBundle(portable, parseDictionary(occ.anonDict || ''));
+      const af = (bundle.facts || []).find((x) => x.id === f.id) || { text: f.text };
+      const body = {
+        fact: { text: af.text, source: af.source || '', shelo: f.shelo || null },
+        context: { anonymised: true, caseId: ctx.id, title: tx(bundle.occurrence.title), type: occ.type, outcome: bundle.occurrence.outcome || [], otherFacts: (bundle.facts || []).filter((x) => x.id !== f.id).map((x) => x.text) },
+        lang: 'ru',
+      };
+      const r = await sync.api('POST', '/api/ai/suggest', body);
+      const s = r.suggestion;
+      const sub = (e) => e.element === 'CC' && e.ccCategory ? escapeHtml(tx(tax._cc[e.ccCategory] || { ru: e.ccCategory }))
+        : e.element === 'OSF' ? (e.osfCodes || []).map((k) => `${k} ${osf(k) ? escapeHtml(tx(osf(k))) : ''}`).join(', ')
+        : e.element === 'BAR' ? `${e.barrierType && barrier(e.barrierType) ? escapeHtml(tx(barrier(e.barrierType))) : ''}${e.barrierState ? ' · ' + t('barrier.' + e.barrierState) : ''}` : '';
+      out.innerHTML = `<div class="hint">
+        <p><strong>${t('sort.aiResult')}</strong> <span class="small muted">(${escapeHtml(r.provider)}${r.model ? ' · ' + escapeHtml(r.model) : ''})</span></p>
+        <p>${t('sort.contributionTest')}: <strong>${s.contributes ? t('sort.yes') : t('sort.no')}</strong></p>
+        ${s.elements.length ? `<ul>${s.elements.map((e) => `<li><span class="tag">${e.element}</span> ${escapeHtml(tx(element(e.element)))}${sub(e) ? ` — ${sub(e)}` : ''}${e.rationale ? `<br><span class="small muted">${escapeHtml(e.rationale)}</span>` : ''}</li>`).join('')}</ul>` : `<p class="small muted">${t('sort.aiNoElements')}</p>`}
+        ${s.hiRewrite ? `<p><strong>${t('sort.aiRewrite')}:</strong> ${escapeHtml(s.hiRewrite)}</p>` : ''}
+        ${s.questions && s.questions.length ? `<p><strong>${t('sort.aiQuestions')}:</strong></p><ul>${s.questions.map((q) => `<li>${escapeHtml(q)}</li>`).join('')}</ul>` : ''}
+        <p class="small muted">${t('sort.aiDisclaimer')}</p>
+      </div>`;
+    } catch (e) { out.innerHTML = `<p class="warn small">${escapeHtml(sync.errText(e))}</p>`; }
+    aiBtn.disabled = false;
+  });
 
   container.querySelectorAll('[data-el]').forEach((b) => b.addEventListener('click', () => {
     editingCls = { factId: f.id, element: b.dataset.el }; ctx.refresh();
