@@ -377,6 +377,32 @@ await test('taxonomy: глоссарий QRG (стр. 58–60) — 23 терми
   for (const g of tax.glossary) assert(g.code && g.en && g.ru && g.qrg_page >= 58 && g.qrg_page <= 60, g.id);
 });
 
+await test('db: удаление факта и классификации каскадом — связи, адресация мер, привязка в хронологии', async () => {
+  const name = TEST_DB + '-cascade';
+  const s = await openDB(name);
+  await s.put('occurrence', { id: 'o', title: 'x', status: 'analysis' });
+  await s.put('fact', { id: 'f1', occurrenceId: 'o', text: 'a', contributes: true });
+  await s.put('fact', { id: 'f2', occurrenceId: 'o', text: 'b', contributes: true });
+  await s.put('classification', { id: 'c1', occurrenceId: 'o', factId: 'f1', element: 'OSF', osfCodes: ['TR'], confirmed: true });
+  await s.put('classification', { id: 'c2', occurrenceId: 'o', factId: 'f1', element: 'BAR', barrierType: 'Detection', barrierState: 'failed', confirmed: true });
+  await s.put('classification', { id: 'c3', occurrenceId: 'o', factId: 'f2', element: 'HI', confirmed: true });
+  await s.put('link', { id: 'l1', occurrenceId: 'o', fromId: 'c1', toId: 'c3' });
+  await s.put('link', { id: 'l2', occurrenceId: 'o', fromId: 'c2', toId: 'o' });
+  await s.put('link', { id: 'l3', occurrenceId: 'o', fromId: 'c3', toId: 'c2' });
+  await s.put('action', { id: 'a1', occurrenceId: 'o', text: 'm', addresses: ['c1', 'c2'], responsible: 'r', status: 'planned' });
+  await s.put('event', { id: 'e1', occurrenceId: 'o', description: 'ev', factIds: ['f1', 'f2'] });
+  await s.deleteClassification('c2');
+  eq((await s.byIndex('link', 'occurrenceId', 'o')).map((l) => l.id).sort().join(), 'l1', 'связи c2 удалены (l2, l3)');
+  eq((await s.get('action', 'a1')).addresses.join(), 'c1', 'адресация без c2');
+  await s.deleteFact('f1');
+  eq(await s.get('fact', 'f1'), undefined);
+  eq((await s.byIndex('classification', 'occurrenceId', 'o')).map((c) => c.id).join(), 'c3', 'классификации f1 удалены');
+  eq((await s.byIndex('link', 'occurrenceId', 'o')).length, 0, 'связь c1→c3 удалена');
+  eq((await s.get('action', 'a1')).addresses.length, 0, 'мера больше ничего не адресует');
+  eq((await s.get('event', 'e1')).factIds.join(), 'f2', 'хронология без f1');
+  s.close(); await deleteDB(name);
+});
+
 await test('db: факт с вложением (Blob) сохраняется и читается', async () => {
   const name = TEST_DB + '-blob';
   const s = await openDB(name);

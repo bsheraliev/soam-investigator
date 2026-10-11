@@ -120,6 +120,31 @@ export class Store {
     await done(tx);
   }
 
+  /** Удалить классификацию каскадом: её связи на схеме и ссылки на неё в адресации мер. */
+  async deleteClassification(id) {
+    const c = await this.get('classification', id);
+    for (const l of await this.byIndex('link', 'fromId', id)) await this.del('link', l.id);
+    for (const l of await this.byIndex('link', 'toId', id)) await this.del('link', l.id);
+    if (c) {
+      for (const a of await this.byIndex('action', 'occurrenceId', c.occurrenceId)) {
+        if ((a.addresses || []).includes(id)) await this.put('action', { ...a, addresses: a.addresses.filter((x) => x !== id) });
+      }
+    }
+    await this.del('classification', id);
+  }
+
+  /** Удалить факт каскадом: его классификации (со связями и адресацией) и привязку в хронологии. */
+  async deleteFact(id) {
+    const f = await this.get('fact', id);
+    for (const c of await this.byIndex('classification', 'factId', id)) await this.deleteClassification(c.id);
+    if (f) {
+      for (const ev of await this.byIndex('event', 'occurrenceId', f.occurrenceId)) {
+        if ((ev.factIds || []).includes(id)) await this.put('event', { ...ev, factIds: ev.factIds.filter((x) => x !== id) });
+      }
+    }
+    await this.del('fact', id);
+  }
+
   /** Полный пакет дела — для экспорта/импорта в JSON и загрузки тестовых кейсов. */
   async exportOccurrence(id) {
     const occurrence = await this.get('occurrence', id);

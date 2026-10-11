@@ -127,8 +127,7 @@ export async function renderTab(container, ctx) {
   const del = form.querySelector('#factDelete');
   if (del) del.addEventListener('click', async () => {
     if (!confirm(t('facts.confirmDelete'))) return;
-    for (const c of await ctx.store.byIndex('classification', 'factId', f.id)) await ctx.store.del('classification', c.id);
-    await ctx.store.del('fact', f.id);
+    await ctx.store.deleteFact(f.id); // каскад: классификации, связи, адресация мер, привязка в хронологии
     editing = null; pendingFiles = [];
     toast(t('toast.deleted'));
     ctx.refresh();
