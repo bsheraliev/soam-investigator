@@ -1,0 +1,12 @@
+{
+  "name": "soam-investigator-tests",
+  "private": true,
+  "description": "Безголовый прогон tests/index.html (тесты приложения в браузере) — для GitHub Actions и локально. В клиент ничего не попадает.",
+  "type": "module",
+  "scripts": {
+    "test": "node run-headless.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.55.0"
+  }
+}

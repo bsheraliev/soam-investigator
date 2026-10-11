@@ -1,14 +1,13 @@
-name: Тесты сервера
+name: Тесты
 
 on:
   push:
     branches: [main, 'claude/**']
-    paths: ['server/**', 'js/bundle.js', 'js/db.js', '.github/workflows/test.yml']
   pull_request:
-    paths: ['server/**', 'js/bundle.js', 'js/db.js', '.github/workflows/test.yml']
 
 jobs:
   server:
+    name: Сервер (SQLite + PGlite)
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -21,4 +20,21 @@ jobs:
           cache: npm
           cache-dependency-path: server/package-lock.json
       - run: npm ci
+      - run: npm test
+
+  app:
+    name: Приложение (tests/index.html в Chromium)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: tests
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: tests/package-lock.json
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
       - run: npm test
