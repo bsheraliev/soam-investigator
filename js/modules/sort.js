@@ -183,7 +183,7 @@ export async function renderTab(container, ctx) {
     const yes = b.dataset.ct === 'yes';
     if (!yes && cls.length && !confirm(t('sort.confirmDropCls'))) return;
     await ctx.store.put('fact', { ...f, contributes: yes });
-    if (!yes) for (const c of cls) await ctx.store.del('classification', c.id);
+    if (!yes) for (const c of cls) await ctx.store.deleteClassification(c.id); // каскад: связи и адресация мер
     editingCls = null;
     if (!yes && nextUnsorted) selectedId = nextUnsorted.id;
     ctx.refresh();
@@ -248,9 +248,7 @@ export async function renderTab(container, ctx) {
   form.querySelector('#clsCancel').addEventListener('click', () => { editingCls = null; ctx.refresh(); });
   const del = form.querySelector('#clsDelete');
   if (del) del.addEventListener('click', async () => {
-    for (const l of await ctx.store.byIndex('link', 'fromId', editingCls.id)) await ctx.store.del('link', l.id);
-    for (const l of await ctx.store.byIndex('link', 'toId', editingCls.id)) await ctx.store.del('link', l.id);
-    await ctx.store.del('classification', editingCls.id);
+    await ctx.store.deleteClassification(editingCls.id); // каскад: связи и адресация мер
     editingCls = null; toast(t('toast.deleted')); ctx.refresh();
   });
 }
