@@ -21,3 +21,7 @@ services:
         value: "true"
       - key: SESSION_DAYS
         value: "30"
+      - key: AI_PROVIDER
+        value: none
+      - key: AI_API_KEY
+        sync: false

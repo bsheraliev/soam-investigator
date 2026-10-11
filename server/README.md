@@ -54,8 +54,13 @@ Invoke-RestMethod -Method Post -Uri "https://<имя-сервиса>.onrender.co
 ```
 Пароль вводит владелец сам; в репозиторий, заметки и чат он не попадает.
 
+## AI-подсказки (этап 5)
+- `POST /api/ai/suggest` (admin, investigator): `{ fact: { text, source, shelo }, context: { anonymised: true, caseId, title, type, outcome, otherFacts }, lang }` → `{ provider, model, suggestion: { contributes, elements[], hiRewrite, questions[] } }`. Сервер принимает только обезличенные данные (`context.anonymised`), ограничение `AI_MAX_PER_HOUR` на пользователя (60), в журнале — только провайдер и элементы, без текста.
+- Провайдер: `AI_PROVIDER` = `none` (по умолчанию, кнопки в приложении нет) | `gemini` (`AI_API_KEY` — ключ Google AI Studio, модель по умолчанию `gemini-2.0-flash`) | `claude` (`AI_API_KEY` — ключ Anthropic, модель `claude-haiku-5-5`) | `mock` (заглушка для тестов и демонстрации, наружу ничего не уходит). `AI_MODEL` — переопределить модель.
+- Что уходит провайдеру: обезличенный текст факта, название и исход дела, тексты других фактов (до 30), таксономия SOAM. Вложения — никогда. Решение о провайдере и передаче данных наружу принимает владелец; ключ вводится только в панели Render.
+
 ## Переменные окружения
-`PORT` (Render задаёт сам; локально 8160) · `DATABASE_URL` (Postgres; без неё — SQLite) · `SQLITE_PATH` · `ALLOWED_ORIGINS` (через запятую; `*` — любые) · `ALLOW_REGISTRATION` (`true`/`false`) · `SESSION_DAYS` · `BODY_LIMIT` (по умолчанию `30mb`).
+`PORT` (Render задаёт сам; локально 8160) · `DATABASE_URL` (Postgres; без неё — SQLite) · `SQLITE_PATH` · `ALLOWED_ORIGINS` (через запятую; `*` — любые) · `ALLOW_REGISTRATION` (`true`/`false`) · `SESSION_DAYS` · `BODY_LIMIT` (по умолчанию `30mb`) · `AI_PROVIDER` / `AI_API_KEY` / `AI_MODEL` / `AI_MAX_PER_HOUR` (см. выше).
 
 ## Ограничения бесплатного тарифа
 Render free засыпает после 15 минут простоя — первый запрос после паузы занимает до минуты. Neon free — 0,5 ГБ; дело с вложениями до нескольких МБ, этого хватает на сотни дел.
