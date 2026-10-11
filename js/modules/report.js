@@ -4,6 +4,7 @@ import { taxonomy, osf, barrier, element, severity, shelo } from '../taxonomy.js
 import { escapeHtml, fmtDateTime, toast } from '../ui.js';
 import { sortEvents, otherSafetyIssues, contributingFacts, qaComplete, SMARTER_CODES, openFollowUps, investigationAdvice, isPirate } from '../rules.js';
 import { layout, renderSvg } from './chart.js';
+import { brandingHtml } from './settings.js';
 
 function section(title, body) {
   return `<section class="rep-section"><h2>${escapeHtml(title)}</h2>${body}</section>`;
@@ -24,6 +25,7 @@ export function buildReportHtml(ctx, { classes, links, events, actions, qa }) {
 
   const head = `
     <header class="rep-head">
+      ${brandingHtml()}
       ${final ? '' : `<div class="rep-draft">${t('report.draft')}</div>`}
       <p class="rep-kicker">${pirate ? t('report.kickerPirate') : t('report.kicker')}</p>
       <h1>${escapeHtml(tx(o.title))}</h1>
@@ -121,12 +123,15 @@ export async function renderTab(container, ctx) {
       const { svgToPngBlob } = await import('./chart.js');
       const { downloadFile } = await import('../ui.js');
       const blocks = htmlToBlocks(container.querySelector('#report'));
-      const img = blocks.find((b) => b.type === 'image');
-      let png = null;
-      if (img) {
-        try { png = new Uint8Array(await (await svgToPngBlob(img.svg, img.width, img.height)).arrayBuffer()); } catch { png = null; }
+      // картинки: схема — из SVG через canvas; логотип — из data-URL
+      for (const b of blocks) {
+        if (b.type !== 'image') continue;
+        try {
+          if (b.svg) b.png = new Uint8Array(await (await svgToPngBlob(b.svg, b.width, b.height)).arrayBuffer());
+          else if (b.dataUrl) { const r = await fetch(b.dataUrl); b.mime = r.headers.get('content-type') || 'image/png'; b.png = new Uint8Array(await r.arrayBuffer()); }
+        } catch { b.png = null; }
       }
-      const bytes = buildDocx(blocks, { png, title: tx(ctx.occurrence.title), footer: `${tx(ctx.occurrence.title)} · SOAM Investigator v${ctx.appVersion || ''}` });
+      const bytes = buildDocx(blocks, { title: tx(ctx.occurrence.title), footer: `${tx(ctx.occurrence.title)} · SOAM Investigator v${ctx.appVersion || ''}` });
       downloadFile(new Blob([bytes], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' }),
         ('soam-' + tx(ctx.occurrence.title)).replace(/[^\p{L}\p{N}]+/gu, '-').slice(0, 60) + '.docx');
     } catch (e) { toast(t('error.title') + ': ' + e.message); }

@@ -553,6 +553,11 @@ await test('docx: экранирование XML, блоки → document.xml, �
   const dvn = new DataView(docx.buffer); eq(dvn.getUint16(docx.length - 22 + 10, true), 8, 'без PNG — 8 частей (с колонтитулом), картинка выброшена');
   const withPng = D.buildDocx([{ type: 'p', text: 'x' }, { type: 'image', width: 10, height: 10 }], { png: new Uint8Array([137, 80, 78, 71]) });
   eq(new DataView(withPng.buffer).getUint16(withPng.length - 22 + 10, true), 9, 'с PNG — 9 частей');
+  // две картинки: логотип (jpeg) и схема (png) — свои rId и файлы, оба расширения в типах содержимого
+  const two = D.buildDocx([{ type: 'image', width: 100, height: 40, png: new Uint8Array([1]), mime: 'image/jpeg', maxWidth: 180 }, { type: 'p', text: 'x' }, { type: 'image', width: 10, height: 10, png: new Uint8Array([2]) }]);
+  eq(new DataView(two.buffer).getUint16(two.length - 22 + 10, true), 10, 'две картинки — 10 частей');
+  const twoTxt = new TextDecoder().decode(two);
+  assert(twoTxt.includes('media/image1.jpeg') && twoTxt.includes('media/image2.png') && twoTxt.includes('Extension="jpeg"') && twoTxt.includes('r:embed="rId10"') && twoTxt.includes('r:embed="rId11"'), 'rId и файлы картинок');
   const ftr = D.footerXml('Дело <1>');
   assert(ftr.includes('Дело &lt;1&gt;') && ftr.includes('PAGE') && ftr.includes('NUMPAGES'), 'колонтитул: подпись экранирована, поля страниц');
   assert(xml.includes('w:footerReference'), 'ссылка на колонтитул в sectPr');

@@ -89,10 +89,12 @@ const table = (rows, { header = true } = {}) => {
   return `<w:tbl><w:tblPr><w:tblW w:w="9600" w:type="dxa"/><w:tblBorders>${borders}</w:tblBorders><w:tblLayout w:type="fixed"/></w:tblPr><w:tblGrid>${Array.from({ length: cols }, () => `<w:gridCol w:w="${width}"/>`).join('')}</w:tblGrid>${body}</w:tbl>${para('', { spacingAfter: 120 })}`;
 };
 const EMU = 9525; // 1 px = 9525 EMU при 96 dpi
+let imageSeq = 0;
 const image = (rId, wPx, hPx, maxWPx = 640) => {
   const k = Math.min(1, maxWPx / wPx);
   const cx = Math.round(wPx * k * EMU), cy = Math.round(hPx * k * EMU);
-  return `<w:p><w:r><w:drawing><wp:inline distT="0" distB="0" distL="0" distR="0"><wp:extent cx="${cx}" cy="${cy}"/><wp:docPr id="1" name="Схема"/>
+  const id = ++imageSeq;
+  return `<w:p><w:r><w:drawing><wp:inline distT="0" distB="0" distL="0" distR="0"><wp:extent cx="${cx}" cy="${cy}"/><wp:docPr id="${id}" name="image${id}"/>
   <a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"><a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture">
   <pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:nvPicPr><pic:cNvPr id="0" name="chart.png"/><pic:cNvPicPr/></pic:nvPicPr>
   <pic:blipFill><a:blip r:embed="${rId}"/><a:stretch><a:fillRect/></a:stretch></pic:blipFill>
@@ -114,7 +116,7 @@ export function docxXml(blocks) {
       case 'li': return para(b.runs || b.text, { bullet: true, spacingAfter: 40 });
       case 'oli': return para(b.runs || b.text, { numbered: true, spacingAfter: 40 });
       case 'table': return table(b.rows, { header: b.header !== false });
-      case 'image': return image('rId1', b.width, b.height);
+      case 'image': return image(b.rId || 'rId1', b.width, b.height, b.maxWidth || 640);
       case 'pagebreak': return '<w:p><w:r><w:br w:type="page"/></w:r></w:p>';
       default: return para(b.runs || b.text || '', { spacingAfter: 120 });
     }
@@ -147,29 +149,44 @@ const NUMBERING = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <w:num w:numId="1"><w:abstractNumId w:val="0"/></w:num><w:num w:numId="2"><w:abstractNumId w:val="1"/></w:num>
 </w:numbering>`;
 
-/** Собрать .docx: блоки + необязательный PNG схемы (Uint8Array). Возвращает Uint8Array. */
+/**
+ * Собрать .docx: блоки; картинки — блоки { type: 'image', width, height, png: Uint8Array, mime? }. Блок-картинка без байтов
+ * выбрасывается. Для совместимости: опция png кладётся в первый image-блок без собственных байтов. Возвращает Uint8Array.
+ */
 export function buildDocx(blocks, { png = null, title = 'SOAM Investigator', footer = 'SOAM Investigator' } = {}) {
-  const hasImage = !!png && blocks.some((b) => b.type === 'image');
+  imageSeq = 0;
+  if (png) { const first = blocks.find((b) => b.type === 'image' && !b.png); if (first) first.png = png; }
+  const images = [];
+  const kept = blocks.filter((b) => {
+    if (b.type !== 'image') return true;
+    if (!b.png) return false;
+    const ext = (b.mime || 'image/png').includes('jpeg') || (b.mime || '').includes('jpg') ? 'jpeg' : 'png';
+    const n = images.length + 1;
+    b.rId = `rId${9 + n}`;
+    images.push({ rId: b.rId, name: `media/image${n}.${ext}`, data: b.png, ext });
+    return true;
+  });
+  const exts = [...new Set(images.map((i) => i.ext))];
   const contentTypes = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/>${hasImage ? '<Default Extension="png" ContentType="image/png"/>' : ''}
+<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/>${exts.map((e) => `<Default Extension="${e}" ContentType="image/${e}"/>`).join('')}
 <Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/><Override PartName="/word/numbering.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.numbering+xml"/><Override PartName="/word/footer1.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.footer+xml"/><Override PartName="/docProps/core.xml" ContentType="application/vnd.openxmlformats-package.core-properties+xml"/></Types>`;
   const rels = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties" Target="docProps/core.xml"/></Relationships>`;
   const docRels = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">${hasImage ? '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="media/chart.png"/>' : ''}<Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/><Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/numbering" Target="numbering.xml"/><Relationship Id="rId4" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/footer" Target="footer1.xml"/></Relationships>`;
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">${images.map((i) => `<Relationship Id="${i.rId}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="${i.name}"/>`).join('')}<Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/><Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/numbering" Target="numbering.xml"/><Relationship Id="rId4" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/footer" Target="footer1.xml"/></Relationships>`;
   const core = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><dc:title>${xmlEscape(title)}</dc:title><dc:creator>SOAM Investigator</dc:creator><dcterms:created xsi:type="dcterms:W3CDTF">${new Date().toISOString()}</dcterms:created></cp:coreProperties>`;
   const entries = [
     { name: '[Content_Types].xml', data: contentTypes },
     { name: '_rels/.rels', data: rels },
-    { name: 'word/document.xml', data: docxXml(hasImage ? blocks : blocks.filter((b) => b.type !== 'image')) },
+    { name: 'word/document.xml', data: docxXml(kept) },
     { name: 'word/_rels/document.xml.rels', data: docRels },
     { name: 'word/styles.xml', data: STYLES },
     { name: 'word/numbering.xml', data: NUMBERING },
     { name: 'word/footer1.xml', data: footerXml(footer) },
     { name: 'docProps/core.xml', data: core },
   ];
-  if (hasImage) entries.push({ name: 'word/media/chart.png', data: png });
+  for (const i of images) entries.push({ name: 'word/' + i.name, data: i.data });
   return zipStore(entries);
 }
 
@@ -205,6 +222,13 @@ export function htmlToBlocks(root) {
       if (cls.contains('rep-svg')) {
         const svg = n.querySelector('svg');
         if (svg) blocks.push({ type: 'image', width: Number(svg.getAttribute('width')) || 800, height: Number(svg.getAttribute('height')) || 600, svg: svg.outerHTML });
+        continue;
+      }
+      if (cls.contains('rep-brand')) { // логотип и название организации (шапка)
+        const img = n.querySelector('img.rep-logo');
+        if (img && img.src) blocks.push({ type: 'image', width: img.naturalWidth || 200, height: img.naturalHeight || 60, dataUrl: img.src, maxWidth: 180 });
+        const org = n.querySelector('.rep-org');
+        if (org) blocks.push({ type: 'p', runs: [{ text: text(org), bold: true }] });
         continue;
       }
       switch (n.tagName) {
