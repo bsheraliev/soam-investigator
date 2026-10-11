@@ -126,7 +126,7 @@ export async function renderTab(container, ctx) {
       if (img) {
         try { png = new Uint8Array(await (await svgToPngBlob(img.svg, img.width, img.height)).arrayBuffer()); } catch { png = null; }
       }
-      const bytes = buildDocx(blocks, { png, title: tx(ctx.occurrence.title) });
+      const bytes = buildDocx(blocks, { png, title: tx(ctx.occurrence.title), footer: `${tx(ctx.occurrence.title)} · SOAM Investigator v${ctx.appVersion || ''}` });
       downloadFile(new Blob([bytes], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' }),
         ('soam-' + tx(ctx.occurrence.title)).replace(/[^\p{L}\p{N}]+/gu, '-').slice(0, 60) + '.docx');
     } catch (e) { toast(t('error.title') + ': ' + e.message); }

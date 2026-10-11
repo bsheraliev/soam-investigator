@@ -4,6 +4,7 @@ import { t, tx } from '../i18n.js';
 import { severity } from '../taxonomy.js';
 import { escapeHtml, toast, fmtDateTime } from '../ui.js';
 import { getSession, api, pullOccurrence } from './sync.js';
+import { backupDue } from '../rules.js';
 
 let query = '';
 
@@ -48,9 +49,13 @@ export async function render(view) {
     </tr>`;
   }).join('');
 
+  let lastBackup = null;
+  try { lastBackup = localStorage.getItem('soam.lastBackup'); } catch { /* приватный режим */ }
+  const due = backupDue(all.length, lastBackup);
   view.innerHTML = `
     <h1>${t('home.title')}</h1>
     <p class="lead">${t('home.lead')}</p>
+    ${due !== null ? `<p class="warn small">${due === Infinity ? t('home.backupNever') : t('home.backupOld', { n: due })}</p>` : ''}
     <div class="card">
       <div class="btn-row top">
         <a class="btn" href="#/occurrence/new">＋ ${t('home.new')}</a>
@@ -78,7 +83,10 @@ export async function render(view) {
       const { downloadFile } = await import('../ui.js');
       const data = await exportAll(store, APP_VERSION);
       downloadFile(JSON.stringify(data, null, 1), `soam-backup-${new Date().toISOString().slice(0, 10)}.json`, 'application/json');
+      try { localStorage.setItem('soam.lastBackup', new Date().toISOString()); } catch { /* приватный режим */ }
       toast(t('home.backupDone', { n: data.cases.length }));
+      render(view);
+      return;
     } catch (e) { toast(t('error.title') + ': ' + e.message); }
     backup.disabled = false;
   });
