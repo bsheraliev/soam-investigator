@@ -111,6 +111,7 @@
   "registry.csvHint": "Для Excel или Power BI: UTF-8, разделитель «;»",
   "registry.csvDone": "CSV скачан",
   "registry.count": "Количество",
+  "registry.includeTests": "включая тестовые кейсы из QRG",
   "registry.scopeLocal": "В этом браузере",
   "registry.scopeServer": "На сервере: {org}",
   "about.glossary": "Глоссарий QRG",
