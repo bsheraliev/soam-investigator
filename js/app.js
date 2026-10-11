@@ -10,7 +10,7 @@ import * as cases from './modules/cases.js';
 import * as occurrence from './modules/occurrence.js';
 import * as occurrenceForm from './modules/occurrence-form.js';
 
-export const APP_VERSION = '0.5.14';
+export const APP_VERSION = '0.5.15';
 export { escapeHtml, toast };
 
 const ROUTES = [

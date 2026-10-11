@@ -115,7 +115,9 @@ export function osfStats(classifications, codes) {
 export function toCsv(rows, columns) {
   const cell = (v) => {
     if (v === null || v === undefined) return '';
-    const s = Array.isArray(v) ? v.join(', ') : String(v);
+    let s = Array.isArray(v) ? v.join(', ') : String(v);
+    // Защита от выполнения формул в Excel: текст, начинающийся с = + - @ или табуляции, получает апостроф (числа не трогаем).
+    if (typeof v !== 'number' && /^[=+\-@\t\r]/.test(s)) s = "'" + s;
     return /[;"\r\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
   };
   const lines = [columns.map((c) => cell(c.title)).join(';')];
