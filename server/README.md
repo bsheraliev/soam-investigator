@@ -56,6 +56,7 @@ Invoke-RestMethod -Method Post -Uri "https://<имя-сервиса>.onrender.co
 
 ## AI-подсказки (этап 5)
 - `POST /api/ai/suggest` (admin, investigator): `{ fact: { text, source, shelo }, context: { anonymised: true, caseId, title, type, outcome, otherFacts }, lang }` → `{ provider, model, suggestion: { contributes, elements[], hiRewrite, questions[] } }`. Сервер принимает только обезличенные данные (`context.anonymised`), ограничение `AI_MAX_PER_HOUR` на пользователя (60), в журнале — только провайдер и элементы, без текста.
+- `POST /api/ai/review` (admin, investigator): `{ context: { anonymised: true, caseId, title, type, outcome, facts[{id,text,contributes,elements[{element,codes}]}], linkCount, actions[{text,addresses}] }, lang }` → `{ provider, model, review: { summary, observations[{kind,text,factIds}], questions } }` — замечания по 12 пунктам QA SOAM; виды: unsorted, wording, missing-link, osf-candidate, barrier, action, evidence, other.
 - Провайдер: `AI_PROVIDER` = `none` (по умолчанию, кнопки в приложении нет) | `gemini` (`AI_API_KEY` — ключ Google AI Studio, модель по умолчанию `gemini-2.0-flash`) | `claude` (`AI_API_KEY` — ключ Anthropic, модель `claude-haiku-5-5`) | `mock` (заглушка для тестов и демонстрации, наружу ничего не уходит). `AI_MODEL` — переопределить модель.
 - Что уходит провайдеру: обезличенный текст факта, название и исход дела, тексты других фактов (до 30), таксономия SOAM. Вложения — никогда. Решение о провайдере и передаче данных наружу принимает владелец; ключ вводится только в панели Render.
 

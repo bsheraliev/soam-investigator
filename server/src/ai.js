@@ -36,6 +36,52 @@ Other facts (anonymised, for context): ${JSON.stringify((context.otherFacts || [
 FACT TO CLASSIFY: ${JSON.stringify({ text: fact.text, source: fact.source || '', shelo: fact.shelo || null })}`;
 }
 
+/** Промпт ревью всего дела: обезличенный конспект дела → замечания по методологии. */
+export function buildReviewPrompt({ context = {}, lang = 'ru' }) {
+  const schema = `{
+  "summary": "<2-3 sentences: what the analysis says happened and why, ${lang}>",
+  "observations": [ { "kind": "unsorted" | "wording" | "missing-link" | "osf-candidate" | "barrier" | "action" | "evidence" | "other", "text": "<one concrete observation, ${lang}>", "factIds": ["<id>"] } ],
+  "questions": ["<up to 5 further data-collection questions, ${lang}>"]
+}`;
+  return `You are reviewing a draft SOAM (EUROCONTROL Systemic Occurrence Analysis Methodology, QRG V3) analysis as a senior safety investigator. Answer with JSON only, matching this schema exactly:
+${schema}
+
+Check against the SOAM quality assurance checklist: all contributing Human Involvement, Contextual Conditions, Organisational/System Factors and Absent or Failed Barriers identified; Human Involvement worded as actions or non-actions without blame (Just Culture); each contextual condition explained by an organisational factor where possible (links CC→OSF); each Human Involvement explained by contextual conditions (links HI→CC); every absent or failed barrier and every OSF addressed by a specific, practical safety action that targets the system, not the person; findings supported by evidence (sources). Be concrete and brief; at most 10 observations, most important first. Use these OSF codes:
+${OSF_LIST}
+Contextual Condition categories:
+${CC_LIST}
+Barrier types:
+${BAR_LIST}
+Write in ${lang === 'ru' ? 'Russian' : lang}.
+
+CASE (anonymised): ${JSON.stringify({ title: context.title || '', type: context.type || '', outcome: context.outcome || [], facts: (context.facts || []).slice(0, 80), linkCount: context.linkCount || 0, actions: (context.actions || []).slice(0, 40) })}`;
+}
+
+const REVIEW_KINDS = ['unsorted', 'wording', 'missing-link', 'osf-candidate', 'barrier', 'action', 'evidence', 'other'];
+export function normaliseReview(raw) {
+  return {
+    summary: typeof raw.summary === 'string' ? raw.summary.slice(0, 1500) : '',
+    observations: (Array.isArray(raw.observations) ? raw.observations : []).filter((o) => o && typeof o.text === 'string').slice(0, 10)
+      .map((o) => ({ kind: REVIEW_KINDS.includes(o.kind) ? o.kind : 'other', text: o.text.slice(0, 600), factIds: Array.isArray(o.factIds) ? o.factIds.filter((x) => typeof x === 'string').slice(0, 10) : [] })),
+    questions: (Array.isArray(raw.questions) ? raw.questions : []).filter((q) => typeof q === 'string').slice(0, 5),
+  };
+}
+
+/** Заглушка ревью: правила, которые видны и без AI (для тестов и демонстрации). */
+function mockReview(prompt) {
+  const m = prompt.match(/CASE \(anonymised\): (\{.*\})$/s);
+  const c = m ? JSON.parse(m[1]) : { facts: [], actions: [] };
+  const obs = [];
+  for (const f of c.facts || []) {
+    if (f.contributes === null || f.contributes === undefined) obs.push({ kind: 'unsorted', text: `Факт без теста вклада: «${(f.text || '').slice(0, 60)}»`, factIds: [f.id] });
+    if ((f.elements || []).some((e) => e.element === 'HI') && /ignored|negligent|carelessly|проигнорировал|халатно|небрежно/i.test(f.text || '')) obs.push({ kind: 'wording', text: 'Формулировка участия человека содержит оценку — перепишите как действие или бездействие.', factIds: [f.id] });
+    if (f.contributes === true && !(f.elements || []).length) obs.push({ kind: 'unsorted', text: 'Факт прошёл тест вклада, но не классифицирован.', factIds: [f.id] });
+  }
+  if ((c.linkCount || 0) === 0 && (c.facts || []).some((f) => (f.elements || []).length)) obs.push({ kind: 'missing-link', text: 'На схеме нет связей между уровнями — покажите, какие условия объясняют действия и какие факторы создали условия.', factIds: [] });
+  for (const a of c.actions || []) if (!(a.addresses || []).length) obs.push({ kind: 'action', text: `Мера «${(a.text || '').slice(0, 50)}» ничего не адресует.`, factIds: [] });
+  return JSON.stringify({ summary: 'Заглушка: проверены тест вклада, классификация, формулировки HI, связи и адресация мер.', observations: obs.slice(0, 10), questions: ['Какие данные подтверждают ключевые факты?'] });
+}
+
 /** Вытащить JSON из ответа модели (возможны ```json ограждения и текст вокруг). */
 export function parseJson(text) {
   const s = String(text || '').trim();
@@ -106,7 +152,7 @@ export function createAi({ provider = process.env.AI_PROVIDER || 'none', apiKey 
   const enabled = name === 'mock' || ((name === 'gemini' || name === 'claude') && !!apiKey);
   const call = name === 'gemini' ? (p) => callGemini({ apiKey, model: mdl }, p)
     : name === 'claude' ? (p) => callClaude({ apiKey, model: mdl }, p)
-    : name === 'mock' ? async (p) => mockAnswer(p)
+    : name === 'mock' ? async (p) => (p.startsWith('You are reviewing') ? mockReview(p) : mockAnswer(p))
     : async () => { throw new Error('ai-disabled'); };
   return {
     enabled, provider: enabled ? name : 'none', model: enabled ? mdl : null,
@@ -115,6 +161,12 @@ export function createAi({ provider = process.env.AI_PROVIDER || 'none', apiKey 
       const prompt = buildPrompt(input);
       const text = await call(prompt);
       return normalise(parseJson(text));
+    },
+    async review(input) {
+      if (!enabled) throw new Error('ai-disabled');
+      const prompt = buildReviewPrompt(input);
+      const text = await call(prompt);
+      return normaliseReview(parseJson(text));
     },
   };
 }

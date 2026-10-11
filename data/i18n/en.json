@@ -465,5 +465,22 @@
   "anon.label.email": "EMAIL",
   "anon.label.phone": "PHONE",
   "anon.label.registration": "AIRCRAFT",
-  "anon.label.callsign": "FLIGHT"
+  "anon.label.callsign": "FLIGHT",
+  "qa.aiReview": "AI case review",
+  "qa.aiReviewHint": "An anonymised digest is sent: facts with classifications, link count, actions (no attachments; replacement table on the Occurrence tab). Provider: {provider}.",
+  "qa.aiReviewRun": "Review the case",
+  "qa.aiNoObservations": "No observations.",
+  "qa.aiReviewDisclaimer": "These are an assistant's observations, not findings: every decision stays with the investigator and the department.",
+  "qa.aiKind.unsorted": "sorting",
+  "qa.aiKind.wording": "wording",
+  "qa.aiKind.missing-link": "links",
+  "qa.aiKind.osf-candidate": "OSF",
+  "qa.aiKind.barrier": "barrier",
+  "qa.aiKind.action": "actions",
+  "qa.aiKind.evidence": "evidence",
+  "qa.aiKind.other": "other",
+  "sync.act.ai.suggest": "AI suggestion for a fact",
+  "sync.act.ai.review": "AI case review",
+  "sync.act.ai.error": "AI error",
+  "sync.err.facts": "The case has no facts to review."
 }
