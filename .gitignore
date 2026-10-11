@@ -15,3 +15,6 @@ docs/SOAM_QRG_V3.pdf
 # сервер: локальная БД и зависимости
 server/data/
 server/node_modules/
+
+# тесты приложения (безголовый прогон)
+tests/node_modules/
