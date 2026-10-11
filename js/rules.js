@@ -123,6 +123,14 @@ export function toCsv(rows, columns) {
   return '﻿' + lines.join('\r\n') + '\r\n';
 }
 
+/** Напоминание о копии: есть дела и последняя копия старше maxDays (или её не было). Возвращает число дней или null. */
+export function backupDue(caseCount, lastBackupIso, now = new Date(), maxDays = 7) {
+  if (!caseCount) return null;
+  if (!lastBackupIso) return Infinity;
+  const days = Math.floor((now - new Date(lastBackupIso)) / 86400000);
+  return days >= maxDays ? days : null;
+}
+
 // ---------------------------------------------------------------- связи на схеме
 
 const LEVEL_ORDER = ['OSF', 'CC', 'HI', 'BAR'];

@@ -325,6 +325,15 @@ await test('rules: CSV — BOM, «;», кавычки и удвоение, CRLF,
   eq(lines[3], '', 'завершающий CRLF');
 });
 
+await test('rules: напоминание о копии — нет дел → нет; не было копии → ∞; старше 7 дней → дни', () => {
+  const now = new Date('2026-10-11T12:00:00Z');
+  eq(R.backupDue(0, null, now), null);
+  eq(R.backupDue(3, null, now), Infinity);
+  eq(R.backupDue(3, '2026-10-10T12:00:00Z', now), null, 'вчера — не пора');
+  eq(R.backupDue(3, '2026-10-04T11:00:00Z', now), 7, 'ровно 7 дней — пора');
+  eq(R.backupDue(3, '2026-09-01T00:00:00Z', now), 40);
+});
+
 await test('rules: автопродвижение статуса — только вперёд, «Завершено» не трогаем', () => {
   eq(R.advanceStatus('draft', 'collection'), 'collection');
   eq(R.advanceStatus('draft', 'actions'), 'actions', 'можно перепрыгнуть');
@@ -470,9 +479,12 @@ await test('docx: экранирование XML, блоки → document.xml, �
   assert(xml.includes('<w:drawing>') && xml.includes('cx="6096000"'), 'картинка 640 px ширины в EMU');
   assert(xml.includes('w:type="page"'), 'разрыв страницы');
   const docx = D.buildDocx([{ type: 'p', text: 'x' }, { type: 'image', width: 10, height: 10 }], { png: null });
-  const dvn = new DataView(docx.buffer); eq(dvn.getUint16(docx.length - 22 + 10, true), 7, 'без PNG — 7 частей, картинка выброшена');
+  const dvn = new DataView(docx.buffer); eq(dvn.getUint16(docx.length - 22 + 10, true), 8, 'без PNG — 8 частей (с колонтитулом), картинка выброшена');
   const withPng = D.buildDocx([{ type: 'p', text: 'x' }, { type: 'image', width: 10, height: 10 }], { png: new Uint8Array([137, 80, 78, 71]) });
-  eq(new DataView(withPng.buffer).getUint16(withPng.length - 22 + 10, true), 8, 'с PNG — 8 частей');
+  eq(new DataView(withPng.buffer).getUint16(withPng.length - 22 + 10, true), 9, 'с PNG — 9 частей');
+  const ftr = D.footerXml('Дело <1>');
+  assert(ftr.includes('Дело &lt;1&gt;') && ftr.includes('PAGE') && ftr.includes('NUMPAGES'), 'колонтитул: подпись экранирована, поля страниц');
+  assert(xml.includes('w:footerReference'), 'ссылка на колонтитул в sectPr');
 });
 
 await test('docx: HTML отчёта → блоки (заголовки, абзацы с форматированием, списки, таблицы, схема, черновик)', () => {
