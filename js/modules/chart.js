@@ -141,6 +141,8 @@ function safeName(o) { return ('soam-chart-' + tx(o.title)).replace(/[^\p{L}\p{N
 
 /** SVG-текст → PNG Blob (масштаб 2, белый фон для Word/печати). */
 export async function svgToPngBlob(svgText, w, h, scale = 2) {
+  // Пределы холста браузера: сторона до ~16 000 px, всего до ~16 млн пикселей — на больших схемах масштаб уменьшаем.
+  scale = Math.min(scale, 16000 / Math.max(w, h), Math.sqrt(16e6 / (w * h)));
   const img = new Image();
   const url = URL.createObjectURL(new Blob([svgText], { type: 'image/svg+xml;charset=utf-8' }));
   await new Promise((res, rej) => { img.onload = res; img.onerror = rej; img.src = url; });
