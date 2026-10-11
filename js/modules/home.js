@@ -56,8 +56,9 @@ export async function render(view) {
         <a class="btn" href="#/occurrence/new">＋ ${t('home.new')}</a>
         <a class="btn secondary" href="#/occurrence/new?mode=pirate" title="${t('occ.modeHint')}">＋ ${t('home.newPirate')}</a>
         <a class="btn secondary" href="#/cases">${t('home.loadCases')}</a>
-        <label class="btn secondary" for="importFile">${t('import.button')}</label>
+        <label class="btn secondary" for="importFile" title="${t('home.importHint')}">${t('import.button')}</label>
         <input id="importFile" type="file" accept="application/json,.json" hidden>
+        ${all.length ? `<button class="btn secondary" id="backupAll" title="${t('home.backupHint')}">${t('home.backupAll')}</button>` : ''}
         <input id="search" class="search" type="search" placeholder="${t('home.search')}" value="${escapeHtml(query)}">
       </div>
       ${list.length ? `<table>
@@ -68,6 +69,19 @@ export async function render(view) {
     ${await serverCasesHtml(Object.fromEntries(all.map((o) => [o.id, o])))}`;
 
   view.querySelectorAll('[data-pull]').forEach((b) => b.addEventListener('click', async () => { b.disabled = true; await pullOccurrence(store, b.dataset.pull); render(view); }));
+  const backup = view.querySelector('#backupAll');
+  if (backup) backup.addEventListener('click', async () => {
+    backup.disabled = true;
+    try {
+      const { exportAll } = await import('../bundle.js');
+      const { APP_VERSION } = await import('../app.js');
+      const { downloadFile } = await import('../ui.js');
+      const data = await exportAll(store, APP_VERSION);
+      downloadFile(JSON.stringify(data, null, 1), `soam-backup-${new Date().toISOString().slice(0, 10)}.json`, 'application/json');
+      toast(t('home.backupDone', { n: data.cases.length }));
+    } catch (e) { toast(t('error.title') + ': ' + e.message); }
+    backup.disabled = false;
+  });
 
   view.querySelector('#search').addEventListener('input', (e) => { query = e.target.value; render(view); view.querySelector('#search').focus(); });
   view.querySelector('#importFile').addEventListener('change', async (e) => {
@@ -75,8 +89,19 @@ export async function render(view) {
     e.target.value = '';
     if (!file) return;
     try {
-      const { validatePortable, fromPortable } = await import('../bundle.js');
+      const { validatePortable, fromPortable, restorePlan, ORG_FORMAT } = await import('../bundle.js');
       const p = JSON.parse(await file.text());
+      if (p && p.format === ORG_FORMAT) {
+        // копия всех дел: сначала без замены; если что-то уже есть — спросить один раз
+        const existing = new Set((await store.all('occurrence')).map((o) => o.id));
+        let plan = restorePlan(p, existing);
+        if (!plan.ok) { toast(t('import.err.format')); return; }
+        if (plan.skipped.length && confirm(t('home.restoreReplace', { n: plan.skipped.length }))) plan = restorePlan(p, existing, { replace: true });
+        for (const b of plan.toImport) await store.importOccurrence(fromPortable(b));
+        toast(t('home.restoreDone', { imported: plan.toImport.length, skipped: plan.skipped.length, errors: plan.errors.length }), 6000);
+        render(view);
+        return;
+      }
       const errors = validatePortable(p);
       if (errors.length) {
         const code = errors[0];

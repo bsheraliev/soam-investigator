@@ -36,6 +36,37 @@ export async function toPortable(bundle, appVersion) {
   };
 }
 
+/** Формат копии всех дел (тот же, что резервная копия организации на сервере). */
+export const ORG_FORMAT = 'soam-investigator/organisation';
+
+/** Все дела из локальной базы → один переносимый объект (копия браузера). */
+export async function exportAll(store, appVersion) {
+  const occurrences = (await store.all('occurrence')).sort((a, b) => String(a.createdAt || '').localeCompare(String(b.createdAt || '')));
+  const cases = [];
+  for (const o of occurrences) {
+    const bundle = await toPortable(await store.exportOccurrence(o.id), appVersion);
+    cases.push({ id: o.id, title: typeof o.title === 'string' ? o.title : (o.title && (o.title.ru || o.title.en)) || '', status: o.status || null, version: (o.remote && o.remote.version) || null, bundle });
+  }
+  return { format: ORG_FORMAT, exportedAt: new Date().toISOString(), appVersion, organisation: { id: 'local', name: 'browser' }, cases };
+}
+
+/**
+ * План восстановления из копии: какие пакеты импортировать, какие пропустить (уже есть и replace=false),
+ * какие битые. Чистая функция — покрыта тестами.
+ */
+export function restorePlan(file, existingIds, { replace = false } = {}) {
+  if (!file || file.format !== ORG_FORMAT || !Array.isArray(file.cases)) return { ok: false, error: 'format' };
+  const toImport = [], skipped = [], errors = [];
+  for (const c of file.cases) {
+    const b = c && c.bundle;
+    const errs = validatePortable(b);
+    if (errs.length) { errors.push({ id: c && c.id, errors: errs }); continue; }
+    if (existingIds.has(b.occurrence.id) && !replace) { skipped.push(b.occurrence.id); continue; }
+    toImport.push(b);
+  }
+  return { ok: true, toImport, skipped, errors };
+}
+
 /** Проверка пакета перед импортом: список ошибок (пустой — можно импортировать). */
 export function validatePortable(p) {
   const errors = [];
