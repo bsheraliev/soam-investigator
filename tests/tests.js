@@ -330,6 +330,8 @@ await test('rules: CSV — BOM, «;», кавычки и удвоение, CRLF,
   eq(lines[1], '"x;y";"он сказал ""да""";TR, WM;;0');
   eq(lines[2], 'plain;"line\nbreak";;;4');
   eq(lines[3], '', 'завершающий CRLF');
+  const inj = R.toCsv([{ a: '=SUM(1)', b: '+1', c: '-x', d: '@cmd', n: -5, ok: 'текст' }], ['a', 'b', 'c', 'd', 'n', 'ok'].map((k) => ({ key: k, title: k }))).slice(1).split('\r\n')[1];
+  eq(inj, "'=SUM(1);'+1;'-x;'@cmd;-5;текст", 'формулы Excel обезврежены, числа не тронуты');
 });
 
 await test('rules: напоминание о копии — нет дел → нет; не было копии → ∞; старше 7 дней → дни', () => {
