@@ -417,6 +417,31 @@ await test('bundle: экспорт → JSON → импорт сохраняет 
   s.close(); await deleteDB(name);
 });
 
+await test('bundle: копия всех дел — exportAll → restorePlan (пропуск существующих, замена, битые пакеты)', async () => {
+  const name = TEST_DB + '-backup';
+  const s = await openDB(name);
+  await s.put('occurrence', { id: 'k1', title: 'Первое', status: 'draft', createdAt: '2026-01-01' });
+  await s.put('fact', { id: 'k1f', occurrenceId: 'k1', text: 'факт', attachments: [{ id: 'a', name: 'a.txt', type: 'text/plain', size: 2, blob: new Blob(['hi']) }] });
+  await s.put('occurrence', { id: 'k2', title: { ru: 'Второе', en: 'Second' }, status: 'analysis', createdAt: '2026-01-02', remote: { version: 3 } });
+  const file = await B.exportAll(s, '0.5.6');
+  eq(file.format, B.ORG_FORMAT); eq(file.cases.length, 2); eq(file.cases[0].id, 'k1'); eq(file.cases[1].title, 'Второе'); eq(file.cases[1].version, 3);
+  eq(file.cases[0].bundle.facts[0].attachments[0].data, btoa('hi'), 'вложение в base64');
+  eq(JSON.parse(JSON.stringify(file)).cases[0].bundle.format, 'soam-investigator/occurrence');
+  let plan = B.restorePlan(file, new Set(['k1']));
+  eq(plan.ok, true); eq(plan.toImport.length, 1); eq(plan.toImport[0].occurrence.id, 'k2'); eq(plan.skipped.join(), 'k1'); eq(plan.errors.length, 0);
+  plan = B.restorePlan(file, new Set(['k1']), { replace: true });
+  eq(plan.toImport.length, 2); eq(plan.skipped.length, 0);
+  plan = B.restorePlan({ ...file, cases: [...file.cases, { id: 'bad', bundle: { occurrence: { id: 'bad' }, classifications: [{ id: 'c', factId: 'nope' }] } }] }, new Set());
+  eq(plan.toImport.length, 2); eq(plan.errors.length, 1); eq(plan.errors[0].id, 'bad');
+  eq(B.restorePlan({ format: 'x' }, new Set()).ok, false);
+  // восстановление в пустую базу
+  const s2 = await openDB(name + '-2');
+  for (const b of B.restorePlan(file, new Set()).toImport) await s2.importOccurrence(B.fromPortable(b));
+  eq((await s2.all('occurrence')).length, 2);
+  eq(await (await s2.byIndex('fact', 'occurrenceId', 'k1'))[0].attachments[0].blob.text(), 'hi', 'вложение восстановлено');
+  s.close(); s2.close(); await deleteDB(name); await deleteDB(name + '-2');
+});
+
 // ---------------------------------------------------------------- docx.js
 const D = await import('../js/docx.js');
 
