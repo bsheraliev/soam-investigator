@@ -128,6 +128,7 @@ export function backupDue(caseCount, lastBackupIso, now = new Date(), maxDays = 
   if (!caseCount) return null;
   if (!lastBackupIso) return Infinity;
   const days = Math.floor((now - new Date(lastBackupIso)) / 86400000);
+  if (Number.isNaN(days)) return Infinity; // испорченная отметка — считаем, что копии не было
   return days >= maxDays ? days : null;
 }
 

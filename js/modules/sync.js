@@ -29,7 +29,8 @@ export async function api(method, path, body, session = getSession()) {
   if (!res.ok) { const e = new Error(json.error || 'generic'); e.code = json.error || 'generic'; e.extra = json; throw e; }
   return json;
 }
-const errText = (e) => { const k = 'sync.err.' + (e.code || 'generic'); const s = t(k); return s === k ? t('sync.err.generic') + ' (' + e.message + ')' : s; };
+/** Текст ошибки сервера для пользователя; неизвестный код — общее сообщение с кодом. */
+export const errText = (e) => { const k = 'sync.err.' + (e.code || 'generic'); const s = t(k); return s === k ? t('sync.err.generic') + ' (' + e.message + ')' : s; };
 
 /** Отправить дело на сервер. Возвращает { version } или null (отменено / ошибка показана). */
 export async function pushOccurrence(store, id) {
@@ -43,6 +44,7 @@ export async function pushOccurrence(store, id) {
     try {
       const r = await api('PUT', '/api/cases/' + encodeURIComponent(id), { bundle: portable, baseVersion: base ?? null });
       await store.put('occurrence', { ...o, remote: { url: getSession().url, version: r.version, at: r.updatedAt } });
+      (await import('./home.js')).invalidateRemoteCache(); // главная покажет свежую версию
       toast(t('sync.pushed', { v: r.version }));
       return r;
     } catch (e) {
@@ -68,6 +70,7 @@ export async function pullOccurrence(store, id) {
     const b = fromPortable(r.bundle);
     b.occurrence.remote = { url: getSession().url, version: r.version, at: r.updatedAt };
     await store.importOccurrence(b);
+    (await import('./home.js')).invalidateRemoteCache();
     toast(t('sync.pulled'));
     return r;
   } catch (e) { toast(errText(e)); return null; }
@@ -122,7 +125,7 @@ export async function render(view) {
   const store = await db();
   let remote = [];
   try { remote = (await api('GET', '/api/cases')).cases; } catch (e) {
-    if (e.code === 'unauthorized') { setSession(null); toast(t('sync.err.unauthorized')); return render(view); }
+    if (e.code === 'unauthorized') { setSession({ url: session.url }); toast(t('sync.err.unauthorized')); return render(view); } // адрес сервера сохраняем
     toast(errText(e));
   }
   const local = (await store.all('occurrence')).sort((a, b) => String(b.updatedAt || '').localeCompare(String(a.updatedAt || '')));
@@ -189,7 +192,7 @@ export async function render(view) {
     ${canWrite ? `<div class="card">
       <details><summary><strong>${t('sync.audit')}</strong> <span class="muted small">(${audit.length})</span></summary>
       ${audit.length ? `<table class="small"><thead><tr><th>${t('sync.when')}</th><th>${t('sync.who')}</th><th>${t('sync.action')}</th><th>${t('registry.occurrence')}</th></tr></thead><tbody>
-        ${audit.map((a) => `<tr><td class="nowrap">${escapeHtml(fmtDateTime(a.at))}</td><td>${escapeHtml(a.userName || '—')}</td><td>${t('sync.act.' + a.action) === 'sync.act.' + a.action ? escapeHtml(a.action) : t('sync.act.' + a.action)}${a.details && a.details.version ? ` · v${a.details.version}` : ''}</td>
+        ${audit.map((a) => `<tr><td class="nowrap">${escapeHtml(fmtDateTime(a.at))}</td><td>${escapeHtml(a.userName || '—')}</td><td>${t('sync.act.' + a.action) === 'sync.act.' + a.action ? escapeHtml(a.action) : t('sync.act.' + a.action)}${a.details && a.details.version ? ` · v${Number(a.details.version) || ''}` : ''}</td>
           <td>${a.caseId ? escapeHtml(titleById[a.caseId] || a.caseId) : ''}</td></tr>`).join('')}</tbody></table>` : `<p class="muted small">${t('sync.auditEmpty')}</p>`}
       </details>
     </div>` : ''}
@@ -235,8 +238,8 @@ export async function render(view) {
     e.target.value = '';
     if (!file) return;
     let data;
-    try { data = JSON.parse(await file.text()); } catch { toast(t('import.err.format')); return; }
-    if (data.format !== 'soam-investigator/organisation' || !Array.isArray(data.cases)) { toast(t('sync.err.format')); return; }
+    try { data = JSON.parse(await file.text()); } catch { toast(t('sync.err.format')); return; }
+    if (!data || data.format !== 'soam-investigator/organisation' || !Array.isArray(data.cases)) { toast(t('sync.err.format')); return; }
     if (!confirm(t('sync.orgImportConfirm', { n: data.cases.length, org: data.organisation ? data.organisation.name : '—' }))) return;
     try {
       const r = await api('POST', '/api/import', data);

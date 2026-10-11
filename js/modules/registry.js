@@ -5,7 +5,7 @@ import { t, tx } from '../i18n.js';
 import { taxonomy, osf } from '../taxonomy.js';
 import { escapeHtml, short, toast, downloadFile } from '../ui.js';
 import { actionsRegistry, actionOverdue, osfStats, ACTION_STATUSES, toCsv } from '../rules.js';
-import { getSession, api } from './sync.js';
+import { getSession, api, errText } from './sync.js';
 
 let filter = 'open'; // open | overdue | all
 let scope = 'local'; // local | server
@@ -43,7 +43,7 @@ export async function render(view) {
   try {
     data = scope === 'server' ? await serverData() : await localData();
   } catch (e) {
-    toast(t('sync.err.' + (e.code || 'generic')) + (e.code === 'unauthorized' ? '' : ''));
+    toast(errText(e));
     scope = 'local'; data = await localData();
   }
 

@@ -3,18 +3,25 @@ import { db } from '../db.js';
 import { t, tx } from '../i18n.js';
 import { severity } from '../taxonomy.js';
 import { escapeHtml, toast, fmtDateTime } from '../ui.js';
-import { getSession, api, pullOccurrence } from './sync.js';
+import { getSession, api, pullOccurrence, errText } from './sync.js';
 import { backupDue } from '../rules.js';
 
 let query = '';
+
+// Список дел с сервера кэшируется на минуту: главная перерисовывается при каждом символе поиска.
+let remoteCache = { url: null, at: 0, cases: null };
+export function invalidateRemoteCache() { remoteCache = { url: null, at: 0, cases: null }; }
 
 /** Дела организации на сервере (если выполнен вход на экране «Сервер»). */
 async function serverCasesHtml(localById) {
   const session = getSession();
   if (!session || !session.token) return '';
   let cases;
-  try { cases = (await api('GET', '/api/cases')).cases; } catch (e) {
-    return `<div class="card"><h3>${t('home.serverCases', { org: escapeHtml(session.org.name) })}</h3><p class="muted small">${t('sync.err.' + (e.code || 'generic'))}</p></div>`;
+  if (remoteCache.cases && remoteCache.url === session.url && Date.now() - remoteCache.at < 60000) cases = remoteCache.cases;
+  else {
+    try { cases = (await api('GET', '/api/cases')).cases; remoteCache = { url: session.url, at: Date.now(), cases }; } catch (e) {
+      return `<div class="card"><h3>${t('home.serverCases', { org: escapeHtml(session.org.name) })}</h3><p class="muted small">${errText(e)}</p></div>`;
+    }
   }
   const state = (c) => {
     const o = localById[c.id];
@@ -73,7 +80,7 @@ export async function render(view) {
     </div>
     ${await serverCasesHtml(Object.fromEntries(all.map((o) => [o.id, o])))}`;
 
-  view.querySelectorAll('[data-pull]').forEach((b) => b.addEventListener('click', async () => { b.disabled = true; await pullOccurrence(store, b.dataset.pull); render(view); }));
+  view.querySelectorAll('[data-pull]').forEach((b) => b.addEventListener('click', async () => { b.disabled = true; await pullOccurrence(store, b.dataset.pull); invalidateRemoteCache(); render(view); }));
   const backup = view.querySelector('#backupAll');
   if (backup) backup.addEventListener('click', async () => {
     backup.disabled = true;
