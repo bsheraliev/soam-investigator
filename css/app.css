@@ -7,6 +7,10 @@
   --brand: #004080;
   --brand-ink: #ffffff;
   --accent: #a50021;
+  /* цвета текста: в тёмной теме светлее, чтобы читались на тёмных карточках */
+  --brand-text: #004080;
+  --accent-text: #a50021;
+  --ok-text: #1a7f37;
   /* цвета элементов SOAM как в схемах QRG */
   --soam-osf: #ccffcc;
   --soam-cc: #ffffff;
@@ -29,13 +33,16 @@
     --muted: #9aa6b2;
     --line: #2b3541;
     --brand: #0b5aa8;
+    --brand-text: #7db7ff;
+    --accent-text: #ff8597;
+    --ok-text: #62d383;
     --soam-osf: #2f5f3a;
     --soam-cc: #2a3340;
     --soam-hi: #2a3340;
     --soam-bar: #2f5f3a;
     --soam-bar-worked: #2b4a73;
     --soam-outcome: #8a6a1f;
-    --soam-header: #7a7a1f;
+    --soam-header: #5e5e16;
     --soam-ink: #e8edf2;
   }
 }
@@ -92,7 +99,7 @@ p.lead { color: var(--muted); margin-top: 0; }
   background: var(--brand); color: var(--brand-ink); border: 0; border-radius: 8px;
   padding: 8px 14px; cursor: pointer; text-decoration: none;
 }
-.btn.secondary { background: transparent; color: var(--brand); border: 1px solid var(--brand); }
+.btn.secondary { background: transparent; color: var(--brand-text); border: 1px solid var(--brand-text); }
 .btn.danger { background: var(--accent); }
 .btn:disabled { opacity: .5; cursor: default; }
 .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
@@ -143,8 +150,8 @@ code { background: var(--bg); padding: 1px 5px; border-radius: 4px; }
 .occ-head h1 { margin-bottom: 4px; }
 .tabs { display: flex; gap: 2px; border-bottom: 2px solid var(--line); margin: 8px 0 16px; overflow-x: auto; }
 .tabs a { padding: 8px 14px; text-decoration: none; color: var(--muted); border-bottom: 2px solid transparent; margin-bottom: -2px; white-space: nowrap; }
-.tabs a.active { color: var(--brand); border-bottom-color: var(--brand); font-weight: 600; }
-.tabs .count { font-size: .75rem; background: var(--line); border-radius: 999px; padding: 0 6px; }
+.tabs a.active { color: var(--brand-text); border-bottom-color: var(--brand-text); font-weight: 600; }
+.tabs .count { font-size: .75rem; background: var(--line); border-radius: 999px; padding: 0 6px; color: var(--text); }
 .tabs .count.warn { background: var(--accent); color: #fff; }
 
 .form .field { display: block; margin: 10px 0; }
@@ -163,8 +170,8 @@ label.check.confirm { background: var(--bg); border: 1px solid var(--line); bord
 .checklist.cols { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); max-height: none; }
 .search { flex: 1; min-width: 180px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--text); }
 .btn-row.top { margin: 0 0 12px; align-items: center; }
-button.link { background: none; border: 0; color: var(--brand); cursor: pointer; padding: 0 4px; }
-button.link.danger { color: var(--accent); }
+button.link { background: none; border: 0; color: var(--brand-text); cursor: pointer; padding: 0 4px; }
+button.link.danger { color: var(--accent-text); }
 
 .two-col { display: grid; gap: 14px; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; }
 .two-col.sort { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); }
@@ -181,9 +188,9 @@ button.link.danger { color: var(--accent); }
 .fact-list li.selected { background: var(--bg); font-weight: 600; }
 .fact-list li { cursor: pointer; }
 .fact-text { font-size: 1.05rem; margin: 0 0 4px; }
-.tag.ok { border-color: #1a7f37; color: #1a7f37; }
-.tag.warn { border-color: var(--accent); color: var(--accent); }
-span.ok { color: #1a7f37; } span.warn { color: var(--accent); font-size: .85rem; }
+.tag.ok { border-color: var(--ok-text); color: var(--ok-text); }
+.tag.warn { border-color: var(--accent-text); color: var(--accent-text); }
+span.ok { color: var(--ok-text); } span.warn { color: var(--accent-text); font-size: .85rem; }
 .node.unconfirmed { border-color: var(--accent); }
 
 .attachments { list-style: none; padding: 0; margin: 4px 0; }
@@ -204,8 +211,8 @@ span.ok { color: #1a7f37; } span.warn { color: var(--accent); font-size: .85rem;
 .qa { padding-left: 18px; } .qa li { padding: 6px 0; border-bottom: 1px dashed var(--line); }
 .qa-note { width: 100%; margin-top: 4px; padding: 4px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--text); font-size: .85rem; }
 .tabs .count.ok { background: #1a7f37; color: #fff; }
-.tag.ok { border-color: #1a7f37; color: #1a7f37; }
-p.warn { color: var(--accent); }
+.tag.ok { border-color: var(--ok-text); color: var(--ok-text); }
+p.warn { color: var(--accent-text); }
 
 /* ---------- этап 3: отчёт и печать ---------- */
 .report { background: #fff; color: #1b2430; padding: 24px 32px; border: 1px solid var(--line); border-radius: var(--radius); max-width: 100%; }
@@ -249,3 +256,5 @@ table.small { font-size: .85rem; } tr.muted td { opacity: .6; } .form h4 { margi
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .link-row:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 svg g[data-node]:focus { outline: none; } svg g[data-node]:focus-visible > rect { stroke: #c53030; stroke-width: 3; }
+main a:not(.btn) { color: var(--brand-text); }
+.check-question .btn.secondary { color: var(--soam-ink); border-color: currentColor; }
