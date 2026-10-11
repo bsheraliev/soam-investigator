@@ -2,7 +2,7 @@
  "meta": {
   "source": "EUROCONTROL. Systemic Occurrence Analysis Methodology (SOAM) Quick Reference Guide, Version 3.0, April 2023. © EUROCONTROL 2023.",
   "source_note": "English text ('en') is reproduced verbatim from the QRG for non-commercial use. 'qrg_page' is the printed page number.",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "languages": [
    "ru",
    "tj",
@@ -4233,5 +4233,166 @@
     "qrg_page": 56
    }
   ]
+ },
+ "principles": {
+  "source_note": "Text reproduced verbatim from SOAM QRG V3 (pp. 8, 9, 12, 18, 46) for non-commercial use. Systems thinking principles: EUROCONTROL (2014). Systems Thinking for Safety: Ten Principles. A White Paper.",
+  "systems_thinking_intro": {
+   "id": "principles.st.intro",
+   "en": "It is vital to adopt a ‘systems thinking’ (systemic) approach to safety occurrence investigation. This involves consideration of all factors at any level or in any component of a system that may have contributed to the occurrence.",
+   "ru": "Для расследования событий необходим подход «системного мышления»: учитываются все факторы на любом уровне и в любой части системы, которые могли способствовать событию.",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 8
+  },
+  "systems_thinking": [
+   {
+    "id": "principles.st.01",
+    "en": "Involve field experts as co-designers, co-investigators, co-researchers, co-learners",
+    "ru": "Привлекайте практиков с мест как соавторов, сорасследователей, соисследователей, соучеников",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 8
+   },
+   {
+    "id": "principles.st.02",
+    "en": "Understand local perspectives, stories and experiences",
+    "ru": "Понимайте местные точки зрения, истории и опыт",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 8
+   },
+   {
+    "id": "principles.st.03",
+    "en": "Reflect on our mindsets, assumptions & language",
+    "ru": "Осмысливайте собственные установки, допущения и язык",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 8
+   },
+   {
+    "id": "principles.st.04",
+    "en": "Consider demand on the system and the pressure imposed",
+    "ru": "Учитывайте нагрузку на систему и оказываемое давление",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 8
+   },
+   {
+    "id": "principles.st.05",
+    "en": "Investigate the adequacy of resources, appropriateness of constraints",
+    "ru": "Исследуйте достаточность ресурсов и уместность ограничений",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 8
+   },
+   {
+    "id": "principles.st.06",
+    "en": "Look at flows of work and system interactions",
+    "ru": "Смотрите на потоки работы и взаимодействия в системе",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 8
+   },
+   {
+    "id": "principles.st.07",
+    "en": "Understand trade-offs in context",
+    "ru": "Понимайте компромиссы в их контексте",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 8
+   },
+   {
+    "id": "principles.st.08",
+    "en": "Understand adjustments and the nature of variability",
+    "ru": "Понимайте подстройки и природу изменчивости",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 8
+   },
+   {
+    "id": "principles.st.09",
+    "en": "Consider system-wide patterns, cascades & surprises-in-waiting",
+    "ru": "Учитывайте общесистемные закономерности, каскады и «сюрпризы в ожидании»",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 8
+   },
+   {
+    "id": "principles.st.10",
+    "en": "Understand everyday work",
+    "ru": "Понимайте повседневную работу",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 8
+   }
+  ],
+  "safety_ii": [
+   {
+    "id": "principles.s2.01",
+    "en": "As investigators we must remember that people involved in a safety occurrence have typically done their job safely and effectively many times before. So, what is it about the conditions on the day that may have enabled or triggered a procedural error or act of non-compliance?",
+    "ru": "Расследователь должен помнить: участники события обычно много раз до этого выполняли свою работу безопасно и эффективно. Что же в условиях того дня сделало возможной или спровоцировало ошибку или отступление от процедуры?",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 9
+   },
+   {
+    "id": "principles.s2.02",
+    "en": "Consistent with the principles of Safety-II, it is important for safety investigators to identify behaviours or conditions that contribute to safety, as well as those that may detract from it. While safety investigation traditionally focussed on what went wrong, it is also very important to focus on what went right and so may have prevented an incident from becoming a more serious incident or accident.",
+    "ru": "В духе Safety-II важно выявлять поведение и условия, которые способствуют безопасности, а не только те, что ей вредят. Расследование традиционно сосредоточено на том, что пошло не так, но не менее важно, что пошло правильно и, возможно, не дало инциденту перерасти в более серьёзный инцидент или происшествие.",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 9
+   },
+   {
+    "id": "principles.s2.03",
+    "en": "If the actions of people, procedures or technologies have succeeded in preventing an incident from becoming an accident, or have reduced harm or damage to our people or equipment, then those factors need to be identified and acknowledged so that they are retained or strengthened for future system protection.",
+    "ru": "Если действия людей, процедуры или техника не дали инциденту стать происшествием либо уменьшили вред людям и оборудованию, эти факторы нужно выявить и отметить, чтобы сохранить и усилить их для защиты системы в будущем.",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 9
+   }
+  ],
+  "just_culture": [
+   {
+    "id": "principles.jc.intro",
+    "en": "SOAM is aligned with and fully supports core ‘Just Culture’ principles by adopting a systemic approach that does not judge or place undue emphasis on individual behaviour, either at the workplace or management level. It avoids attributing blame by:",
+    "ru": "SOAM согласована с принципами Just Culture: системный подход не судит и не делает излишнего упора на поведении отдельных людей — ни на рабочем месте, ни на уровне руководства. Обвинений она избегает тем, что:",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 18
+   },
+   {
+    "id": "principles.jc.01",
+    "en": "Broadening the focus from people’s actions, instead seeking to identify the conditions that influenced or shaped their behaviour; and",
+    "ru": "расширяет фокус с действий людей на условия, которые повлияли на их поведение или сформировали его;",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 18
+   },
+   {
+    "id": "principles.jc.02",
+    "en": "Identifying organisational factors that created or allowed the latent conditions under which a safety occurrence could be triggered to exist.",
+    "ru": "выявляет организационные факторы, создавшие или допустившие латентные условия, при которых событие могло быть запущено.",
+    "tj": "",
+    "tj_status": "todo",
+    "qrg_page": 18
+   }
+  ],
+  "iterative": {
+   "id": "principles.iterative",
+   "en": "While the data gathering (SHEL/O) and analysis (SOAM) phases of a safety investigation are typically discussed as separate components, they are usually part of a repetitive cycle. After an initial data collection phase, a preliminary analysis can be conducted, which will identify gaps that can be filled by further investigation and data gathering. This iterative cycle will continue until the investigation process and systemic analysis has eliminated unanswered questions and reached a logical conclusion.",
+   "ru": "Сбор данных (SHEL/O) и анализ (SOAM) обычно описывают как отдельные этапы, но на практике это повторяющийся цикл: после первого сбора проводится предварительный анализ, он выявляет пробелы, которые закрываются дополнительным расследованием и сбором данных. Цикл повторяется, пока не останется вопросов без ответа и не будет достигнут логичный вывод.",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 12
+  },
+  "chart_links": {
+   "id": "principles.chart_links",
+   "en": "In creating links in the SOAM summary chart, facts sorted into the different SOAM elements should be linked if one is thought to have influenced the other. For example, if a Contextual Condition (eg., fatigue) is considered to have influenced Human Involvement (eg., a procedural error) then a linking line can be drawn between them. Similarly, if an Organisational Factor (eg., Workforce Management: Staff rostering practice) is considered to have created a contextual condition (eg., fatigue), or allowed it to continue to exist, then a link should be drawn between them.",
+   "ru": "Связи на схеме SOAM проводятся между фактами разных элементов, если один, как считается, повлиял на другой. Например, если контекстное условие (усталость) повлияло на участие человека (процедурная ошибка) — между ними проводится линия. Так же, если организационный фактор (управление персоналом: практика составления графиков) создал контекстное условие (усталость) или позволил ему сохраняться — проводится связь между ними.",
+   "tj": "",
+   "tj_status": "todo",
+   "qrg_page": 46
+  }
  }
 }

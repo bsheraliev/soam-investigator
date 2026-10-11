@@ -31,7 +31,9 @@ function reviewHtml() {
   const r = taxonomy().element_review;
   if (!r) return '';
   const col = (key) => `<div><p>${escapeHtml(tx(r[key]))}</p>${r[key].elements.map((el) => `<div class="el">${escapeHtml(tx(element(el)))}</div><ul>${(r.by_element[el] || []).map((x) => `<li>${escapeHtml(tx(x))}</li>`).join('')}</ul>`).join('')}</div>`;
-  return `<details class="hint"><summary>${t('sort.review')}</summary><div class="review">${col('latent')}${col('on_the_day')}</div></details>`;
+  const s2 = (taxonomy().principles || {}).safety_ii || [];
+  return `<details class="hint"><summary>${t('sort.review')}</summary><div class="review">${col('latent')}${col('on_the_day')}</div></details>
+    ${s2.length ? `<details class="hint"><summary>${t('sort.safety2')} <span class="muted small">(QRG, стр. 9)</span></summary>${s2.map((p) => `<p>${escapeHtml(tx(p))}</p>`).join('')}</details>` : ''}`;
 }
 
 // ---- подсказки по элементам (всё из таксономии QRG)

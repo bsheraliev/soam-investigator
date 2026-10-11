@@ -175,6 +175,7 @@ export async function renderTab(container, ctx) {
         <span class="small muted">${t('chart.counts', { nodes: classes.length, links: links.length })}</span>
       </div>
       <p class="small muted">${t('chart.howToLink')}${selected ? ` <strong>${t('chart.selected')}</strong> <button class="link" id="clearSel">${t('btn.cancel')}</button>` : ''}</p>
+      ${(taxonomy().principles || {}).chart_links ? `<details class="hint"><summary>${t('chart.linksGuide')} <span class="muted small">(QRG, стр. 46)</span></summary><p>${esc(tx(taxonomy().principles.chart_links))}</p></details>` : ''}
       ${unconfirmed ? `<p class="small warn">${t('chart.unconfirmed', { n: unconfirmed })}</p>` : ''}
       <div class="legend small">
         <span><i style="background:${COLORS.osf}"></i>${t('chart.legend.osf')}</span>

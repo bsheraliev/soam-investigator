@@ -306,6 +306,13 @@ await test('rules: режим PIRATe — тяжесть и решение о р�
   eq(R.coverage([{ id: 'c', element: 'OSF' }], []).ok, false);
 });
 
+await test('taxonomy: принципы (QRG, стр. 8, 9, 12, 18, 46) — 10 принципов системного мышления, Safety-II, Just Culture, цикл, связи', () => {
+  const p = tax.principles;
+  assert(p && p.systems_thinking_intro.en && p.iterative.ru && p.chart_links.en, 'нет principles');
+  eq(p.systems_thinking.length, 10); eq(p.safety_ii.length, 3); eq(p.just_culture.length, 3);
+  for (const e of [...p.systems_thinking, ...p.safety_ii, ...p.just_culture, p.iterative, p.chart_links, p.systems_thinking_intro]) assert(e.en && e.ru && e.qrg_page, e.id);
+});
+
 await test('taxonomy: PIRATe (QRG, стр. 54–56) — вступление, принцип, 5 шагов, 3 применения', () => {
   assert(tax.pirate && tax.pirate.intro.en && tax.pirate.principle.ru, 'нет pirate');
   eq(tax.pirate.steps.length, 5); eq(tax.pirate.uses.length, 3);
