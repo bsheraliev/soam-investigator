@@ -5,7 +5,9 @@
 
 Перед отправкой владелец заполняет: `[ORGANISATION]`, `[NAME, POSITION]`, `[CONTACT]`, и решает, оставлять ли абзац о коммерческом использовании (вариант A — только некоммерческое для АГА РТ; вариант B — коммерческий выход).
 
-Куда: контакт по публикациям / безопасности EUROCONTROL — `TODO: сверить актуальный адрес` (на обложке QRG указаны контакты; альтернатива — форма обратной связи на eurocontrol.int).
+Условия использования из самого QRG (последняя страница, © EUROCONTROL April 2023, проверено 2026-10-12): «It may be copied in whole or in part, provided that EUROCONTROL is mentioned as the source and it is not used for commercial purposes (i.e. for financial gain). The information in this document may not be modified without prior written permission from EUROCONTROL.» Вывод: для некоммерческого использования (вариант A) разрешение не требуется — достаточно указания источника и неизменного текста, что приложение уже выполняет; письмо нужно только для коммерческого варианта B и для переводов (перевод — изменение текста, спорная зона; об этом тоже спросить).
+
+Куда: в документе адреса для запросов нет. Каналы (сверено 2026-10-12): общая форма EUROCONTROL https://www.eurocontrol.int/contact-us (раздел публикаций/безопасности); справочная страница методологии на SKYbrary https://skybrary.aero/articles/systemic-occurrence-analysis-methodology-soam (SKYbrary ведёт EUROCONTROL, там же «Contact»). Контакт из старых Guidelines 2005 (EAM 2/GUI 8) устарел — не использовать.
 
 ---
 
@@ -23,6 +25,8 @@ I am writing on behalf of [ORGANISATION] ([Civil Aviation Agency under the Gover
 
 [Вариант B — оставить только при решении о коммерческом выходе:]
 We would also like to offer the tool to other aviation organisations (air navigation service providers, airports, operators and civil aviation authorities), including on a paid basis. We therefore kindly ask whether EUROCONTROL would grant permission for such use of the SOAM material, and under which conditions (attribution, licence fee, restrictions on modification, review of translations, or any other terms you consider appropriate).
+
+We are aware of the terms printed in the QRG (© EUROCONTROL 2023): the document may be copied in whole or in part provided EUROCONTROL is mentioned as the source and it is not used for commercial purposes, and it may not be modified without prior written permission. We would like to clarify two points: (1) whether our translations of the taxonomy into Russian and Tajik, displayed alongside the unaltered English text and clearly marked as ours, are acceptable under the "no modification" clause; and (2) the conditions for commercial use described above.
 
 We confirm that:
 - the English text of the QRG is reproduced without alteration;

@@ -37,9 +37,13 @@ async function load(l) {
   return dicts[l];
 }
 
+/** Порядок подстановки: для таджикского сначала русский (читателю в РТ он ближе английского), для остальных — английский. */
+const chain = () => (lang === 'tj' ? ['tj', 'ru', 'en'] : [lang, 'en', 'ru']);
+
 /** Строка интерфейса по ключу с подстановкой {name}. */
 export function t(key, params) {
-  let s = (dicts[lang] && dicts[lang][key]) ?? (dicts.en && dicts.en[key]) ?? (dicts.ru && dicts.ru[key]) ?? key;
+  let s = key;
+  for (const l of chain()) { const v = dicts[l] && dicts[l][key]; if (v !== undefined) { s = v; break; } }
   if (params) for (const [k, v] of Object.entries(params)) s = s.replaceAll(`{${k}}`, String(v));
   return s;
 }
@@ -48,7 +52,8 @@ export function t(key, params) {
 export function tx(entry) {
   if (!entry) return '';
   if (typeof entry === 'string') return entry;
-  return (entry[lang] && entry[lang].trim()) || entry.en || '';
+  for (const l of chain()) if (entry[l] && String(entry[l]).trim()) return entry[l];
+  return entry.en || '';
 }
 
 /** Проставляет переводы элементам с data-i18n внутри root. */

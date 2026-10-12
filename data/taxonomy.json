@@ -2,14 +2,14 @@
  "meta": {
   "source": "EUROCONTROL. Systemic Occurrence Analysis Methodology (SOAM) Quick Reference Guide, Version 3.0, April 2023. © EUROCONTROL 2023.",
   "source_note": "English text ('en') is reproduced verbatim from the QRG for non-commercial use. 'qrg_page' is the printed page number.",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "languages": [
    "ru",
    "tj",
    "en"
   ],
   "ru_status": "machine-translated, reviewed 2026-10-11 (11 fixes), owner check pending",
-  "tj_status": "todo"
+  "tj_status": "draft for short entries (elements, categories, codes, severity, barrier states, check questions, QA, SMARTER); long texts todo; owner check pending"
  },
  "soam_elements": [
   {
@@ -17,8 +17,8 @@
    "code": "HI",
    "en": "Human Involvement",
    "ru": "Участие человека",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Иштироки инсон",
+   "tj_status": "draft",
    "qrg_page": 21
   },
   {
@@ -26,8 +26,8 @@
    "code": "CC",
    "en": "Contextual Conditions",
    "ru": "Контекстные условия",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Шароити контекстӣ",
+   "tj_status": "draft",
    "qrg_page": 23
   },
   {
@@ -35,8 +35,8 @@
    "code": "OSF",
    "en": "Organisational & System Factors",
    "ru": "Организационные и системные факторы",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Омилҳои ташкилотӣ ва системавӣ",
+   "tj_status": "draft",
    "qrg_page": 28
   },
   {
@@ -44,8 +44,8 @@
    "code": "BAR",
    "en": "Absent or Failed Barriers",
    "ru": "Отсутствующие или отказавшие барьеры",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Монеаҳои набуда ё коранакарда",
+   "tj_status": "draft",
    "qrg_page": 42
   }
  ],
@@ -55,8 +55,8 @@
    "code": "A",
    "en": "Serious Incident – \"An incident involving circumstances indicating that an accident nearly occurred\" (ICAO Annex 13)",
    "ru": "Серьёзный инцидент – «Инцидент, при котором обстоятельства указывают на то, что едва не произошло авиационное происшествие» (Приложение 13 ИКАО)",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Инсиденти ҷиддӣ (Serious Incident) — инсиденте, ки ҳолатҳояш нишон медиҳанд, ки садама қариб рӯй дода буд (Замимаи 13 ИКАО)",
+   "tj_status": "draft",
    "qrg_page": 7
   },
   {
@@ -64,8 +64,8 @@
    "code": "B",
    "en": "Major Incident – An incident associated with the operation of an aircraft, in which safety of aircraft may have been compromised, having led to a near collision between aircraft, with ground or obstacles",
    "ru": "Крупный инцидент (Major Incident) – инцидент, связанный с эксплуатацией воздушного судна, при котором безопасность воздушного судна могла быть нарушена и который привёл к опасному сближению между воздушными судами, с землёй или с препятствиями",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Инсиденти калон (Major Incident) — инсиденти марбут ба истифодаи ҳавопаймо, ки дар он бехатарии ҳавопаймо вайрон шуда метавонист ва ба наздикшавии хатарнок байни ҳавопаймоҳо, бо замин ё монеаҳо оварда расонд",
+   "tj_status": "draft",
    "qrg_page": 7
   },
   {
@@ -73,8 +73,8 @@
    "code": "C",
    "en": "Significant Incident – An incident involving circumstances indicating that an accident, a serious or major incident could have occurred, if the risk had not been managed within safety margins, or if another aircraft had been in the vicinity",
    "ru": "Значительный инцидент (Significant Incident) – инцидент, при котором обстоятельства указывают на то, что авиационное происшествие, серьёзный или крупный инцидент могли произойти, если бы риск не был удержан в пределах запасов безопасности или если бы в районе находилось другое воздушное судно",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Инсиденти назаррас (Significant Incident) — инсиденте, ки ҳолатҳояш нишон медиҳанд, ки садама, инсиденти ҷиддӣ ё калон рӯй дода метавонист, агар хатар дар ҳудуди бехатарӣ идора намешуд ё ҳавопаймои дигар дар наздикӣ мебуд",
+   "tj_status": "draft",
    "qrg_page": 7
   },
   {
@@ -82,8 +82,8 @@
    "code": "E",
    "en": "No (immediate) safety effect – An incident which has no (immediate) safety significance",
    "ru": "Отсутствие (немедленного) влияния на безопасность – инцидент, не имеющий (немедленного) значения для безопасности",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Бе таъсири (фаврии) бехатарӣ — инсиденте, ки аҳамияти (фаврии) бехатарӣ надорад",
+   "tj_status": "draft",
    "qrg_page": 7
   },
   {
@@ -91,8 +91,8 @@
    "code": "D",
    "en": "Not determined – insufficient information available to determine the risk involved",
    "ru": "Не определено – недостаточно информации для определения связанного с ним риска",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Муайян нашудааст — барои муайян кардани хатар маълумот кифоя нест",
+   "tj_status": "draft",
    "qrg_page": 7
   }
  ],
@@ -102,8 +102,8 @@
    "code": "S",
    "en": "Software",
    "ru": "Процедуры и документация (Software)",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Тартибот ва ҳуҷҷатҳо (Software)",
+   "tj_status": "draft",
    "qrg_page": 12,
    "description": {
     "id": "shelo.S.def",
@@ -181,8 +181,8 @@
    "code": "H",
    "en": "Hardware",
    "ru": "Аппаратное обеспечение (Hardware)",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Таҷҳизот (Hardware)",
+   "tj_status": "draft",
    "qrg_page": 12,
    "description": {
     "id": "shelo.H.def",
@@ -272,8 +272,8 @@
    "code": "E",
    "en": "Environment",
    "ru": "Среда (Environment)",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Муҳит (Environment)",
+   "tj_status": "draft",
    "qrg_page": 12,
    "description": {
     "id": "shelo.E.def",
@@ -349,8 +349,8 @@
    "code": "L",
    "en": "Liveware",
    "ru": "Человек (Liveware)",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Инсон (Liveware)",
+   "tj_status": "draft",
    "qrg_page": 12,
    "description": {
     "id": "shelo.L.def",
@@ -598,8 +598,8 @@
    "code": "O",
    "en": "Organisation",
    "ru": "Организация (Organisation)",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Ташкилот (Organisation)",
+   "tj_status": "draft",
    "qrg_page": 12,
    "description": {
     "id": "shelo.O.def",
@@ -846,8 +846,8 @@
   "code": "contribution",
   "en": "Does this fact represent a condition or event that contributed to the occurrence?",
   "ru": "Является ли данный факт условием или событием, которое способствовало возникновению события?",
-  "tj": "",
-  "tj_status": "todo",
+  "tj": "Оё ин далел шароит ё воқеаест, ки ба ҳодиса мусоидат кардааст?",
+  "tj_status": "draft",
   "qrg_page": 20
  },
  "check_questions": [
@@ -856,8 +856,8 @@
    "code": "1",
    "en": "Does the item describe an action or non-action taking place immediately prior to, and triggering the occurrence?",
    "ru": "Описывает ли пункт действие или бездействие, имевшие место непосредственно перед событием и явившиеся его триггером?",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Оё банд амал ё беамалиеро тасвир мекунад, ки бевосита пеш аз ҳодиса рӯй дода, онро оғоз кардааст?",
+   "tj_status": "draft",
    "element": "HI",
    "qrg_page": 21,
    "note": {
@@ -874,8 +874,8 @@
    "code": "2",
    "en": "Does the item describe an aspect of the workplace, local organisational climate, or a person's attitudes, personality, performance limitations, physiological or emotional state that helps explain their actions / inactions and/or contributed to the occurrence?",
    "ru": "Описывает ли пункт аспект рабочей среды, местного организационного климата либо личные установки, особенности, ограничения эффективности, физиологическое или эмоциональное состояние человека, которые помогают объяснить его действия / бездействие и/или способствовали возникновению события?",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Оё банд ҷиҳати ҷойи кор, фазои маҳаллии ташкилотӣ ё муносибат, шахсият, маҳдудияти қобилият, ҳолати физиологӣ ё эҳсосотии шахсро тасвир мекунад, ки ба амалҳои ӯ таъсир расондааст?",
+   "tj_status": "draft",
    "element": "CC",
    "qrg_page": 23
   },
@@ -884,8 +884,8 @@
    "code": "3",
    "en": "Does the item describe an aspect of the organisation's culture, systems, processes, or decision-making that existed before the occurrence and which resulted in the contextual conditions or allowed those conditions to continue?",
    "ru": "Описывает ли пункт аспект культуры, систем, процессов или принятия решений в организации, существовавший до события, который привёл к возникновению контекстных условий или позволил этим условиям сохраняться?",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Оё банд ҷиҳати фарҳанг, системаҳо, равандҳо ё қабули қарори ташкилотро тасвир мекунад, ки пеш аз ҳодиса вуҷуд дошт ва шароити контекстиро ба вуҷуд овард ё ба мавҷудияти он роҳ дод?",
+   "tj_status": "draft",
    "element": "OSF",
    "qrg_page": 29
   },
@@ -894,8 +894,8 @@
    "code": "4",
    "en": "Does the item describe a work procedure, aspect of human awareness, physical obstacle, warning or control system, or protection measure designed to prevent an occurrence or lessen its consequences?",
    "ru": "Описывает ли пункт рабочую процедуру, аспект осведомлённости человека, физическое препятствие, систему предупреждения или контроля либо меру защиты, предназначенные для предотвращения события или снижения его последствий?",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Оё банд тартиби корӣ, ҷиҳати огоҳии инсон, монеаи ҷисмонӣ, системаи огоҳкунӣ ё идора ё чораи ҳифзро тасвир мекунад, ки барои пешгирии ҳодиса ё кам кардани оқибатҳои он пешбинӣ шуда буд ва набуд ё кор накард?",
+   "tj_status": "draft",
    "element": "BAR",
    "qrg_page": 42
   }
@@ -906,8 +906,8 @@
    "code": "workplace",
    "en": "Workplace conditions",
    "ru": "Условия на рабочем месте",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Шароити ҷойи кор",
+   "tj_status": "draft",
    "qrg_page": 24,
    "examples": [
     {
@@ -1093,8 +1093,8 @@
    "code": "climate",
    "en": "Organisational climate",
    "ru": "Организационный климат",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Фазои ташкилотӣ",
+   "tj_status": "draft",
    "qrg_page": 25,
    "examples": [
     {
@@ -1248,8 +1248,8 @@
    "code": "attitudes",
    "en": "Attitudes and personality factors",
    "ru": "Установки и личностные факторы",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Муносибат ва омилҳои шахсиятӣ",
+   "tj_status": "draft",
    "qrg_page": 26,
    "examples": [
     {
@@ -1371,8 +1371,8 @@
    "code": "limitations",
    "en": "Human performance limitations",
    "ru": "Ограничения человеческой деятельности",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Маҳдудиятҳои қобилияти инсон",
+   "tj_status": "draft",
    "qrg_page": 27,
    "examples": [
     {
@@ -1518,8 +1518,8 @@
    "code": "physio",
    "en": "Physiological and emotional factors",
    "ru": "Физиологические и эмоциональные факторы",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Омилҳои физиологӣ ва эҳсосотӣ",
+   "tj_status": "draft",
    "qrg_page": 26,
    "examples": [
     {
@@ -1627,8 +1627,8 @@
    "code": "TR",
    "en": "Training",
    "ru": "Обучение",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Омӯзиш",
+   "tj_status": "draft",
    "qrg_page": 30,
    "definition": {
     "id": "osf.TR.def",
@@ -1787,8 +1787,8 @@
    "code": "WM",
    "en": "Workforce Management",
    "ru": "Управление персоналом (Workforce Management)",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Идораи кормандон",
+   "tj_status": "draft",
    "qrg_page": 31,
    "definition": {
     "id": "osf.WM.def",
@@ -1947,8 +1947,8 @@
    "code": "AC",
    "en": "Accountability",
    "ru": "Подотчётность",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Масъулият",
+   "tj_status": "draft",
    "qrg_page": 32,
    "definition": {
     "id": "osf.AC.def",
@@ -2058,8 +2058,8 @@
    "code": "CO",
    "en": "Communication",
    "ru": "Коммуникация",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Муошират",
+   "tj_status": "draft",
    "qrg_page": 33,
    "definition": {
     "id": "osf.CO.def",
@@ -2183,8 +2183,8 @@
    "code": "OC",
    "en": "Organisational Culture",
    "ru": "Организационная культура",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Фарҳанги ташкилотӣ",
+   "tj_status": "draft",
    "qrg_page": 34,
    "definition": {
     "id": "osf.OC.def",
@@ -2336,8 +2336,8 @@
    "code": "CG",
    "en": "Competing Goals",
    "ru": "Конкурирующие цели",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Ҳадафҳои ба ҳам зид",
+   "tj_status": "draft",
    "qrg_page": 35,
    "definition": {
     "id": "osf.CG.def",
@@ -2454,8 +2454,8 @@
    "code": "PP",
    "en": "Policies and Procedures",
    "ru": "Политики и процедуры",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Сиёсат ва тартибот",
+   "tj_status": "draft",
    "qrg_page": 36,
    "definition": {
     "id": "osf.PP.def",
@@ -2600,8 +2600,8 @@
    "code": "MM",
    "en": "Maintenance Management",
    "ru": "Управление техническим обслуживанием",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Идораи хизматрасонии техникӣ",
+   "tj_status": "draft",
    "qrg_page": 37,
    "definition": {
     "id": "osf.MM.def",
@@ -2725,8 +2725,8 @@
    "code": "EI",
    "en": "Equipment and Infrastructure",
    "ru": "Оборудование и инфраструктура",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Таҷҳизот ва инфрасохтор",
+   "tj_status": "draft",
    "qrg_page": 38,
    "definition": {
     "id": "osf.EI.def",
@@ -2878,8 +2878,8 @@
    "code": "RM",
    "en": "Risk Management",
    "ru": "Управление рисками",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Идораи хатарҳо",
+   "tj_status": "draft",
    "qrg_page": 39,
    "definition": {
     "id": "osf.RM.def",
@@ -3017,8 +3017,8 @@
    "code": "CM",
    "en": "Change Management",
    "ru": "Управление изменениями",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Идораи тағйирот",
+   "tj_status": "draft",
    "qrg_page": 40,
    "definition": {
     "id": "osf.CM.def",
@@ -3156,8 +3156,8 @@
    "code": "EE",
    "en": "External Environment",
    "ru": "Внешняя среда",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Муҳити берунӣ",
+   "tj_status": "draft",
    "qrg_page": 41,
    "definition": {
     "id": "osf.EE.def",
@@ -3283,8 +3283,8 @@
    "code": "awareness",
    "en": "Awareness",
    "ru": "Осведомлённость",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Огоҳӣ",
+   "tj_status": "draft",
    "qrg_page": 43,
    "definition": {
     "id": "barrier.awareness.def",
@@ -3329,8 +3329,8 @@
    "code": "restriction",
    "en": "Restriction",
    "ru": "Ограничение",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Маҳдудият",
+   "tj_status": "draft",
    "qrg_page": 43,
    "definition": {
     "id": "barrier.restriction.def",
@@ -3382,8 +3382,8 @@
    "code": "detection",
    "en": "Detection",
    "ru": "Обнаружение",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Ошкорсозӣ",
+   "tj_status": "draft",
    "qrg_page": 43,
    "definition": {
     "id": "barrier.detection.def",
@@ -3428,8 +3428,8 @@
    "code": "control_recovery",
    "en": "Control & Recovery",
    "ru": "Контроль и восстановление",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Идора ва барқарорсозӣ",
+   "tj_status": "draft",
    "qrg_page": 44,
    "definition": {
     "id": "barrier.control_recovery.def",
@@ -3460,8 +3460,8 @@
    "code": "protection_containment",
    "en": "Protection & Containment",
    "ru": "Защита и локализация",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Ҳифз ва маҳдудсозии зарар",
+   "tj_status": "draft",
    "qrg_page": 44,
    "definition": {
     "id": "barrier.protection_containment.def",
@@ -3499,8 +3499,8 @@
    "code": "escape_rescue",
    "en": "Escape & Rescue",
    "ru": "Эвакуация и спасение",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Фирор ва наҷот",
+   "tj_status": "draft",
    "qrg_page": 44,
    "definition": {
     "id": "barrier.escape_rescue.def",
@@ -3533,8 +3533,8 @@
    "code": "absent",
    "en": "Absent: not in place, but might have prevented the occurrence if it had been",
    "ru": "Отсутствует: не установлен, но мог бы предотвратить событие, если бы был установлен",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Набуд: ҷой надошт, вале агар мебуд, ҳодисаро пешгирӣ карда метавонист",
+   "tj_status": "draft",
    "qrg_page": 42
   },
   {
@@ -3542,8 +3542,8 @@
    "code": "failed",
    "en": "Failed: in place but did not work as intended to prevent the occurrence or reduce its consequences",
    "ru": "Отказал: установлен, но не сработал должным образом, чтобы предотвратить событие или уменьшить его последствия",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Кор накард: ҷой дошт, вале барои пешгирии ҳодиса ё кам кардани оқибатҳои он чунон ки лозим буд, кор накард",
+   "tj_status": "draft",
    "qrg_page": 42
   },
   {
@@ -3551,8 +3551,8 @@
    "code": "worked",
    "en": "Worked: successful or partially successful barrier, human or technological",
    "ru": "Сработал: успешный или частично успешный барьер, человеческий или технологический",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Кор кард: монеаи муваффақ ё қисман муваффақ, инсонӣ ё технологӣ",
+   "tj_status": "draft",
    "qrg_page": 42
   }
  ],
@@ -3645,8 +3645,8 @@
     "code": "S",
     "en": "Specific",
     "ru": "Конкретная",
-    "tj": "",
-    "tj_status": "todo",
+    "tj": "Мушаххас",
+    "tj_status": "draft",
     "qrg_page": 52
    },
    {
@@ -3654,8 +3654,8 @@
     "code": "M",
     "en": "Measurable",
     "ru": "Измеримая",
-    "tj": "",
-    "tj_status": "todo",
+    "tj": "Ченшаванда",
+    "tj_status": "draft",
     "qrg_page": 52
    },
    {
@@ -3663,8 +3663,8 @@
     "code": "A",
     "en": "Accountable",
     "ru": "С ответственным",
-    "tj": "",
-    "tj_status": "todo",
+    "tj": "Масъулиятдор",
+    "tj_status": "draft",
     "qrg_page": 52
    },
    {
@@ -3672,8 +3672,8 @@
     "code": "R1",
     "en": "Reasonable",
     "ru": "Разумная",
-    "tj": "",
-    "tj_status": "todo",
+    "tj": "Оқилона",
+    "tj_status": "draft",
     "qrg_page": 52
    },
    {
@@ -3681,8 +3681,8 @@
     "code": "T",
     "en": "Timely",
     "ru": "Своевременная",
-    "tj": "",
-    "tj_status": "todo",
+    "tj": "Саривақтӣ",
+    "tj_status": "draft",
     "qrg_page": 52
    },
    {
@@ -3690,8 +3690,8 @@
     "code": "E",
     "en": "Effective",
     "ru": "Эффективная",
-    "tj": "",
-    "tj_status": "todo",
+    "tj": "Самаранок",
+    "tj_status": "draft",
     "qrg_page": 52
    },
    {
@@ -3699,8 +3699,8 @@
     "code": "R2",
     "en": "Reviewed",
     "ru": "Пересматриваемая",
-    "tj": "",
-    "tj_status": "todo",
+    "tj": "Баррасишуда",
+    "tj_status": "draft",
     "qrg_page": 52
    }
   ]
@@ -3710,96 +3710,96 @@
    "id": "qa.01",
    "en": "Facts of the occurrence established",
    "ru": "Факты события установлены",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Далелҳои ҳодиса муқаррар шудаанд",
+   "tj_status": "draft",
    "qrg_page": 53
   },
   {
    "id": "qa.02",
    "en": "Relevant data gathered and reviewed",
    "ru": "Соответствующие данные собраны и проанализированы",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Маълумоти дахлдор ҷамъ ва баррасӣ шудааст",
+   "tj_status": "draft",
    "qrg_page": 53
   },
   {
    "id": "qa.03",
    "en": "All contributing Human Involvement, Contextual Conditions, Organisational or System Factors and Absent or Failed Barriers identified and classified, using the supplied Check Questions",
    "ru": "Все способствующие факторы — Участие человека, Контекстные условия, Организационные или системные факторы и Отсутствующие или отказавшие барьеры — выявлены и классифицированы с использованием прилагаемых контрольных вопросов",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Ҳамаи иштироки инсон, шароити контекстӣ, омилҳои ташкилотӣ ё системавӣ ва монеаҳои набуда ё коранакардаи мусоидаткунанда бо саволҳои назоратӣ ошкор ва тасниф шудаанд",
+   "tj_status": "draft",
    "qrg_page": 53
   },
   {
    "id": "qa.04",
    "en": "Issues that may require follow-up or further data collection identified and actioned",
    "ru": "Вопросы, которые могут требовать последующих действий или дополнительного сбора данных, выявлены, и по ним приняты меры",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Масъалаҳое, ки пайгирӣ ё ҷамъоварии маълумоти иловагиро талаб мекунанд, ошкор ва ҳал шудаанд",
+   "tj_status": "draft",
    "qrg_page": 53
   },
   {
    "id": "qa.05",
    "en": "Adequacy of existing barriers and system controls reviewed",
    "ru": "Адекватность существующих барьеров и системных средств контроля проверена",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Кифоягии монеаҳо ва воситаҳои назорати мавҷуда баррасӣ шудааст",
+   "tj_status": "draft",
    "qrg_page": 53
   },
   {
    "id": "qa.06",
    "en": "SOAM Chart prepared and reviewed",
    "ru": "Диаграмма SOAM подготовлена и проверена",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Нақшаи SOAM тартиб дода ва баррасӣ шудааст",
+   "tj_status": "draft",
    "qrg_page": 53
   },
   {
    "id": "qa.07",
    "en": "Safety actions identified to address all contributing Barriers and Organisational / System Factors",
    "ru": "Меры безопасности определены для устранения всех способствующих барьеров и организационных / системных факторов",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Чораҳои бехатарӣ барои ҳамаи монеаҳо ва омилҳои ташкилотӣ / системавии мусоидаткунанда муайян шудаанд",
+   "tj_status": "draft",
    "qrg_page": 53
   },
   {
    "id": "qa.08",
    "en": "Available data reviewed to ensure that all findings and safety actions are supported by evidence",
    "ru": "Имеющиеся данные проверены, чтобы подтвердить, что все выводы и меры безопасности подкреплены доказательствами",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Маълумоти мавҷуда баррасӣ шудааст, то ҳамаи хулосаҳо ва чораҳои бехатарӣ бо далелу исбот тасдиқ шаванд",
+   "tj_status": "draft",
    "qrg_page": 53
   },
   {
    "id": "qa.09",
    "en": "Safety actions reviewed to ensure they are realistic, practical and clearly linked to the facts and findings of the investigation",
    "ru": "Меры безопасности проверены на реалистичность, практичность и чёткую связь с фактами и выводами расследования",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Чораҳои бехатарӣ баррасӣ шудаанд, то воқеӣ, амалӣ ва ба далелҳо ва хулосаҳои тафтишот равшан пайваста бошанд",
+   "tj_status": "draft",
    "qrg_page": 53
   },
   {
    "id": "qa.10",
    "en": "Findings, conclusions and safety actions reviewed by relevant subject matter experts",
    "ru": "Выводы, заключения и меры безопасности проверены соответствующими специалистами предметной области",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Хулосаҳо, натиҷаҳо ва чораҳои бехатариро мутахассисони дахлдор баррасӣ кардаанд",
+   "tj_status": "draft",
    "qrg_page": 53
   },
   {
    "id": "qa.11",
    "en": "Accountability for safety actions is assigned, with compliance timelines specified as required",
    "ru": "Ответственность за меры безопасности назначена; при необходимости указаны сроки выполнения",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Масъулият барои чораҳои бехатарӣ таъин шуда, мӯҳлатҳои иҷро зарурӣ муайян шудаанд",
+   "tj_status": "draft",
    "qrg_page": 53
   },
   {
    "id": "qa.12",
    "en": "Key lessons from the safety occurrence are identified and widely disseminated",
    "ru": "Ключевые уроки из события, связанного с безопасностью, выявлены и широко распространены",
-   "tj": "",
-   "tj_status": "todo",
+   "tj": "Дарсҳои асосии ҳодиса ошкор ва васеъ паҳн карда шудаанд",
+   "tj_status": "draft",
    "qrg_page": 53
   }
  ],
